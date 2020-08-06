@@ -9,12 +9,14 @@ class AnimeModel extends Anime {
   final String title;
   final String imageUrl;
   final Map<String, String> imageHttpHeaders;
+  final bool isFavorite;
 
   AnimeModel({
     this.id,
     this.title,
     this.imageUrl,
     this.imageHttpHeaders,
+    this.isFavorite,
   });
 
   AnimeModel copyWith({
@@ -22,12 +24,14 @@ class AnimeModel extends Anime {
     String title,
     String imageUrl,
     Map<String, String> imageHttpHeaders,
+    bool isFavorite,
   }) {
     return AnimeModel(
       id: id ?? this.id,
       title: title ?? this.title,
       imageUrl: imageUrl ?? this.imageUrl,
       imageHttpHeaders: imageHttpHeaders ?? this.imageHttpHeaders,
+      isFavorite: isFavorite ?? this.isFavorite,
     );
   }
 
@@ -37,6 +41,7 @@ class AnimeModel extends Anime {
       'title': title,
       'imageUrl': imageUrl,
       'imageHttpHeaders': imageHttpHeaders,
+      'isFavorite': isFavorite,
     };
   }
 
@@ -48,6 +53,7 @@ class AnimeModel extends Anime {
       title: map['title'],
       imageUrl: map['imageUrl'],
       imageHttpHeaders: Map<String, String>.from(map['imageHttpHeaders']),
+      isFavorite: map['isFavorite'],
     );
   }
 
@@ -58,7 +64,7 @@ class AnimeModel extends Anime {
 
   @override
   String toString() {
-    return 'AnimeModel(id: $id, title: $title, imageUrl: $imageUrl, imageHttpHeaders: $imageHttpHeaders)';
+    return 'AnimeModel(id: $id, title: $title, imageUrl: $imageUrl, imageHttpHeaders: $imageHttpHeaders, isFavorite: $isFavorite)';
   }
 
   @override
@@ -69,7 +75,8 @@ class AnimeModel extends Anime {
         o.id == id &&
         o.title == title &&
         o.imageUrl == imageUrl &&
-        mapEquals(o.imageHttpHeaders, imageHttpHeaders);
+        mapEquals(o.imageHttpHeaders, imageHttpHeaders) &&
+        o.isFavorite == isFavorite;
   }
 
   @override
@@ -77,6 +84,7 @@ class AnimeModel extends Anime {
     return id.hashCode ^
         title.hashCode ^
         imageUrl.hashCode ^
-        imageHttpHeaders.hashCode;
+        imageHttpHeaders.hashCode ^
+        isFavorite.hashCode;
   }
 }

@@ -6,6 +6,7 @@ class EpisodeDetails {
   final String urlHd;
   final String imageUrl;
   final Map<String, String> imageHttpHeaders;
+  final double stats;
 
   EpisodeDetails({
     this.id,
@@ -15,5 +16,6 @@ class EpisodeDetails {
     this.urlHd,
     this.imageUrl,
     this.imageHttpHeaders,
+    this.stats,
   });
 }

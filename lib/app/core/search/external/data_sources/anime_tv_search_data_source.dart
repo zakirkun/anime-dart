@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:anime_dart/app/core/favorites/domain/repositories/favorite_repository.dart';
+import "package:http/http.dart" as http;
+
 import 'package:anime_dart/app/core/search/domain/errors/exceptions.dart';
 import 'package:anime_dart/app/core/search/infra/data_sources/search_data_source.dart';
 import 'package:anime_dart/app/core/search/infra/models/anime_model.dart';
-import "package:http/http.dart" as http;
 
 class AnimeTvDataSource implements SearchDataSource {
   final _baseUrl = "https://appanimeplus.tk/api-achance.php";
@@ -12,6 +14,11 @@ class AnimeTvDataSource implements SearchDataSource {
     "User-Agent":
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36"
   };
+  final FavoritesRepository favorites;
+
+  AnimeTvDataSource({
+    this.favorites,
+  });
 
   String _getCompleteImageUrl(String imageId) {
     return _imageBaseUrl + imageId;
@@ -28,11 +35,20 @@ class AnimeTvDataSource implements SearchDataSource {
       final results = <AnimeModel>[];
 
       for (final result in data) {
+        bool isFavorite = false;
+
+        try {
+          final result = await favorites.isFavorite(data["id"]);
+
+          result.fold((l) => throw l, (r) => isFavorite = r);
+        } catch (e) {}
+
         Map<String, dynamic> source = {
           "id": result["id"],
           "title": result["category_name"],
           "imageUrl": _getCompleteImageUrl(result["category_image"]),
-          "imageHttpHeaders": _httpHeaders
+          "imageHttpHeaders": _httpHeaders,
+          "isFavorite": isFavorite
         };
 
         results.add(AnimeModel.fromMap(source));
@@ -55,11 +71,20 @@ class AnimeTvDataSource implements SearchDataSource {
       final results = <AnimeModel>[];
 
       for (final result in data) {
+        bool isFavorite = false;
+
+        try {
+          final result = await favorites.isFavorite(data["id"]);
+
+          result.fold((l) => throw l, (r) => isFavorite = r);
+        } catch (e) {}
+
         Map<String, dynamic> source = {
           "id": result["id"],
           "title": result["category_name"],
           "imageUrl": _getCompleteImageUrl(result["category_image"]),
-          "imageHttpHeaders": _httpHeaders
+          "imageHttpHeaders": _httpHeaders,
+          "isFavorite": isFavorite
         };
 
         results.add(AnimeModel.fromMap(source));

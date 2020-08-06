@@ -6,14 +6,15 @@ class AnimeDetails {
   final Map<String, String> imageHttpHeaders;
   final String year;
   final List<String> genres;
+  final bool isFavorite;
 
-  AnimeDetails({
-    this.id,
-    this.title,
-    this.synopsis,
-    this.imageUrl,
-    this.imageHttpHeaders,
-    this.year,
-    this.genres,
-  });
+  AnimeDetails(
+      {this.id,
+      this.title,
+      this.synopsis,
+      this.imageUrl,
+      this.imageHttpHeaders,
+      this.year,
+      this.genres,
+      this.isFavorite});
 }

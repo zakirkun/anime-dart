@@ -1,10 +1,12 @@
 import 'dart:convert';
 
-import 'package:anime_dart/app/core/details/infra/data_source/details_data_source.dart';
 import "package:http/http.dart" as http;
 
+import 'package:anime_dart/app/core/details/infra/data_source/details_data_source.dart';
 import 'package:anime_dart/app/core/details/infra/models/anime_details_model.dart';
 import 'package:anime_dart/app/core/details/infra/models/episode_details_model.dart';
+import 'package:anime_dart/app/core/favorites/domain/repositories/favorite_repository.dart';
+import 'package:anime_dart/app/core/watched/domain/repository/watched_repository.dart';
 
 class AnimeTvDetailsDataSource implements DetailsDataSource {
   final _baseUrl = "https://appanimeplus.tk/api-achance.php";
@@ -13,6 +15,13 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
     "User-Agent":
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36"
   };
+  final FavoritesRepository favorites;
+  final WatchedRepository watched;
+
+  AnimeTvDetailsDataSource({
+    this.favorites,
+    this.watched,
+  });
 
   String _getCompleteImageUrl(String imageId) {
     return _imageBaseUrl + imageId;
@@ -26,6 +35,14 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
 
       final data = json.decode(response.body.substring(3));
 
+      bool isFavorite = false;
+
+      try {
+        final result = await favorites.isFavorite(id);
+
+        result.fold((l) => throw l, (r) => isFavorite = r);
+      } catch (e) {}
+
       Map<String, dynamic> source = {
         "id": data["id"],
         "title": data["category_name"],
@@ -34,6 +51,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
         "imageHttpHeaders": _httpHeaders,
         "year": data["ano"],
         "genres": data["category_genres"].replaceAll(" ", "").split(","),
+        "isFavorite": isFavorite
       };
 
       final result = AnimeDetailsModel.fromMap(source);
@@ -54,6 +72,13 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
 
       final ownerAnime = await getAnimeDetails(data["category_id"]);
 
+      double stats = 0;
+
+      try {
+        final res = await watched.getEpisodeWatchedStats(id);
+        res.fold((l) => throw l, (r) => stats = r);
+      } catch (e) {}
+
       Map<String, dynamic> source = {
         "id": data["video_id"],
         "animeId": data["category_id"],
@@ -62,6 +87,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
         "urlHd": data["locationsd"],
         "imageUrl": ownerAnime.imageUrl,
         "imageHttpHeaders": ownerAnime.imageHttpHeaders,
+        "stats": stats
       };
 
       final result = EpisodeDetailsModel.fromMap(source);
@@ -86,6 +112,13 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
 
       final data = json.decode(response.body.substring(3));
 
+      double stats = 0;
+
+      try {
+        final res = await watched.getEpisodeWatchedStats(id);
+        res.fold((l) => throw l, (r) => stats = r);
+      } catch (e) {}
+
       Map<String, dynamic> source = {
         "id": data["video_id"],
         "animeId": data["category_id"],
@@ -94,6 +127,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
         "urlHd": data["locationsd"],
         "imageUrl": ownerAnime.imageUrl,
         "imageHttpHeaders": ownerAnime.imageHttpHeaders,
+        "stats": stats
       };
 
       final nextEpisode = EpisodeDetailsModel.fromMap(source);
@@ -118,6 +152,13 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
 
       final data = json.decode(response.body.substring(3));
 
+      double stats = 0;
+
+      try {
+        final res = await watched.getEpisodeWatchedStats(id);
+        res.fold((l) => throw l, (r) => stats = r);
+      } catch (e) {}
+
       Map<String, dynamic> source = {
         "id": data["video_id"],
         "animeId": data["category_id"],
@@ -126,6 +167,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
         "urlHd": data["locationsd"],
         "imageUrl": ownerAnime.imageUrl,
         "imageHttpHeaders": ownerAnime.imageHttpHeaders,
+        "stats": stats
       };
 
       final previousEpisode = EpisodeDetailsModel.fromMap(source);
@@ -148,6 +190,13 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
 
       final episodes = <EpisodeDetailsModel>[];
 
+      double stats = 0;
+
+      try {
+        final res = await watched.getEpisodeWatchedStats(id);
+        res.fold((l) => throw l, (r) => stats = r);
+      } catch (e) {}
+
       for (final episode in data) {
         Map<String, dynamic> source = {
           "id": episode["video_id"],
@@ -157,6 +206,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
           "urlHd": episode["locationsd"],
           "imageUrl": targetAnime.imageUrl,
           "imageHttpHeaders": targetAnime.imageHttpHeaders,
+          "stats": stats
         };
 
         episodes.add(EpisodeDetailsModel.fromMap(source));

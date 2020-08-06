@@ -4,6 +4,7 @@ class Episode {
   final String label;
   final String imageUrl;
   final Map<String, String> imageHttpHeaders;
+  final double stats;
 
   Episode({
     this.id,
@@ -11,5 +12,6 @@ class Episode {
     this.label,
     this.imageUrl,
     this.imageHttpHeaders,
+    this.stats,
   });
 }

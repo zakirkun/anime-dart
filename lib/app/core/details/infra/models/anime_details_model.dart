@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:anime_dart/app/core/details/domain/entities/anime_details.dart';
 import 'package:flutter/foundation.dart';
+
+import 'package:anime_dart/app/core/details/domain/entities/anime_details.dart';
 
 class AnimeDetailsModel extends AnimeDetails {
   final String id;
@@ -11,6 +12,7 @@ class AnimeDetailsModel extends AnimeDetails {
   final Map<String, String> imageHttpHeaders;
   final String year;
   final List<String> genres;
+  final bool isFavorite;
 
   AnimeDetailsModel({
     this.id,
@@ -20,6 +22,7 @@ class AnimeDetailsModel extends AnimeDetails {
     this.imageHttpHeaders,
     this.year,
     this.genres,
+    this.isFavorite,
   });
 
   AnimeDetailsModel copyWith({
@@ -30,6 +33,7 @@ class AnimeDetailsModel extends AnimeDetails {
     Map<String, String> imageHttpHeaders,
     String year,
     List<String> genres,
+    bool isFavorite,
   }) {
     return AnimeDetailsModel(
       id: id ?? this.id,
@@ -39,6 +43,7 @@ class AnimeDetailsModel extends AnimeDetails {
       imageHttpHeaders: imageHttpHeaders ?? this.imageHttpHeaders,
       year: year ?? this.year,
       genres: genres ?? this.genres,
+      isFavorite: isFavorite ?? this.isFavorite,
     );
   }
 
@@ -51,6 +56,7 @@ class AnimeDetailsModel extends AnimeDetails {
       'imageHttpHeaders': imageHttpHeaders,
       'year': year,
       'genres': genres,
+      'isFavorite': isFavorite,
     };
   }
 
@@ -65,6 +71,7 @@ class AnimeDetailsModel extends AnimeDetails {
       imageHttpHeaders: Map<String, String>.from(map['imageHttpHeaders']),
       year: map['year'],
       genres: List<String>.from(map['genres']),
+      isFavorite: map['isFavorite'],
     );
   }
 
@@ -75,7 +82,7 @@ class AnimeDetailsModel extends AnimeDetails {
 
   @override
   String toString() {
-    return 'AnimeDetailsModel(id: $id, title: $title, synopsis: $synopsis, imageUrl: $imageUrl, imageHttpHeaders: $imageHttpHeaders, year: $year, genres: $genres)';
+    return 'AnimeDetailsModel(id: $id, title: $title, synopsis: $synopsis, imageUrl: $imageUrl, imageHttpHeaders: $imageHttpHeaders, year: $year, genres: $genres, isFavorite: $isFavorite)';
   }
 
   @override
@@ -89,7 +96,8 @@ class AnimeDetailsModel extends AnimeDetails {
         o.imageUrl == imageUrl &&
         mapEquals(o.imageHttpHeaders, imageHttpHeaders) &&
         o.year == year &&
-        listEquals(o.genres, genres);
+        listEquals(o.genres, genres) &&
+        o.isFavorite == isFavorite;
   }
 
   @override
@@ -100,6 +108,7 @@ class AnimeDetailsModel extends AnimeDetails {
         imageUrl.hashCode ^
         imageHttpHeaders.hashCode ^
         year.hashCode ^
-        genres.hashCode;
+        genres.hashCode ^
+        isFavorite.hashCode;
   }
 }

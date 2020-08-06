@@ -1,12 +1,15 @@
 import 'dart:convert';
 
+import 'package:anime_dart/app/core/watched/domain/repository/watched_repository.dart';
+import "package:http/http.dart" as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:anime_dart/app/constants/utils.dart';
 import 'package:anime_dart/app/core/browsing/domain/errors/exceptions.dart';
 import 'package:anime_dart/app/core/browsing/infra/data_sources/browsing_data_source.dart';
 import 'package:anime_dart/app/core/browsing/infra/models/episode_model.dart';
+import 'package:anime_dart/app/core/favorites/domain/repositories/favorite_repository.dart';
 import 'package:anime_dart/app/core/search/infra/models/anime_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import "package:http/http.dart" as http;
 
 class AnimeTvBrowsingDataSource implements BrowsingDataSource {
   final _baseUrl = "https://appanimeplus.tk/api-achance.php";
@@ -21,6 +24,14 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
   final _minAnimeId = 3;
   final _maxAnimeId = 2715;
 
+  final FavoritesRepository favorites;
+  final WatchedRepository watched;
+
+  AnimeTvBrowsingDataSource({
+    this.favorites,
+    this.watched,
+  });
+
   Future<EpisodeModel> _getEpisodeFromId(String id) async {
     try {
       final response =
@@ -30,12 +41,20 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
 
       final anime = await _getAnimeFromId(data["category_id"]);
 
+      double stats = 0;
+
+      try {
+        final res = await watched.getEpisodeWatchedStats(id);
+        res.fold((l) => throw l, (r) => stats = r);
+      } catch (e) {}
+
       Map<String, dynamic> source = {
         "id": data["id"],
         "animeId": anime.id,
         "label": data["title"],
         "imageUrl": anime.imageUrl,
-        "imageHttpHeaders": anime.imageHttpHeaders
+        "imageHttpHeaders": anime.imageHttpHeaders,
+        "stats": stats
       };
 
       final result = EpisodeModel.fromMap(source);
@@ -61,11 +80,20 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
 
       final data = json.decode(response.body.substring(3));
 
+      bool isFavorite = false;
+
+      try {
+        final result = await favorites.isFavorite(id);
+
+        result.fold((l) => throw l, (r) => isFavorite = r);
+      } catch (e) {}
+
       Map<String, dynamic> source = {
         "id": data["id"],
         "title": data["category_name"],
         "imageUrl": _getCompleteImageUrl(data["category_image"]),
-        "imageHttpHeaders": _httpHeaders
+        "imageHttpHeaders": _httpHeaders,
+        "isFavorite": isFavorite
       };
 
       final result = AnimeModel.fromMap(source);
@@ -122,12 +150,20 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
       final results = <EpisodeModel>[];
 
       for (final result in data) {
+        double stats = 0;
+
+        try {
+          final res = await watched.getEpisodeWatchedStats(result["video_id"]);
+          res.fold((l) => throw l, (r) => stats = r);
+        } catch (e) {}
+
         Map<String, dynamic> source = {
           "id": result["video_id"],
           "animeId": result["category_id"],
           "label": result["title"],
           "imageUrl": _getCompleteImageUrl(result["category_image"]),
-          "imageHttpHeaders": _httpHeaders
+          "imageHttpHeaders": _httpHeaders,
+          "stats": stats
         };
 
         results.add(EpisodeModel.fromMap(source));
@@ -154,12 +190,21 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
 
       final results = <AnimeModel>[];
 
+      bool isFavorite = false;
+
       for (final result in data) {
+        try {
+          final req = await favorites.isFavorite(result["id"]);
+
+          req.fold((l) => throw l, (r) => isFavorite = r);
+        } catch (e) {}
+
         Map<String, dynamic> source = {
           "id": result["id"],
           "title": result["category_name"],
           "imageUrl": _getCompleteImageUrl(result["category_image"]),
-          "imageHttpHeaders": _httpHeaders
+          "imageHttpHeaders": _httpHeaders,
+          "isFavorite": isFavorite
         };
 
         results.add(AnimeModel.fromMap(source));

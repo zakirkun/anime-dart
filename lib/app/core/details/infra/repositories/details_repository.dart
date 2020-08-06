@@ -8,6 +8,7 @@ import 'package:anime_dart/app/core/details/infra/data_source/details_data_sourc
 
 class DetailsRepositoryImplementation implements DetailsRepository {
   final DetailsDataSource dataSource;
+
   DetailsRepositoryImplementation({
     this.dataSource,
   });

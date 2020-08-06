@@ -10,6 +10,7 @@ class EpisodeModel extends Episode {
   final String label;
   final String imageUrl;
   final Map<String, String> imageHttpHeaders;
+  final double stats;
 
   EpisodeModel({
     this.id,
@@ -17,6 +18,7 @@ class EpisodeModel extends Episode {
     this.label,
     this.imageUrl,
     this.imageHttpHeaders,
+    this.stats,
   });
 
   EpisodeModel copyWith({
@@ -25,6 +27,7 @@ class EpisodeModel extends Episode {
     String label,
     String imageUrl,
     Map<String, String> imageHttpHeaders,
+    double stats,
   }) {
     return EpisodeModel(
       id: id ?? this.id,
@@ -32,6 +35,7 @@ class EpisodeModel extends Episode {
       label: label ?? this.label,
       imageUrl: imageUrl ?? this.imageUrl,
       imageHttpHeaders: imageHttpHeaders ?? this.imageHttpHeaders,
+      stats: stats ?? this.stats,
     );
   }
 
@@ -42,6 +46,7 @@ class EpisodeModel extends Episode {
       'label': label,
       'imageUrl': imageUrl,
       'imageHttpHeaders': imageHttpHeaders,
+      'stats': stats,
     };
   }
 
@@ -54,6 +59,7 @@ class EpisodeModel extends Episode {
       label: map['label'],
       imageUrl: map['imageUrl'],
       imageHttpHeaders: Map<String, String>.from(map['imageHttpHeaders']),
+      stats: map['stats'],
     );
   }
 
@@ -64,7 +70,7 @@ class EpisodeModel extends Episode {
 
   @override
   String toString() {
-    return 'EpisodeModel(id: $id, animeId: $animeId, label: $label, imageUrl: $imageUrl, imageHttpHeaders: $imageHttpHeaders)';
+    return 'EpisodeModel(id: $id, animeId: $animeId, label: $label, imageUrl: $imageUrl, imageHttpHeaders: $imageHttpHeaders, stats: $stats)';
   }
 
   @override
@@ -76,7 +82,8 @@ class EpisodeModel extends Episode {
         o.animeId == animeId &&
         o.label == label &&
         o.imageUrl == imageUrl &&
-        mapEquals(o.imageHttpHeaders, imageHttpHeaders);
+        mapEquals(o.imageHttpHeaders, imageHttpHeaders) &&
+        o.stats == stats;
   }
 
   @override
@@ -85,6 +92,7 @@ class EpisodeModel extends Episode {
         animeId.hashCode ^
         label.hashCode ^
         imageUrl.hashCode ^
-        imageHttpHeaders.hashCode;
+        imageHttpHeaders.hashCode ^
+        stats.hashCode;
   }
 }

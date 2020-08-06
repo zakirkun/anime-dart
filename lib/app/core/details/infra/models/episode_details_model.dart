@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:anime_dart/app/core/details/domain/entities/episode_details.dart';
 import 'package:flutter/foundation.dart';
+
+import 'package:anime_dart/app/core/details/domain/entities/episode_details.dart';
 
 class EpisodeDetailsModel extends EpisodeDetails {
   final String id;
@@ -11,6 +12,7 @@ class EpisodeDetailsModel extends EpisodeDetails {
   final String urlHd;
   final String imageUrl;
   final Map<String, String> imageHttpHeaders;
+  final double stats;
 
   EpisodeDetailsModel({
     this.id,
@@ -20,6 +22,7 @@ class EpisodeDetailsModel extends EpisodeDetails {
     this.urlHd,
     this.imageUrl,
     this.imageHttpHeaders,
+    this.stats,
   });
 
   EpisodeDetailsModel copyWith({
@@ -30,6 +33,7 @@ class EpisodeDetailsModel extends EpisodeDetails {
     String urlHd,
     String imageUrl,
     Map<String, String> imageHttpHeaders,
+    double stats,
   }) {
     return EpisodeDetailsModel(
       id: id ?? this.id,
@@ -39,6 +43,7 @@ class EpisodeDetailsModel extends EpisodeDetails {
       urlHd: urlHd ?? this.urlHd,
       imageUrl: imageUrl ?? this.imageUrl,
       imageHttpHeaders: imageHttpHeaders ?? this.imageHttpHeaders,
+      stats: stats ?? this.stats,
     );
   }
 
@@ -51,6 +56,7 @@ class EpisodeDetailsModel extends EpisodeDetails {
       'urlHd': urlHd,
       'imageUrl': imageUrl,
       'imageHttpHeaders': imageHttpHeaders,
+      'stats': stats,
     };
   }
 
@@ -65,6 +71,7 @@ class EpisodeDetailsModel extends EpisodeDetails {
       urlHd: map['urlHd'],
       imageUrl: map['imageUrl'],
       imageHttpHeaders: Map<String, String>.from(map['imageHttpHeaders']),
+      stats: map['stats'],
     );
   }
 
@@ -75,7 +82,7 @@ class EpisodeDetailsModel extends EpisodeDetails {
 
   @override
   String toString() {
-    return 'EpisodeDetailsModel(id: $id, animeId: $animeId, label: $label, url: $url, urlHd: $urlHd, imageUrl: $imageUrl, imageHttpHeaders: $imageHttpHeaders)';
+    return 'EpisodeDetailsModel(id: $id, animeId: $animeId, label: $label, url: $url, urlHd: $urlHd, imageUrl: $imageUrl, imageHttpHeaders: $imageHttpHeaders, stats: $stats)';
   }
 
   @override
@@ -89,7 +96,8 @@ class EpisodeDetailsModel extends EpisodeDetails {
         o.url == url &&
         o.urlHd == urlHd &&
         o.imageUrl == imageUrl &&
-        mapEquals(o.imageHttpHeaders, imageHttpHeaders);
+        mapEquals(o.imageHttpHeaders, imageHttpHeaders) &&
+        o.stats == stats;
   }
 
   @override
@@ -100,6 +108,7 @@ class EpisodeDetailsModel extends EpisodeDetails {
         url.hashCode ^
         urlHd.hashCode ^
         imageUrl.hashCode ^
-        imageHttpHeaders.hashCode;
+        imageHttpHeaders.hashCode ^
+        stats.hashCode;
   }
 }

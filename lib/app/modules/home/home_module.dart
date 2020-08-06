@@ -1,4 +1,4 @@
-import 'package:anime_dart/app/modules/home/presentation/screens/latest/latest_screen.dart';
+import 'package:anime_dart/app/modules/home/screens/home/home_screen.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class HomeModule extends ChildModule {
@@ -6,5 +6,5 @@ class HomeModule extends ChildModule {
   List<Bind> get binds => [];
 
   @override
-  List<Router> get routers => [Router("/", child: (_, i) => LatestScreen())];
+  List<Router> get routers => [Router("/", child: (_, i) => HomeScreen())];
 }
