@@ -23,6 +23,11 @@ dependencies:
   equatable: ^1.2.3
   mockito: ^4.1.1
   dartz: ^0.9.1
+  flutter_modular: ^1.3.2
+  asuka: ^1.0.4
+  dio: ^3.0.9
+  string_validator: ^0.1.4
+  connectivity: ^0.4.9
   flutter:
     sdk: flutter
 
@@ -40,3 +45,13 @@ flutter:
         - asset: fonts/Raleway-Regular.ttf
         - asset: fonts/Raleway-Bold.ttf
           weight: 700
+
+vars:
+  clean: flutter clean
+  get: flutter pub get
+  runner: flutter pub run build_runner
+
+scripts:
+  coverage: flutter test --coverage & remove_from_coverage -f coverage/lcov.info -r .g.dart$
+  mobx_build: $clean & $get & $runner build --delete-conflicting-outputs
+  mobx_watch: $clean & $get & $runner watch --delete-conflicting-outputs
