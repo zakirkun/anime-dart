@@ -20,14 +20,12 @@ class FailedRequestException extends DetailsException {
   }
 }
 
-
-class InvalidIdException  extends DetailsException {
+class InvalidIdException extends DetailsException {
   final String message;
 
-  FailedRequestException(this.message);
+  InvalidIdException(this.message);
 
   String toString() {
-    return "A request fail exception: $message";
+    return "Invalid ID exception: $message";
   }
 }
-

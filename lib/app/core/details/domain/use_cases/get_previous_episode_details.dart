@@ -3,14 +3,15 @@ import 'package:anime_dart/app/core/details/domain/errors/exceptions.dart';
 import 'package:anime_dart/app/core/details/domain/repository/details_repository.dart';
 import 'package:dartz/dartz.dart';
 
-abstract class GetEpisodeDetails {
+abstract class GetPreviousEpisodeDetails {
   Future<Either<DetailsException, EpisodeDetails>> call(String id);
 }
 
-class GetEpisodeDetailsImplementation implements GetEpisodeDetails {
+class GetPreviousEpisodeDetailsImplementation
+    implements GetPreviousEpisodeDetails {
   final DetailsRepository repository;
 
-  GetEpisodeDetailsImplementation({
+  GetPreviousEpisodeDetailsImplementation({
     this.repository,
   });
 
@@ -22,7 +23,7 @@ class GetEpisodeDetailsImplementation implements GetEpisodeDetails {
     }
 
     try {
-      final result = await repository.getEpisodeDetails(id);
+      final result = await repository.getNextEpisodeDetails(id);
 
       return result;
     } on DetailsNotFoundException {

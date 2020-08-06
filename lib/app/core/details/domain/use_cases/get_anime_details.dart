@@ -1,28 +1,28 @@
-import 'package:anime_dart/app/core/details/domain/entities/episode_details.dart';
+import 'package:anime_dart/app/core/details/domain/entities/anime_details.dart';
 import 'package:anime_dart/app/core/details/domain/errors/exceptions.dart';
 import 'package:anime_dart/app/core/details/domain/repository/details_repository.dart';
 import 'package:dartz/dartz.dart';
 
-abstract class GetEpisodeDetails {
-  Future<Either<DetailsException, EpisodeDetails>> call(String id);
+abstract class GetAnimeDetails {
+  Future<Either<DetailsException, AnimeDetails>> call(String id);
 }
 
-class GetEpisodeDetailsImplementation implements GetEpisodeDetails {
+class GetAnimeDetailsImplementation implements GetAnimeDetails {
   final DetailsRepository repository;
 
-  GetEpisodeDetailsImplementation({
+  GetAnimeDetailsImplementation({
     this.repository,
   });
 
   @override
-  Future<Either<DetailsException, EpisodeDetails>> call(String id) async {
+  Future<Either<DetailsException, AnimeDetails>> call(String id) async {
     if (id == null || id.isEmpty) {
       return Left(
           InvalidIdException("The ID must be a valid and no-empty string"));
     }
 
     try {
-      final result = await repository.getEpisodeDetails(id);
+      final result = await repository.getAnimeDetails(id);
 
       return result;
     } on DetailsNotFoundException {
