@@ -99,6 +99,84 @@ mixin _$HomeStore on _HomeStoreBase, Store {
     });
   }
 
+  final _$randomAtom = Atom(name: '_HomeStoreBase.random');
+
+  @override
+  ObservableList<Anime> get random {
+    _$randomAtom.reportRead();
+    return super.random;
+  }
+
+  @override
+  set random(ObservableList<Anime> value) {
+    _$randomAtom.reportWrite(value, super.random, () {
+      super.random = value;
+    });
+  }
+
+  final _$loadingRandomAtom = Atom(name: '_HomeStoreBase.loadingRandom');
+
+  @override
+  bool get loadingRandom {
+    _$loadingRandomAtom.reportRead();
+    return super.loadingRandom;
+  }
+
+  @override
+  set loadingRandom(bool value) {
+    _$loadingRandomAtom.reportWrite(value, super.loadingRandom, () {
+      super.loadingRandom = value;
+    });
+  }
+
+  final _$loadingMoreRandomAtom =
+      Atom(name: '_HomeStoreBase.loadingMoreRandom');
+
+  @override
+  bool get loadingMoreRandom {
+    _$loadingMoreRandomAtom.reportRead();
+    return super.loadingMoreRandom;
+  }
+
+  @override
+  set loadingMoreRandom(bool value) {
+    _$loadingMoreRandomAtom.reportWrite(value, super.loadingMoreRandom, () {
+      super.loadingMoreRandom = value;
+    });
+  }
+
+  final _$randomErrorAtom = Atom(name: '_HomeStoreBase.randomError');
+
+  @override
+  String get randomError {
+    _$randomErrorAtom.reportRead();
+    return super.randomError;
+  }
+
+  @override
+  set randomError(String value) {
+    _$randomErrorAtom.reportWrite(value, super.randomError, () {
+      super.randomError = value;
+    });
+  }
+
+  final _$randomLoadingMoreErrorAtom =
+      Atom(name: '_HomeStoreBase.randomLoadingMoreError');
+
+  @override
+  String get randomLoadingMoreError {
+    _$randomLoadingMoreErrorAtom.reportRead();
+    return super.randomLoadingMoreError;
+  }
+
+  @override
+  set randomLoadingMoreError(String value) {
+    _$randomLoadingMoreErrorAtom
+        .reportWrite(value, super.randomLoadingMoreError, () {
+      super.randomLoadingMoreError = value;
+    });
+  }
+
   final _$loadLatestsAsyncAction = AsyncAction('_HomeStoreBase.loadLatests');
 
   @override
@@ -111,6 +189,21 @@ mixin _$HomeStore on _HomeStoreBase, Store {
   @override
   Future<void> loadTrending() {
     return _$loadTrendingAsyncAction.run(() => super.loadTrending());
+  }
+
+  final _$loadRandomAsyncAction = AsyncAction('_HomeStoreBase.loadRandom');
+
+  @override
+  Future<void> loadRandom() {
+    return _$loadRandomAsyncAction.run(() => super.loadRandom());
+  }
+
+  final _$loadMoreRandomAsyncAction =
+      AsyncAction('_HomeStoreBase.loadMoreRandom');
+
+  @override
+  Future<void> loadMoreRandom() {
+    return _$loadMoreRandomAsyncAction.run(() => super.loadMoreRandom());
   }
 
   final _$_HomeStoreBaseActionController =
@@ -135,7 +228,12 @@ loadingLatests: ${loadingLatests},
 latestsError: ${latestsError},
 trending: ${trending},
 loadingTrending: ${loadingTrending},
-trendingError: ${trendingError}
+trendingError: ${trendingError},
+random: ${random},
+loadingRandom: ${loadingRandom},
+loadingMoreRandom: ${loadingMoreRandom},
+randomError: ${randomError},
+randomLoadingMoreError: ${randomLoadingMoreError}
     ''';
   }
 }

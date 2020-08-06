@@ -108,11 +108,13 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
     try {
       String id = _getRandomAnimeId();
 
-      final result = _getAnimeFromId(id);
+      final result = await _getAnimeFromId(id);
 
       return result;
     } catch (e) {
-      return await _getRandomAnime();
+      final result = await _getRandomAnime();
+
+      return result;
     }
   }
 

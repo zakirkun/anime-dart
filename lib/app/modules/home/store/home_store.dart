@@ -13,6 +13,9 @@ abstract class _HomeStoreBase with Store {
 
   _HomeStoreBase({this.repository});
 
+  // ==========================
+  //   LATEST SCREEN STATE
+  // ==========================
   @observable
   ObservableList<Episode> latests;
 
@@ -41,6 +44,9 @@ abstract class _HomeStoreBase with Store {
     });
   }
 
+  // ==========================
+  //   TRENDING SCREEN STATE
+  // ==========================
   @observable
   ObservableList<Anime> trending;
 
@@ -69,6 +75,61 @@ abstract class _HomeStoreBase with Store {
     });
   }
 
+  // ==========================
+  //   RANDOM SCREEN STATE
+  // ==========================
+  @observable
+  ObservableList<Anime> random;
+
+  @observable
+  bool loadingRandom = true;
+
+  @observable
+  bool loadingMoreRandom = false;
+
+  @observable
+  String randomError;
+
+  @observable
+  String randomLoadingMoreError;
+
+  @action
+  Future<void> loadRandom() async {
+    loadingRandom = true;
+
+    final result = await repository.getRandomAnimes();
+
+    runInAction(() {
+      result.fold((l) {
+        randomError = "Não foi possível carregar os animes aleatórios";
+        random = null;
+      }, (r) {
+        random = ObservableList<Anime>.of(r);
+        randomError = null;
+      });
+
+      loadingRandom = false;
+    });
+  }
+
+  @action
+  Future<void> loadMoreRandom() async {
+    loadingMoreRandom = true;
+
+    final result = await repository.getRandomAnimes();
+
+    runInAction(() {
+      result.fold((l) {
+        randomLoadingMoreError = "Não foi possível carregar mais animes";
+      }, (r) {
+        random.addAll(ObservableList<Anime>.of(r));
+        randomLoadingMoreError = null;
+      });
+
+      loadingMoreRandom = false;
+    });
+  }
+
   @action
   dispose() {
     loadingLatests = true;
@@ -78,5 +139,11 @@ abstract class _HomeStoreBase with Store {
     loadingTrending = true;
     trendingError = null;
     trending = null;
+
+    loadingRandom = true;
+    randomError = null;
+    random = null;
+    loadingMoreRandom = false;
+    randomLoadingMoreError = null;
   }
 }
