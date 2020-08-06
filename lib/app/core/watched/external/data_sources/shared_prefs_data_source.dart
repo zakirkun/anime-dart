@@ -1,7 +1,7 @@
 import 'package:anime_dart/app/core/watched/infra/data_sources/watched_data_source.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPrefsDataSource implements WatchedDataSource {
+class SharedPrefsWatchedDataSource implements WatchedDataSource {
   final _watchedListKey = "anime__dart__application__watched__episodes";
   final _watchedPrefix = "anime__dart__application__favorites__prefix";
 
@@ -14,7 +14,7 @@ class SharedPrefsDataSource implements WatchedDataSource {
     try {
       final prefs = await SharedPreferences.getInstance();
 
-      final stats = prefs.getBool(_getWatchedKey(id)) ?? 0;
+      double stats = prefs.getBool(_getWatchedKey(id)) ?? 0;
 
       return stats;
     } catch (e) {

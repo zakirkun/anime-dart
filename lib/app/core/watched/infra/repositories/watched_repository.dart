@@ -6,7 +6,7 @@ import 'package:dartz/dartz.dart';
 class WatchedRepositoryImplementation implements WatchedRepository {
   final WatchedDataSource dataSource;
 
-  WatchedRepositoryImplementation(this.dataSource);
+  WatchedRepositoryImplementation({this.dataSource});
 
   @override
   Future<Either<WatchedException, double>> getEpisodeWatchedStats(

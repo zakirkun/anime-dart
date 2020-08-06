@@ -37,7 +37,7 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
       final response =
           await http.get(_baseUrl + "?episodios=$id", headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3));
+      final data = json.decode(response.body.substring(3))[0];
 
       final anime = await _getAnimeFromId(data["category_id"]);
 
@@ -78,7 +78,7 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
       final response =
           await http.get(_baseUrl + "?info=$id", headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3));
+      final data = json.decode(response.body.substring(3))[0];
 
       bool isFavorite = false;
 

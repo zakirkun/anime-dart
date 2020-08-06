@@ -10,7 +10,7 @@ class SearchDataSourceMock extends Mock implements SearchDataSource {}
 
 void main() {
   final dataSource = SearchDataSourceMock();
-  final repository = SearchRepositoryImplementation(dataSource);
+  final repository = SearchRepositoryImplementation(dataSource: dataSource);
 
   group("test searchByText() method", () {
     test("should return a AnimeModel list", () async {

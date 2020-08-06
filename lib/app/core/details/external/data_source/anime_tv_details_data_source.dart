@@ -33,7 +33,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
       final response =
           await http.get(_baseUrl + "?info=$id", headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3));
+      final data = json.decode(response.body.substring(3))[0];
 
       bool isFavorite = false;
 
@@ -44,12 +44,12 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
       } catch (e) {}
 
       Map<String, dynamic> source = {
-        "id": data["id"],
+        "id": data["id"].toString(),
         "title": data["category_name"],
         "synopsis": data["category_name"],
         "imageUrl": _getCompleteImageUrl(data["category_image"]),
         "imageHttpHeaders": _httpHeaders,
-        "year": data["ano"],
+        "year": data["ano"].toString(),
         "genres": data["category_genres"].replaceAll(" ", "").split(","),
         "isFavorite": isFavorite
       };
@@ -68,9 +68,9 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
       final response =
           await http.get(_baseUrl + "?episodios=$id", headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3));
+      final data = json.decode(response.body.substring(3))[0];
 
-      final ownerAnime = await getAnimeDetails(data["category_id"]);
+      final ownerAnime = await getAnimeDetails(data["category_id"].toString());
 
       double stats = 0;
 
@@ -80,8 +80,8 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
       } catch (e) {}
 
       Map<String, dynamic> source = {
-        "id": data["video_id"],
-        "animeId": data["category_id"],
+        "id": data["video_id"].toString(),
+        "animeId": data["category_id"].toString(),
         "label": data["title"],
         "url": data["location"],
         "urlHd": data["locationsd"],
@@ -110,7 +110,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
               "?episodios=${currentEpisode.id}&catid=${ownerAnime.id}&next",
           headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3));
+      final data = json.decode(response.body.substring(3))[0];
 
       double stats = 0;
 
@@ -150,7 +150,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
               "?episodios=${currentEpisode.id}&catid=${ownerAnime.id}&previous",
           headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3));
+      final data = json.decode(response.body.substring(3))[0];
 
       double stats = 0;
 

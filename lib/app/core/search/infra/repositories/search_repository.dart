@@ -7,7 +7,7 @@ import 'package:dartz/dartz.dart';
 class SearchRepositoryImplementation implements SearchRepository {
   final SearchDataSource dataSource;
 
-  SearchRepositoryImplementation(this.dataSource);
+  SearchRepositoryImplementation({this.dataSource});
 
   @override
   Future<Either<SearchException, List<Anime>>> searchByText(

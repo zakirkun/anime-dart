@@ -7,7 +7,7 @@ import 'package:anime_dart/app/core/search/domain/errors/exceptions.dart';
 import 'package:anime_dart/app/core/search/infra/data_sources/search_data_source.dart';
 import 'package:anime_dart/app/core/search/infra/models/anime_model.dart';
 
-class AnimeTvDataSource implements SearchDataSource {
+class AnimeTvSearchDataSource implements SearchDataSource {
   final _baseUrl = "https://appanimeplus.tk/api-achance.php";
   final _imageBaseUrl = "https://cdn.appanimeplus.tk/img/";
   final _httpHeaders = {
@@ -16,7 +16,7 @@ class AnimeTvDataSource implements SearchDataSource {
   };
   final FavoritesRepository favorites;
 
-  AnimeTvDataSource({
+  AnimeTvSearchDataSource({
     this.favorites,
   });
 
