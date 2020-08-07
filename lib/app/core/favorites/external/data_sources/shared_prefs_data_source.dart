@@ -4,15 +4,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPrefsFavoritesDataSource implements FavoritesDataSource {
   final _favoriteListKey = "anime__dart__application__favorites__animes";
   final _favoritePrefix = "anime__dart__application__favorites__prefix";
+  SharedPreferences _prefs;
 
   String _getFavoriteKey(String id) {
     return _favoritePrefix + id;
   }
 
+  Future<SharedPreferences> _getPrefs() async {
+    if (_prefs != null) {
+      return _prefs;
+    }
+
+    _prefs = await SharedPreferences.getInstance();
+
+    return _prefs;
+  }
+
   @override
   Future<bool> isFavorite(String id) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
+      final prefs = await _getPrefs();
 
       final favorite = prefs.getBool(_getFavoriteKey(id)) ?? false;
 
@@ -25,7 +36,7 @@ class SharedPrefsFavoritesDataSource implements FavoritesDataSource {
   @override
   Future<void> setFavorite(String id, bool newValue) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
+      final prefs = await _getPrefs();
 
       prefs.setBool(_getFavoriteKey(id), newValue);
 

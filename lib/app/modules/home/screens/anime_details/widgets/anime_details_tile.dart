@@ -14,11 +14,16 @@ class AnimeDetailsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        decoration: BoxDecoration(
+            color: Theme.of(context).backgroundColor,
+            border: Border(
+                left: BorderSide(
+                    width: 5,
+                    color: Color.lerp(
+                        Colors.red, Colors.green, episode.stats / 100)))),
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-        color: Theme.of(context).backgroundColor,
         child: ListTile(
-          title: Text(episode.label + " - ${episode.stats.toInt()}%",
-              style: TextStyle(height: 1.5)),
+          title: Text(episode.label, style: TextStyle(height: 1.5)),
           leading: Icon(OMIcons.playArrow,
               color:
                   Theme.of(context).textTheme.bodyText1.color.withOpacity(0.5)),

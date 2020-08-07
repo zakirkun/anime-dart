@@ -123,7 +123,7 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
     try {
       final prefs = await SharedPreferences.getInstance();
 
-      final favoritesId = prefs.getStringList(_favoriteListKey);
+      final favoritesId = prefs.getStringList(_favoriteListKey) ?? <String>[];
 
       final favorites = <AnimeModel>[];
 
@@ -223,7 +223,7 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
     try {
       final prefs = await SharedPreferences.getInstance();
 
-      final watchedIds = prefs.getStringList(_watchedListKey);
+      final watchedIds = prefs.getStringList(_watchedListKey) ?? <String>[];
 
       final watched = <EpisodeModel>[];
 

@@ -9,6 +9,14 @@ part of 'home_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeStore on _HomeStoreBase, Store {
+  Computed<bool> _$emptyFavoriteListComputed;
+
+  @override
+  bool get emptyFavoriteList => (_$emptyFavoriteListComputed ??= Computed<bool>(
+          () => super.emptyFavoriteList,
+          name: '_HomeStoreBase.emptyFavoriteList'))
+      .value;
+
   final _$latestsAtom = Atom(name: '_HomeStoreBase.latests');
 
   @override
@@ -177,6 +185,51 @@ mixin _$HomeStore on _HomeStoreBase, Store {
     });
   }
 
+  final _$favoritesAtom = Atom(name: '_HomeStoreBase.favorites');
+
+  @override
+  ObservableList<Anime> get favorites {
+    _$favoritesAtom.reportRead();
+    return super.favorites;
+  }
+
+  @override
+  set favorites(ObservableList<Anime> value) {
+    _$favoritesAtom.reportWrite(value, super.favorites, () {
+      super.favorites = value;
+    });
+  }
+
+  final _$loadingFavoritesAtom = Atom(name: '_HomeStoreBase.loadingFavorites');
+
+  @override
+  bool get loadingFavorites {
+    _$loadingFavoritesAtom.reportRead();
+    return super.loadingFavorites;
+  }
+
+  @override
+  set loadingFavorites(bool value) {
+    _$loadingFavoritesAtom.reportWrite(value, super.loadingFavorites, () {
+      super.loadingFavorites = value;
+    });
+  }
+
+  final _$favoritesErrorAtom = Atom(name: '_HomeStoreBase.favoritesError');
+
+  @override
+  String get favoritesError {
+    _$favoritesErrorAtom.reportRead();
+    return super.favoritesError;
+  }
+
+  @override
+  set favoritesError(String value) {
+    _$favoritesErrorAtom.reportWrite(value, super.favoritesError, () {
+      super.favoritesError = value;
+    });
+  }
+
   final _$loadLatestsAsyncAction = AsyncAction('_HomeStoreBase.loadLatests');
 
   @override
@@ -206,6 +259,14 @@ mixin _$HomeStore on _HomeStoreBase, Store {
     return _$loadMoreRandomAsyncAction.run(() => super.loadMoreRandom());
   }
 
+  final _$loadFavoritesAsyncAction =
+      AsyncAction('_HomeStoreBase.loadFavorites');
+
+  @override
+  Future<void> loadFavorites() {
+    return _$loadFavoritesAsyncAction.run(() => super.loadFavorites());
+  }
+
   final _$_HomeStoreBaseActionController =
       ActionController(name: '_HomeStoreBase');
 
@@ -233,7 +294,11 @@ random: ${random},
 loadingRandom: ${loadingRandom},
 loadingMoreRandom: ${loadingMoreRandom},
 randomError: ${randomError},
-randomLoadingMoreError: ${randomLoadingMoreError}
+randomLoadingMoreError: ${randomLoadingMoreError},
+favorites: ${favorites},
+loadingFavorites: ${loadingFavorites},
+favoritesError: ${favoritesError},
+emptyFavoriteList: ${emptyFavoriteList}
     ''';
   }
 }

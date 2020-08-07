@@ -83,7 +83,13 @@ class _WatchEpisodeScreenState
           },
         )),
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {},
+          onPressed: () {
+            if (controller.loading) {
+              return;
+            }
+            Modular.to.pushNamed(
+                "/anime-details/${controller.episodeDetails.animeId}");
+          },
           label: Text('Ver lista de episódios'),
           icon: Icon(Icons.playlist_add_check),
         ));

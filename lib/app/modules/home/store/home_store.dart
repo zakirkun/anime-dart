@@ -130,6 +130,40 @@ abstract class _HomeStoreBase with Store {
     });
   }
 
+  // ==========================
+  //   FAVORITES SCREEN STATE
+  // ==========================
+  @observable
+  ObservableList<Anime> favorites;
+
+  @observable
+  bool loadingFavorites = true;
+
+  @observable
+  String favoritesError;
+
+  @computed
+  bool get emptyFavoriteList => favorites != null && favorites.length == 0;
+
+  @action
+  Future<void> loadFavorites() async {
+    loadingFavorites = true;
+
+    final result = await repository.getFavoriteAnimes();
+
+    runInAction(() {
+      result.fold((l) {
+        favoritesError = "Não foi possível carregar os seus animes favoritos";
+        favorites = null;
+      }, (r) {
+        favorites = ObservableList<Anime>.of(r);
+        favoritesError = null;
+      });
+
+      loadingFavorites = false;
+    });
+  }
+
   @action
   dispose() {
     loadingLatests = true;
@@ -145,5 +179,9 @@ abstract class _HomeStoreBase with Store {
     random = null;
     loadingMoreRandom = false;
     randomLoadingMoreError = null;
+
+    loadingFavorites = true;
+    favoritesError = null;
+    favorites = null;
   }
 }

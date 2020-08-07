@@ -4,15 +4,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPrefsWatchedDataSource implements WatchedDataSource {
   final _watchedListKey = "anime__dart__application__watched__episodes";
   final _watchedPrefix = "anime__dart__application__watched__prefix";
+  SharedPreferences _prefs;
 
   String _getWatchedKey(String id) {
     return _watchedPrefix + id;
   }
 
+  Future<SharedPreferences> _getPrefs() async {
+    if (_prefs != null) {
+      return _prefs;
+    }
+
+    _prefs = await SharedPreferences.getInstance();
+
+    return _prefs;
+  }
+
   @override
   Future<double> getEpisodeWatchedStats(String id) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
+      final prefs = await _getPrefs();
 
       double stats = prefs.getDouble(_getWatchedKey(id)) ?? 0;
 
@@ -25,7 +36,7 @@ class SharedPrefsWatchedDataSource implements WatchedDataSource {
   @override
   Future<void> setEpisodeWatchedStats(String id, double newStats) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
+      final prefs = await _getPrefs();
 
       prefs.setDouble(_getWatchedKey(id), newStats);
 
