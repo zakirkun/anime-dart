@@ -1,4 +1,4 @@
-import 'package:anime_dart/app/modules/home/store/watch_episode_store.dart';
+import 'package:anime_dart/app/modules/home/store/home_store.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -12,7 +12,7 @@ class WatchEpisodeHeader extends StatefulWidget {
 }
 
 class _WatchEpisodeHeaderState
-    extends ModularState<WatchEpisodeHeader, WatchEpisodeStore> {
+    extends ModularState<WatchEpisodeHeader, HomeStore> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -96,7 +96,7 @@ class _WatchEpisodeHeaderState
                                     return;
                                   }
 
-                                  controller.loadPrevEpisode(context);
+                                  controller.loadPrevEpisode();
                                 },
                                 child: Container(
                                     padding: EdgeInsets.symmetric(
@@ -121,7 +121,7 @@ class _WatchEpisodeHeaderState
                                     return;
                                   }
 
-                                  controller.loadNextEpisode(context);
+                                  controller.loadNextEpisode();
                                 },
                                 child: Container(
                                     padding: EdgeInsets.symmetric(

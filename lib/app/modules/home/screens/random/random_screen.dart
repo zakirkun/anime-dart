@@ -60,7 +60,9 @@ class _RandomScreenState extends ModularState<RandomScreen, HomeStore> {
             scrollController: _scrollController,
             linkBuilder: (Anime anime) {
               void onTap() {
-                Modular.to.pushNamed("/anime-details/${anime.id}");
+                controller.setAnimeDetailsId(anime.id);
+
+                Modular.to.pushNamed("/anime-details");
               }
 
               return onTap;

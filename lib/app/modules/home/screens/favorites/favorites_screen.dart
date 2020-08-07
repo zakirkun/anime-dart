@@ -55,7 +55,9 @@ class _FavoritesScreenState extends ModularState<FavoritesScreen, HomeStore> {
         return FavoritesList(
             linkBuilder: (Anime anime) {
               void onTap() {
-                Modular.to.pushNamed("/anime-details/${anime.id}");
+                controller.setAnimeDetailsId(anime.id);
+
+                Modular.to.pushNamed("/anime-details");
               }
 
               return onTap;

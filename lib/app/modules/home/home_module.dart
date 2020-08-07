@@ -10,6 +10,7 @@ import 'package:anime_dart/app/core/watched/external/data_sources/shared_prefs_d
 import 'package:anime_dart/app/core/watched/infra/repositories/watched_repository.dart';
 import 'package:anime_dart/app/modules/home/screens/anime_details/anime_details_screen.dart';
 import 'package:anime_dart/app/modules/home/screens/home/home_screen.dart';
+import 'package:anime_dart/app/modules/home/screens/player/player_screen.dart';
 import 'package:anime_dart/app/modules/home/screens/watch_episode/watch_episode_screen.dart';
 import 'package:anime_dart/app/modules/home/store/anime_details_store.dart';
 import 'package:anime_dart/app/modules/home/store/home_store.dart';
@@ -39,23 +40,18 @@ class HomeModule extends ChildModule {
             dataSource: i.get<AnimeTvDetailsDataSource>())),
         Bind((i) => SearchRepositoryImplementation(
             dataSource: i.get<AnimeTvSearchDataSource>())),
-        Bind((i) =>
-            HomeStore(repository: i.get<BrowsingRepositoryImplementation>())),
-        Bind((i) => WatchEpisodeStore(
-            repository: i.get<DetailsRepositoryImplementation>())),
-        Bind((i) => AnimeDetailsStore(
+        Bind((i) => HomeStore(
+            repository: i.get<BrowsingRepositoryImplementation>(),
             favoritesRepository: i.get<FavoritesRepositoryImplementation>(),
             watchedRepository: i.get<WatchedRepositoryImplementation>(),
-            repository: i.get<DetailsRepositoryImplementation>()))
+            detailsRepository: i.get<DetailsRepositoryImplementation>())),
       ];
 
   @override
   List<Router> get routers => [
         Router("/", child: (_, __) => HomeScreen()),
-        Router("/watch-episode/:episodeId",
-            child: (_, i) =>
-                WatchEpisodeScreen(episodeId: i.params["episodeId"])),
-        Router("/anime-details/:animeId",
-            child: (_, i) => AnimeDetailsScreen(animeId: i.params["animeId"]))
+        Router("/watch-episode", child: (_, i) => WatchEpisodeScreen()),
+        Router("/anime-details", child: (_, i) => AnimeDetailsScreen()),
+        Router("/play-episode", child: (_, i) => PlayerScreen())
       ];
 }

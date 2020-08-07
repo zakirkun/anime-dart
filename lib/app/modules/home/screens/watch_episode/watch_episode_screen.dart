@@ -1,38 +1,27 @@
 import 'package:anime_dart/app/modules/home/screens/watch_episode/widgets/watch_episode_buttons.dart';
 import 'package:anime_dart/app/modules/home/screens/watch_episode/widgets/watch_episode_header.dart';
-import 'package:anime_dart/app/modules/home/store/watch_episode_store.dart';
+import 'package:anime_dart/app/modules/home/store/home_store.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class WatchEpisodeScreen extends StatefulWidget {
-  final String episodeId;
-
-  WatchEpisodeScreen({this.episodeId});
-
   @override
-  _WatchEpisodeScreenState createState() =>
-      _WatchEpisodeScreenState(episodeId: episodeId);
+  _WatchEpisodeScreenState createState() => _WatchEpisodeScreenState();
 }
 
 class _WatchEpisodeScreenState
-    extends ModularState<WatchEpisodeScreen, WatchEpisodeStore> {
-  final String episodeId;
-
-  _WatchEpisodeScreenState({this.episodeId});
-
+    extends ModularState<WatchEpisodeScreen, HomeStore> {
   @override
   initState() {
     super.initState();
 
-    controller.loadEpisode(episodeId);
+    controller.loadEpisode();
   }
 
   @override
   dispose() {
-    controller.dispose();
-
     super.dispose();
   }
 
@@ -40,7 +29,7 @@ class _WatchEpisodeScreenState
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Container(child: Observer(builder: (_) {
-          if (controller.loading) {
+          if (controller.loadingWatchEpisode) {
             return Text("Carregando...");
           }
 
@@ -52,7 +41,7 @@ class _WatchEpisodeScreenState
         }))),
         body: Container(child: Observer(
           builder: (_) {
-            if (controller.loading) {
+            if (controller.loadingWatchEpisode) {
               return Center(child: CircularProgressIndicator());
             }
 
@@ -77,11 +66,12 @@ class _WatchEpisodeScreenState
         )),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            if (controller.loading) {
+            if (controller.loadingWatchEpisode) {
               return;
             }
-            Modular.to.pushNamed(
-                "/anime-details/${controller.episodeDetails.animeId}");
+            controller.setAnimeDetailsId(controller.episodeDetails.animeId);
+
+            Modular.to.pushNamed("/anime-details");
           },
           label: Text('Ver lista de episódios'),
           icon: Icon(Icons.playlist_add_check),

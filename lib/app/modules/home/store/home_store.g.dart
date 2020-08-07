@@ -16,6 +16,26 @@ mixin _$HomeStore on _HomeStoreBase, Store {
           () => super.emptyFavoriteList,
           name: '_HomeStoreBase.emptyFavoriteList'))
       .value;
+  Computed<bool> _$searchModeComputed;
+
+  @override
+  bool get searchMode =>
+      (_$searchModeComputed ??= Computed<bool>(() => super.searchMode,
+              name: '_HomeStoreBase.searchMode'))
+          .value;
+  Computed<bool> _$notFoundInternalSearchComputed;
+
+  @override
+  bool get notFoundInternalSearch => (_$notFoundInternalSearchComputed ??=
+          Computed<bool>(() => super.notFoundInternalSearch,
+              name: '_HomeStoreBase.notFoundInternalSearch'))
+      .value;
+  Computed<bool> _$loadingComputed;
+
+  @override
+  bool get loading => (_$loadingComputed ??=
+          Computed<bool>(() => super.loading, name: '_HomeStoreBase.loading'))
+      .value;
 
   final _$latestsAtom = Atom(name: '_HomeStoreBase.latests');
 
@@ -230,6 +250,298 @@ mixin _$HomeStore on _HomeStoreBase, Store {
     });
   }
 
+  final _$animeDetailsAtom = Atom(name: '_HomeStoreBase.animeDetails');
+
+  @override
+  AnimeDetails get animeDetails {
+    _$animeDetailsAtom.reportRead();
+    return super.animeDetails;
+  }
+
+  @override
+  set animeDetails(AnimeDetails value) {
+    _$animeDetailsAtom.reportWrite(value, super.animeDetails, () {
+      super.animeDetails = value;
+    });
+  }
+
+  final _$episodesOfAnimeDetailsAtom =
+      Atom(name: '_HomeStoreBase.episodesOfAnimeDetails');
+
+  @override
+  ObservableList<EpisodeDetails> get episodesOfAnimeDetails {
+    _$episodesOfAnimeDetailsAtom.reportRead();
+    return super.episodesOfAnimeDetails;
+  }
+
+  @override
+  set episodesOfAnimeDetails(ObservableList<EpisodeDetails> value) {
+    _$episodesOfAnimeDetailsAtom
+        .reportWrite(value, super.episodesOfAnimeDetails, () {
+      super.episodesOfAnimeDetails = value;
+    });
+  }
+
+  final _$errorAtom = Atom(name: '_HomeStoreBase.error');
+
+  @override
+  String get error {
+    _$errorAtom.reportRead();
+    return super.error;
+  }
+
+  @override
+  set error(String value) {
+    _$errorAtom.reportWrite(value, super.error, () {
+      super.error = value;
+    });
+  }
+
+  final _$internalSearchAtom = Atom(name: '_HomeStoreBase.internalSearch');
+
+  @override
+  String get internalSearch {
+    _$internalSearchAtom.reportRead();
+    return super.internalSearch;
+  }
+
+  @override
+  set internalSearch(String value) {
+    _$internalSearchAtom.reportWrite(value, super.internalSearch, () {
+      super.internalSearch = value;
+    });
+  }
+
+  final _$filteredEpisodesAtom = Atom(name: '_HomeStoreBase.filteredEpisodes');
+
+  @override
+  ObservableList<EpisodeDetails> get filteredEpisodes {
+    _$filteredEpisodesAtom.reportRead();
+    return super.filteredEpisodes;
+  }
+
+  @override
+  set filteredEpisodes(ObservableList<EpisodeDetails> value) {
+    _$filteredEpisodesAtom.reportWrite(value, super.filteredEpisodes, () {
+      super.filteredEpisodes = value;
+    });
+  }
+
+  final _$showSearchAtom = Atom(name: '_HomeStoreBase.showSearch');
+
+  @override
+  bool get showSearch {
+    _$showSearchAtom.reportRead();
+    return super.showSearch;
+  }
+
+  @override
+  set showSearch(bool value) {
+    _$showSearchAtom.reportWrite(value, super.showSearch, () {
+      super.showSearch = value;
+    });
+  }
+
+  final _$episodeIdPlayingAtom = Atom(name: '_HomeStoreBase.episodeIdPlaying');
+
+  @override
+  String get episodeIdPlaying {
+    _$episodeIdPlayingAtom.reportRead();
+    return super.episodeIdPlaying;
+  }
+
+  @override
+  set episodeIdPlaying(String value) {
+    _$episodeIdPlayingAtom.reportWrite(value, super.episodeIdPlaying, () {
+      super.episodeIdPlaying = value;
+    });
+  }
+
+  final _$episodeUrlPlayingAtom =
+      Atom(name: '_HomeStoreBase.episodeUrlPlaying');
+
+  @override
+  String get episodeUrlPlaying {
+    _$episodeUrlPlayingAtom.reportRead();
+    return super.episodeUrlPlaying;
+  }
+
+  @override
+  set episodeUrlPlaying(String value) {
+    _$episodeUrlPlayingAtom.reportWrite(value, super.episodeUrlPlaying, () {
+      super.episodeUrlPlaying = value;
+    });
+  }
+
+  final _$animeIdAtom = Atom(name: '_HomeStoreBase.animeId');
+
+  @override
+  String get animeId {
+    _$animeIdAtom.reportRead();
+    return super.animeId;
+  }
+
+  @override
+  set animeId(String value) {
+    _$animeIdAtom.reportWrite(value, super.animeId, () {
+      super.animeId = value;
+    });
+  }
+
+  final _$episodeDetailsAtom = Atom(name: '_HomeStoreBase.episodeDetails');
+
+  @override
+  EpisodeDetails get episodeDetails {
+    _$episodeDetailsAtom.reportRead();
+    return super.episodeDetails;
+  }
+
+  @override
+  set episodeDetails(EpisodeDetails value) {
+    _$episodeDetailsAtom.reportWrite(value, super.episodeDetails, () {
+      super.episodeDetails = value;
+    });
+  }
+
+  final _$loadingWatchEpisodeAtom =
+      Atom(name: '_HomeStoreBase.loadingWatchEpisode');
+
+  @override
+  bool get loadingWatchEpisode {
+    _$loadingWatchEpisodeAtom.reportRead();
+    return super.loadingWatchEpisode;
+  }
+
+  @override
+  set loadingWatchEpisode(bool value) {
+    _$loadingWatchEpisodeAtom.reportWrite(value, super.loadingWatchEpisode, () {
+      super.loadingWatchEpisode = value;
+    });
+  }
+
+  final _$loadingOtherEpisodeAtom =
+      Atom(name: '_HomeStoreBase.loadingOtherEpisode');
+
+  @override
+  bool get loadingOtherEpisode {
+    _$loadingOtherEpisodeAtom.reportRead();
+    return super.loadingOtherEpisode;
+  }
+
+  @override
+  set loadingOtherEpisode(bool value) {
+    _$loadingOtherEpisodeAtom.reportWrite(value, super.loadingOtherEpisode, () {
+      super.loadingOtherEpisode = value;
+    });
+  }
+
+  final _$errorMsgAtom = Atom(name: '_HomeStoreBase.errorMsg');
+
+  @override
+  String get errorMsg {
+    _$errorMsgAtom.reportRead();
+    return super.errorMsg;
+  }
+
+  @override
+  set errorMsg(String value) {
+    _$errorMsgAtom.reportWrite(value, super.errorMsg, () {
+      super.errorMsg = value;
+    });
+  }
+
+  final _$episodeIdAtom = Atom(name: '_HomeStoreBase.episodeId');
+
+  @override
+  String get episodeId {
+    _$episodeIdAtom.reportRead();
+    return super.episodeId;
+  }
+
+  @override
+  set episodeId(String value) {
+    _$episodeIdAtom.reportWrite(value, super.episodeId, () {
+      super.episodeId = value;
+    });
+  }
+
+  final _$videoPlayerControllerAtom =
+      Atom(name: '_HomeStoreBase.videoPlayerController');
+
+  @override
+  VideoPlayerController get videoPlayerController {
+    _$videoPlayerControllerAtom.reportRead();
+    return super.videoPlayerController;
+  }
+
+  @override
+  set videoPlayerController(VideoPlayerController value) {
+    _$videoPlayerControllerAtom.reportWrite(value, super.videoPlayerController,
+        () {
+      super.videoPlayerController = value;
+    });
+  }
+
+  final _$getProgressAtom = Atom(name: '_HomeStoreBase.getProgress');
+
+  @override
+  double Function(double) get getProgress {
+    _$getProgressAtom.reportRead();
+    return super.getProgress;
+  }
+
+  @override
+  set getProgress(double Function(double) value) {
+    _$getProgressAtom.reportWrite(value, super.getProgress, () {
+      super.getProgress = value;
+    });
+  }
+
+  final _$progressAtom = Atom(name: '_HomeStoreBase.progress');
+
+  @override
+  double get progress {
+    _$progressAtom.reportRead();
+    return super.progress;
+  }
+
+  @override
+  set progress(double value) {
+    _$progressAtom.reportWrite(value, super.progress, () {
+      super.progress = value;
+    });
+  }
+
+  final _$secondsAtom = Atom(name: '_HomeStoreBase.seconds');
+
+  @override
+  double get seconds {
+    _$secondsAtom.reportRead();
+    return super.seconds;
+  }
+
+  @override
+  set seconds(double value) {
+    _$secondsAtom.reportWrite(value, super.seconds, () {
+      super.seconds = value;
+    });
+  }
+
+  final _$playerOkAtom = Atom(name: '_HomeStoreBase.playerOk');
+
+  @override
+  bool get playerOk {
+    _$playerOkAtom.reportRead();
+    return super.playerOk;
+  }
+
+  @override
+  set playerOk(bool value) {
+    _$playerOkAtom.reportWrite(value, super.playerOk, () {
+      super.playerOk = value;
+    });
+  }
+
   final _$loadLatestsAsyncAction = AsyncAction('_HomeStoreBase.loadLatests');
 
   @override
@@ -267,11 +579,145 @@ mixin _$HomeStore on _HomeStoreBase, Store {
     return _$loadFavoritesAsyncAction.run(() => super.loadFavorites());
   }
 
+  final _$loadAnimeDetailsAsyncAction =
+      AsyncAction('_HomeStoreBase.loadAnimeDetails');
+
+  @override
+  Future<void> loadAnimeDetails() {
+    return _$loadAnimeDetailsAsyncAction.run(() => super.loadAnimeDetails());
+  }
+
+  final _$toggleFavoriteAsyncAction =
+      AsyncAction('_HomeStoreBase.toggleFavorite');
+
+  @override
+  Future<void> toggleFavorite() {
+    return _$toggleFavoriteAsyncAction.run(() => super.toggleFavorite());
+  }
+
+  final _$setEpisodeStatsAsyncAction =
+      AsyncAction('_HomeStoreBase.setEpisodeStats');
+
+  @override
+  Future<void> setEpisodeStats(String episodeId, double newStats) {
+    return _$setEpisodeStatsAsyncAction
+        .run(() => super.setEpisodeStats(episodeId, newStats));
+  }
+
+  final _$loadEpisodeAsyncAction = AsyncAction('_HomeStoreBase.loadEpisode');
+
+  @override
+  Future<void> loadEpisode() {
+    return _$loadEpisodeAsyncAction.run(() => super.loadEpisode());
+  }
+
+  final _$loadNextEpisodeAsyncAction =
+      AsyncAction('_HomeStoreBase.loadNextEpisode');
+
+  @override
+  Future<void> loadNextEpisode() {
+    return _$loadNextEpisodeAsyncAction.run(() => super.loadNextEpisode());
+  }
+
+  final _$loadPrevEpisodeAsyncAction =
+      AsyncAction('_HomeStoreBase.loadPrevEpisode');
+
+  @override
+  Future<void> loadPrevEpisode() {
+    return _$loadPrevEpisodeAsyncAction.run(() => super.loadPrevEpisode());
+  }
+
+  final _$initializePlayerControllerAsyncAction =
+      AsyncAction('_HomeStoreBase.initializePlayerController');
+
+  @override
+  Future<void> initializePlayerController() {
+    return _$initializePlayerControllerAsyncAction
+        .run(() => super.initializePlayerController());
+  }
+
   final _$_HomeStoreBaseActionController =
       ActionController(name: '_HomeStoreBase');
 
   @override
-  dynamic dispose() {
+  void setAnimeDetailsId(String newAnimeId) {
+    final _$actionInfo = _$_HomeStoreBaseActionController.startAction(
+        name: '_HomeStoreBase.setAnimeDetailsId');
+    try {
+      return super.setAnimeDetailsId(newAnimeId);
+    } finally {
+      _$_HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic showSearchField(bool yesOrNo) {
+    final _$actionInfo = _$_HomeStoreBaseActionController.startAction(
+        name: '_HomeStoreBase.showSearchField');
+    try {
+      return super.showSearchField(yesOrNo);
+    } finally {
+      _$_HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setInternalSearch(String keyword) {
+    final _$actionInfo = _$_HomeStoreBaseActionController.startAction(
+        name: '_HomeStoreBase.setInternalSearch');
+    try {
+      return super.setInternalSearch(keyword);
+    } finally {
+      _$_HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic closeSearchMode() {
+    final _$actionInfo = _$_HomeStoreBaseActionController.startAction(
+        name: '_HomeStoreBase.closeSearchMode');
+    try {
+      return super.closeSearchMode();
+    } finally {
+      _$_HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic filterEpisodes() {
+    final _$actionInfo = _$_HomeStoreBaseActionController.startAction(
+        name: '_HomeStoreBase.filterEpisodes');
+    try {
+      return super.filterEpisodes();
+    } finally {
+      _$_HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setPlayerEpisode(String targetEpisodeId, String url) {
+    final _$actionInfo = _$_HomeStoreBaseActionController.startAction(
+        name: '_HomeStoreBase.setPlayerEpisode');
+    try {
+      return super.setPlayerEpisode(targetEpisodeId, url);
+    } finally {
+      _$_HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setWatchEpisodeId(String newEpisodeId) {
+    final _$actionInfo = _$_HomeStoreBaseActionController.startAction(
+        name: '_HomeStoreBase.setWatchEpisodeId');
+    try {
+      return super.setWatchEpisodeId(newEpisodeId);
+    } finally {
+      _$_HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void dispose() {
     final _$actionInfo = _$_HomeStoreBaseActionController.startAction(
         name: '_HomeStoreBase.dispose');
     try {
@@ -298,7 +744,29 @@ randomLoadingMoreError: ${randomLoadingMoreError},
 favorites: ${favorites},
 loadingFavorites: ${loadingFavorites},
 favoritesError: ${favoritesError},
-emptyFavoriteList: ${emptyFavoriteList}
+animeDetails: ${animeDetails},
+episodesOfAnimeDetails: ${episodesOfAnimeDetails},
+error: ${error},
+internalSearch: ${internalSearch},
+filteredEpisodes: ${filteredEpisodes},
+showSearch: ${showSearch},
+episodeIdPlaying: ${episodeIdPlaying},
+episodeUrlPlaying: ${episodeUrlPlaying},
+animeId: ${animeId},
+episodeDetails: ${episodeDetails},
+loadingWatchEpisode: ${loadingWatchEpisode},
+loadingOtherEpisode: ${loadingOtherEpisode},
+errorMsg: ${errorMsg},
+episodeId: ${episodeId},
+videoPlayerController: ${videoPlayerController},
+getProgress: ${getProgress},
+progress: ${progress},
+seconds: ${seconds},
+playerOk: ${playerOk},
+emptyFavoriteList: ${emptyFavoriteList},
+searchMode: ${searchMode},
+notFoundInternalSearch: ${notFoundInternalSearch},
+loading: ${loading}
     ''';
   }
 }

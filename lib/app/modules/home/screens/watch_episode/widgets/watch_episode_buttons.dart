@@ -1,6 +1,6 @@
 import 'package:anime_dart/app/constants/utils.dart';
 import 'package:anime_dart/app/modules/home/screens/watch_episode/widgets/ripple_button.dart';
-import 'package:anime_dart/app/modules/home/store/watch_episode_store.dart';
+import 'package:anime_dart/app/modules/home/store/home_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -12,12 +12,12 @@ class WatchButtons extends StatefulWidget {
   _WatchButtonsState createState() => _WatchButtonsState();
 }
 
-class _WatchButtonsState extends ModularState<WatchButtons, WatchEpisodeStore> {
+class _WatchButtonsState extends ModularState<WatchButtons, HomeStore> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Observer(builder: (_) {
-        if (controller.loading || controller.loadingOtherEpisode) {
+        if (controller.loadingWatchEpisode || controller.loadingOtherEpisode) {
           return Container(
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(vertical: 50, horizontal: 15),
@@ -51,6 +51,11 @@ class _WatchButtonsState extends ModularState<WatchButtons, WatchEpisodeStore> {
                         if (controller.episodeDetails?.urlHd == null) {
                           return;
                         }
+                        controller.setPlayerEpisode(
+                            controller.episodeDetails.id,
+                            controller.episodeDetails.urlHd);
+
+                        Modular.to.pushNamed("/play-episode");
                       },
                       label: "Assistir em HD")),
               RippleButton(
@@ -59,6 +64,11 @@ class _WatchButtonsState extends ModularState<WatchButtons, WatchEpisodeStore> {
                     if (controller.episodeDetails?.url == null) {
                       return;
                     }
+
+                    controller.setPlayerEpisode(controller.episodeDetails.id,
+                        controller.episodeDetails.url);
+
+                    Modular.to.pushNamed("/play-episode");
                   },
                   label: "Assistir"),
             ]),

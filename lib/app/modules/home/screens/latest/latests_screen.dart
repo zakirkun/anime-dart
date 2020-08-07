@@ -42,7 +42,9 @@ class _LatestsScreenState extends ModularState<LatestsScreen, HomeStore> {
         return LatestsList(
             linkBuilder: (Episode episode) {
               void onTap() {
-                Modular.to.pushNamed("/watch-episode/${episode.id}");
+                controller.setWatchEpisodeId(episode.id);
+
+                Modular.to.pushNamed("/watch-episode");
               }
 
               return onTap;

@@ -42,7 +42,9 @@ class _TrendingScreenState extends ModularState<TrendingScreen, HomeStore> {
         return TrendingList(
             linkBuilder: (Anime anime) {
               void onTap() {
-                Modular.to.pushNamed("/anime-details/${anime.id}");
+                controller.setAnimeDetailsId(anime.id);
+
+                Modular.to.pushNamed("/anime-details");
               }
 
               return onTap;

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:anime_dart/app/modules/home/screens/anime_details/widgets/anime_details_List.dart';
 import 'package:anime_dart/app/modules/home/screens/anime_details/widgets/anime_details_list_with_header.dart';
-import 'package:anime_dart/app/modules/home/store/anime_details_store.dart';
+import 'package:anime_dart/app/modules/home/store/home_store.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -10,30 +10,21 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
 class AnimeDetailsScreen extends StatefulWidget {
-  final String animeId;
-
-  AnimeDetailsScreen({this.animeId});
-
   @override
-  _AnimeDetailsScreenState createState() =>
-      _AnimeDetailsScreenState(animeId: animeId);
+  _AnimeDetailsScreenState createState() => _AnimeDetailsScreenState();
 }
 
 class _AnimeDetailsScreenState
-    extends ModularState<AnimeDetailsScreen, AnimeDetailsStore> {
-  final String animeId;
-
+    extends ModularState<AnimeDetailsScreen, HomeStore> {
   final _searchQuery = TextEditingController();
   Timer _debounce;
-
-  _AnimeDetailsScreenState({this.animeId});
 
   _onSearchChanged() {
     if (_debounce?.isActive ?? false) {
       _debounce.cancel();
     }
 
-    _debounce = Timer(const Duration(milliseconds: 500), () {
+    _debounce = Timer(Duration(milliseconds: 500), () {
       final text = _searchQuery.text;
 
       if (text == controller.internalSearch) {
@@ -58,14 +49,12 @@ class _AnimeDetailsScreenState
   void initState() {
     super.initState();
 
-    controller.loadDetails(animeId);
+    controller.loadAnimeDetails();
 
     _searchQuery.addListener(_onSearchChanged);
   }
 
   void dispose() {
-    controller.dispose();
-
     _searchQuery?.removeListener(_onSearchChanged);
     _searchQuery?.dispose();
     _debounce?.cancel();
@@ -110,7 +99,7 @@ class _AnimeDetailsScreenState
           return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(child: Text(controller.details.title)),
+                Expanded(child: Text(controller.animeDetails.title)),
                 GestureDetector(
                     onTap: _enableSearchMode,
                     child: Container(
@@ -127,8 +116,8 @@ class _AnimeDetailsScreenState
 
           if (!controller.searchMode && !controller.showSearch) {
             return AnimeDetailsListWithHeader(
-                details: controller.details,
-                episodes: controller.episodes.toList());
+                details: controller.animeDetails,
+                episodes: controller.episodesOfAnimeDetails.toList());
           }
 
           if (controller.searchMode) {
@@ -141,7 +130,8 @@ class _AnimeDetailsScreenState
             return AnimeDetailsList(
                 episodes: controller.filteredEpisodes.toList());
           } else {
-            return AnimeDetailsList(episodes: controller.episodes.toList());
+            return AnimeDetailsList(
+                episodes: controller.episodesOfAnimeDetails.toList());
           }
         }),
         floatingActionButton: FloatingActionButton(
@@ -160,7 +150,7 @@ class _AnimeDetailsScreenState
                 return Icon(OMIcons.helpOutline, color: fill.withOpacity(0.3));
               }
 
-              if (controller.details.isFavorite) {
+              if (controller.animeDetails.isFavorite) {
                 return Icon(Icons.favorite, color: fill);
               }
 
