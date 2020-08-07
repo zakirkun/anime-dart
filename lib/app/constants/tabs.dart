@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 class MainTabs {
   static final tabs = [
     TabData(builder: (_) => LatestsScreen(), label: "LANÇAMENTOS"),
-    TabData(builder: (_) => TrendingScreen(), label: "POPULARES"),
     TabData(builder: (_) => RandomScreen(), label: "RANDOM"),
     TabData(
         builder: (_) => Center(child: Text("FAVORITOS")), label: "ENCONTRAR"),
+    TabData(builder: (_) => TrendingScreen(), label: "POPULARES"),
   ];
 }
 

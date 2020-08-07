@@ -29,16 +29,16 @@ class SharedPrefsFavoritesDataSource implements FavoritesDataSource {
 
       prefs.setBool(_getFavoriteKey(id), newValue);
 
-      final favoritesList = prefs.getStringList(_favoriteListKey);
+      final favoritesList = prefs.getStringList(_favoriteListKey) ?? <String>[];
 
       int index = favoritesList.indexOf(id);
 
       if (newValue) {
-        if (index == null) {
+        if (index == -1) {
           favoritesList.insert(0, id);
         }
       } else {
-        if (index != null) {
+        if (index != -1) {
           favoritesList.removeAt(index);
         }
       }

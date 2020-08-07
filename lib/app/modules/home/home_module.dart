@@ -8,8 +8,10 @@ import 'package:anime_dart/app/core/search/external/data_sources/anime_tv_search
 import 'package:anime_dart/app/core/search/infra/repositories/search_repository.dart';
 import 'package:anime_dart/app/core/watched/external/data_sources/shared_prefs_data_source.dart';
 import 'package:anime_dart/app/core/watched/infra/repositories/watched_repository.dart';
+import 'package:anime_dart/app/modules/home/screens/anime_details/anime_details_screen.dart';
 import 'package:anime_dart/app/modules/home/screens/home/home_screen.dart';
 import 'package:anime_dart/app/modules/home/screens/watch_episode/watch_episode_screen.dart';
+import 'package:anime_dart/app/modules/home/store/anime_details_store.dart';
 import 'package:anime_dart/app/modules/home/store/home_store.dart';
 import 'package:anime_dart/app/modules/home/store/watch_episode_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -40,6 +42,10 @@ class HomeModule extends ChildModule {
         Bind((i) =>
             HomeStore(repository: i.get<BrowsingRepositoryImplementation>())),
         Bind((i) => WatchEpisodeStore(
+            repository: i.get<DetailsRepositoryImplementation>())),
+        Bind((i) => AnimeDetailsStore(
+            favoritesRepository: i.get<FavoritesRepositoryImplementation>(),
+            watchedRepository: i.get<WatchedRepositoryImplementation>(),
             repository: i.get<DetailsRepositoryImplementation>()))
       ];
 
@@ -48,6 +54,8 @@ class HomeModule extends ChildModule {
         Router("/", child: (_, __) => HomeScreen()),
         Router("/watch-episode/:episodeId",
             child: (_, i) =>
-                WatchEpisodeScreen(episodeId: i.params["episodeId"]))
+                WatchEpisodeScreen(episodeId: i.params["episodeId"])),
+        Router("/anime-details/:animeId",
+            child: (_, i) => AnimeDetailsScreen(animeId: i.params["animeId"]))
       ];
 }

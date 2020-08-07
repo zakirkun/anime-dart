@@ -83,19 +83,7 @@ class _WatchEpisodeScreenState
           },
         )),
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            // if (animeDetailsController.details?.id ==
-            //     watchEpisodeController.animeId) {
-            //   return Navigator.pop(context);
-            // }
-            // Navigator.pushReplacement(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (_) => AnimeDetails(
-            //             args: AnimeDetailsArgs(
-            //                 animeId: watchEpisodeController.animeId,
-            //                 title: watchEpisodeController.label))));
-          },
+          onPressed: () {},
           label: Text('Ver lista de episódios'),
           icon: Icon(Icons.playlist_add_check),
         ));

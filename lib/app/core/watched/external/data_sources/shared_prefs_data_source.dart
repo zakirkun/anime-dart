@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefsWatchedDataSource implements WatchedDataSource {
   final _watchedListKey = "anime__dart__application__watched__episodes";
-  final _watchedPrefix = "anime__dart__application__favorites__prefix";
+  final _watchedPrefix = "anime__dart__application__watched__prefix";
 
   String _getWatchedKey(String id) {
     return _watchedPrefix + id;
@@ -14,7 +14,7 @@ class SharedPrefsWatchedDataSource implements WatchedDataSource {
     try {
       final prefs = await SharedPreferences.getInstance();
 
-      double stats = prefs.getBool(_getWatchedKey(id)) ?? 0;
+      double stats = prefs.getDouble(_getWatchedKey(id)) ?? 0;
 
       return stats;
     } catch (e) {
@@ -29,16 +29,16 @@ class SharedPrefsWatchedDataSource implements WatchedDataSource {
 
       prefs.setDouble(_getWatchedKey(id), newStats);
 
-      final watchedList = prefs.getStringList(_watchedListKey);
+      final watchedList = prefs.getStringList(_watchedListKey) ?? <String>[];
 
       int index = watchedList.indexOf(id);
 
-      if (newStats != 0) {
-        if (index == null) {
+      if (newStats > 0) {
+        if (index == -1) {
           watchedList.insert(0, id);
         }
       } else {
-        if (index != null) {
+        if (index != -1) {
           watchedList.removeAt(index);
         }
       }
