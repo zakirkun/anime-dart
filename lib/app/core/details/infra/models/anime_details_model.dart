@@ -23,7 +23,14 @@ class AnimeDetailsModel extends AnimeDetails {
     this.year,
     this.genres,
     this.isFavorite,
-  });
+  })  : assert(id != null),
+        assert(title != null),
+        assert(synopsis != null),
+        assert(imageUrl != null),
+        assert(imageHttpHeaders != null),
+        assert(year != null),
+        assert(genres != null),
+        assert(isFavorite != null);
 
   AnimeDetailsModel copyWith({
     String id,

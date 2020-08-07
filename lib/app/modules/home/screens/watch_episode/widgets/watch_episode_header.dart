@@ -1,12 +1,18 @@
-import 'package:anime_dart/app/core/details/domain/entities/episode_details.dart';
+import 'package:anime_dart/app/modules/home/store/watch_episode_store.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-class WatchEpisodeHeader extends StatelessWidget {
-  final EpisodeDetails episodeDetails;
+class WatchEpisodeHeader extends StatefulWidget {
+  WatchEpisodeHeader({Key key}) : super(key: key);
 
-  WatchEpisodeHeader({@required this.episodeDetails});
+  @override
+  _WatchEpisodeHeaderState createState() => _WatchEpisodeHeaderState();
+}
 
+class _WatchEpisodeHeaderState
+    extends ModularState<WatchEpisodeHeader, WatchEpisodeStore> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,8 +26,8 @@ class WatchEpisodeHeader extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                   child: CachedNetworkImage(
                       fit: BoxFit.cover,
-                      httpHeaders: episodeDetails.imageHttpHeaders,
-                      imageUrl: episodeDetails.imageUrl,
+                      httpHeaders: controller.episodeDetails.imageHttpHeaders,
+                      imageUrl: controller.episodeDetails.imageUrl,
                       placeholder: (context, url) => Container(
                           width: 140,
                           height: 200,
@@ -69,17 +75,71 @@ class WatchEpisodeHeader extends StatelessWidget {
                                           .secondary,
                                       style: BorderStyle.solid,
                                       width: 2))),
-                          margin: EdgeInsets.only(top: 10),
+                          margin: EdgeInsets.symmetric(vertical: 10),
                           padding: EdgeInsets.only(
                               top: 20, bottom: 20, left: 10, right: 10),
-                          child: Text(episodeDetails.label,
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  height: 1.5,
-                                  fontSize: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1
-                                      .fontSize)))
+                          child: Observer(builder: (_) {
+                            return Text(controller.episodeDetails.label,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    height: 1.5,
+                                    fontSize: Theme.of(context)
+                                        .textTheme
+                                        .subtitle1
+                                        .fontSize));
+                          })),
+                      Row(children: [
+                        Expanded(
+                            child: GestureDetector(
+                                onTap: () {
+                                  if (controller.loadingOtherEpisode) {
+                                    return;
+                                  }
+
+                                  controller.loadPrevEpisode(context);
+                                },
+                                child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 20),
+                                    margin: EdgeInsets.only(left: 10, right: 5),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondaryVariant),
+                                    alignment: Alignment.center,
+                                    child: Text("PREV",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSecondary))))),
+                        Expanded(
+                            child: GestureDetector(
+                                onTap: () {
+                                  if (controller.loadingOtherEpisode) {
+                                    return;
+                                  }
+
+                                  controller.loadNextEpisode(context);
+                                },
+                                child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 20),
+                                    margin: EdgeInsets.only(left: 5, right: 10),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary),
+                                    alignment: Alignment.center,
+                                    child: Text("NEXT",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSecondary)))))
+                      ])
                     ])),
               ]))
         ]));

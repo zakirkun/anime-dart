@@ -44,12 +44,12 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
       } catch (e) {}
 
       Map<String, dynamic> source = {
-        "id": data["id"].toString(),
+        "id": data["id"],
         "title": data["category_name"],
         "synopsis": data["category_name"],
         "imageUrl": _getCompleteImageUrl(data["category_image"]),
         "imageHttpHeaders": _httpHeaders,
-        "year": data["ano"].toString(),
+        "year": data["ano"],
         "genres": data["category_genres"].replaceAll(" ", "").split(","),
         "isFavorite": isFavorite
       };
@@ -70,7 +70,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
 
       final data = json.decode(response.body.substring(3))[0];
 
-      final ownerAnime = await getAnimeDetails(data["category_id"].toString());
+      final ownerAnime = await getAnimeDetails(data["category_id"]);
 
       double stats = 0;
 
@@ -80,8 +80,8 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
       } catch (e) {}
 
       Map<String, dynamic> source = {
-        "id": data["video_id"].toString(),
-        "animeId": data["category_id"].toString(),
+        "id": data["video_id"],
+        "animeId": data["category_id"],
         "label": data["title"],
         "url": data["location"],
         "urlHd": data["locationsd"],
@@ -90,7 +90,15 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
         "stats": stats
       };
 
-      final result = EpisodeDetailsModel.fromMap(source);
+      final result = EpisodeDetailsModel(
+          animeId: source["animeId"],
+          id: source["id"],
+          imageHttpHeaders: source["imageHttpHeaders"],
+          imageUrl: source["imageUrl"],
+          label: source["label"],
+          stats: source["stats"],
+          url: source["url"],
+          urlHd: source["urlHd"]);
 
       return result;
     } catch (e) {
@@ -190,14 +198,14 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
 
       final episodes = <EpisodeDetailsModel>[];
 
-      double stats = 0;
-
-      try {
-        final res = await watched.getEpisodeWatchedStats(id);
-        res.fold((l) => throw l, (r) => stats = r);
-      } catch (e) {}
-
       for (final episode in data) {
+        double stats = 0;
+
+        try {
+          final res = await watched.getEpisodeWatchedStats(episode["video_id"]);
+          res.fold((l) => throw l, (r) => stats = r);
+        } catch (e) {}
+
         Map<String, dynamic> source = {
           "id": episode["video_id"],
           "animeId": episode["category_id"],

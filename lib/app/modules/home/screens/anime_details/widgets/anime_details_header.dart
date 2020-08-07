@@ -33,7 +33,7 @@ class AnimeDetailsHeader extends StatelessWidget {
                 left: BorderSide(
                     color: Theme.of(context).colorScheme.secondary,
                     style: BorderStyle.solid,
-                    width: 2))),
+                    width: 5))),
         child: Column(children: [
           Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Container(
@@ -102,13 +102,13 @@ class AnimeDetailsHeader extends StatelessWidget {
                           ])),
                   Container(
                       padding: EdgeInsets.all(10),
-                      child: Wrap(children: genresWidgets))
+                      child: Wrap(children: genresWidgets)),
                 ]))
           ]),
           Container(
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-              child: Text(details.synopsis, style: TextStyle(height: 2)))
+              child: Text(details.synopsis, style: TextStyle(height: 2))),
         ]));
   }
 }

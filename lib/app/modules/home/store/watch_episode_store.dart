@@ -1,12 +1,15 @@
 import 'package:anime_dart/app/core/details/domain/entities/episode_details.dart';
 import 'package:anime_dart/app/core/details/domain/repository/details_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:asuka/asuka.dart' as asuka;
 part 'watch_episode_store.g.dart';
 
 class WatchEpisodeStore = _WatchEpisodeStoreBase with _$WatchEpisodeStore;
 
 abstract class _WatchEpisodeStoreBase with Store {
   final DetailsRepository repository;
+
   _WatchEpisodeStoreBase({this.repository});
 
   @observable
@@ -14,6 +17,9 @@ abstract class _WatchEpisodeStoreBase with Store {
 
   @observable
   bool loading = true;
+
+  @observable
+  bool loadingOtherEpisode = false;
 
   @observable
   String errorMsg;
@@ -38,9 +44,59 @@ abstract class _WatchEpisodeStoreBase with Store {
   }
 
   @action
+  Future<void> loadNextEpisode(context) async {
+    loadingOtherEpisode = true;
+
+    final result = await repository.getNextEpisodeDetails(episodeDetails.id);
+
+    runInAction(() {
+      result.fold((l) {
+        asuka.showSnackBar(SnackBar(
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            duration: Duration(milliseconds: 4000),
+            content: Container(
+              padding: EdgeInsets.all(15),
+              child: Text("Este foi o último episódio! :(",
+                  style: TextStyle(fontFamily: "Raleway"),
+                  textAlign: TextAlign.center),
+            )));
+      }, (r) {
+        episodeDetails = r;
+      });
+      loadingOtherEpisode = false;
+    });
+  }
+
+  @action
+  Future<void> loadPrevEpisode(context) async {
+    loadingOtherEpisode = true;
+
+    final result =
+        await repository.getPreviousEpisodeDetails(episodeDetails.id);
+
+    runInAction(() {
+      result.fold((l) {
+        asuka.showSnackBar(SnackBar(
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            duration: Duration(milliseconds: 4000),
+            content: Container(
+              padding: EdgeInsets.all(15),
+              child: Text("Mas este é o primeiro episódio! =D",
+                  style: TextStyle(fontFamily: "Raleway"),
+                  textAlign: TextAlign.center),
+            )));
+      }, (r) {
+        episodeDetails = r;
+      });
+
+      loadingOtherEpisode = false;
+    });
+  }
+
+  @action
   void dispose() {
+    episodeDetails = null;
     loading = true;
     errorMsg = null;
-    episodeDetails = null;
   }
 }

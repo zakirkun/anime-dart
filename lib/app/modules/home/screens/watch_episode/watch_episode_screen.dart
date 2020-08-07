@@ -68,15 +68,8 @@ class _WatchEpisodeScreenState
                 child: IntrinsicHeight(
                   child: Container(
                       margin: EdgeInsets.only(bottom: 60),
-                      child: Column(children: [
-                        WatchEpisodeHeader(
-                          episodeDetails: controller.episodeDetails,
-                        ),
-                        WatchButtons(
-                          videoUrlHd: controller.episodeDetails.urlHd,
-                          videoUrl: controller.episodeDetails.url,
-                        )
-                      ])),
+                      child: Column(
+                          children: [WatchEpisodeHeader(), WatchButtons()])),
                 ),
               ),
             );

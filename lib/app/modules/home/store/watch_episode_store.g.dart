@@ -40,6 +40,22 @@ mixin _$WatchEpisodeStore on _WatchEpisodeStoreBase, Store {
     });
   }
 
+  final _$loadingOtherEpisodeAtom =
+      Atom(name: '_WatchEpisodeStoreBase.loadingOtherEpisode');
+
+  @override
+  bool get loadingOtherEpisode {
+    _$loadingOtherEpisodeAtom.reportRead();
+    return super.loadingOtherEpisode;
+  }
+
+  @override
+  set loadingOtherEpisode(bool value) {
+    _$loadingOtherEpisodeAtom.reportWrite(value, super.loadingOtherEpisode, () {
+      super.loadingOtherEpisode = value;
+    });
+  }
+
   final _$errorMsgAtom = Atom(name: '_WatchEpisodeStoreBase.errorMsg');
 
   @override
@@ -63,6 +79,24 @@ mixin _$WatchEpisodeStore on _WatchEpisodeStoreBase, Store {
     return _$loadEpisodeAsyncAction.run(() => super.loadEpisode(episodeId));
   }
 
+  final _$loadNextEpisodeAsyncAction =
+      AsyncAction('_WatchEpisodeStoreBase.loadNextEpisode');
+
+  @override
+  Future<void> loadNextEpisode(dynamic context) {
+    return _$loadNextEpisodeAsyncAction
+        .run(() => super.loadNextEpisode(context));
+  }
+
+  final _$loadPrevEpisodeAsyncAction =
+      AsyncAction('_WatchEpisodeStoreBase.loadPrevEpisode');
+
+  @override
+  Future<void> loadPrevEpisode(dynamic context) {
+    return _$loadPrevEpisodeAsyncAction
+        .run(() => super.loadPrevEpisode(context));
+  }
+
   final _$_WatchEpisodeStoreBaseActionController =
       ActionController(name: '_WatchEpisodeStoreBase');
 
@@ -82,6 +116,7 @@ mixin _$WatchEpisodeStore on _WatchEpisodeStoreBase, Store {
     return '''
 episodeDetails: ${episodeDetails},
 loading: ${loading},
+loadingOtherEpisode: ${loadingOtherEpisode},
 errorMsg: ${errorMsg}
     ''';
   }
