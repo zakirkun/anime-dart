@@ -87,12 +87,13 @@ abstract class _PlayerStoreBase with Store {
 
     progress = getProgress(seconds);
 
-    centralStore.setEpisodeStats(episodeIdPlaying, progress);
+    centralStore?.setEpisodeStats(episodeIdPlaying, progress);
 
     SystemChrome.setEnabledSystemUIOverlays(
         [SystemUiOverlay.bottom, SystemUiOverlay.top]);
 
-    await videoPlayerController.dispose();
+    await videoPlayerController?.dispose();
+    chewieController?.dispose();
 
     videoPlayerController = null;
     getProgress = null;
