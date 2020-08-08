@@ -1,5 +1,6 @@
 import 'package:anime_dart/app/core/browsing/domain/entities/episode.dart';
 import 'package:anime_dart/app/core/browsing/domain/repositories/browsing_repository.dart';
+import 'package:anime_dart/app/core/details/domain/entities/episode_details.dart';
 import 'package:anime_dart/app/core/details/domain/repository/details_repository.dart';
 import 'package:anime_dart/app/core/favorites/domain/repositories/favorite_repository.dart';
 import 'package:anime_dart/app/core/search/domain/entities/anime.dart';
@@ -173,23 +174,24 @@ abstract class _HomeStoreBase with Store {
   }
 
   @action
-  void dispose() {
-    loadingLatests = true;
-    latestsError = null;
-    latests = null;
+  void renderUpdatedEpisode(String id, double newStats) {
+    if (latests != null && latests.length > 0) {
+      int index = latests.indexWhere((element) => element.id == id);
 
-    loadingTrending = true;
-    trendingError = null;
-    trending = null;
+      if (index != -1) {
+        final aux = latests[index];
 
-    loadingRandom = true;
-    randomError = null;
-    random = null;
-    loadingMoreRandom = false;
-    randomLoadingMoreError = null;
-
-    loadingFavorites = true;
-    favoritesError = null;
-    favorites = null;
+        latests[index] = Episode(
+            animeId: aux.animeId,
+            id: aux.id,
+            imageHttpHeaders: aux.imageHttpHeaders,
+            imageUrl: aux.imageUrl,
+            label: aux.label,
+            stats: newStats);
+      }
+    }
   }
+
+  @action
+  void dispose() {}
 }

@@ -1,6 +1,4 @@
-import 'package:anime_dart/app/core/browsing/domain/entities/episode.dart';
 import 'package:anime_dart/app/screens/home/screens/latests/widgets/list.dart';
-import 'package:anime_dart/app/screens/watch_episode/watch_episode_screen.dart';
 import 'package:anime_dart/app/setup.dart';
 import 'package:anime_dart/app/store/central_store.dart';
 import 'package:anime_dart/app/store/home_store.dart';
@@ -44,20 +42,7 @@ class _LatestsScreenState extends State<LatestsScreen> {
           ));
         }
 
-        return LatestsList(
-            linkBuilder: (Episode episode) {
-              void onTap() {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => WatchEpisodeScreen(id: episode.id)));
-              }
-
-              return onTap;
-            },
-            episodes: homeStore.latests,
-            cardLabel: "LANÇAMENTOS",
-            onRefresh: homeStore.loadLatests);
+        return LatestsList();
       }),
     );
   }

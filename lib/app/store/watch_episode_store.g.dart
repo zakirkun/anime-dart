@@ -142,11 +142,11 @@ mixin _$WatchEpisodeStore on _WatchEpisodeStoreBase, Store {
   }
 
   @override
-  void renderUpdatedEpisode(EpisodeDetails updatedEpisode) {
+  void renderUpdatedEpisode(String id, double newStats) {
     final _$actionInfo = _$_WatchEpisodeStoreBaseActionController.startAction(
         name: '_WatchEpisodeStoreBase.renderUpdatedEpisode');
     try {
-      return super.renderUpdatedEpisode(updatedEpisode);
+      return super.renderUpdatedEpisode(id, newStats);
     } finally {
       _$_WatchEpisodeStoreBaseActionController.endAction(_$actionInfo);
     }

@@ -97,7 +97,17 @@ abstract class _WatchEpisodeStoreBase with Store {
   }
 
   @action
-  void renderUpdatedEpisode(EpisodeDetails updatedEpisode) {
-    episodeDetails = updatedEpisode;
+  void renderUpdatedEpisode(String id, double newStats) {
+    if (episodeDetails.id == id) {
+      episodeDetails = EpisodeDetails(
+          animeId: episodeDetails.animeId,
+          id: episodeDetails.id,
+          imageHttpHeaders: episodeDetails.imageHttpHeaders,
+          imageUrl: episodeDetails.imageUrl,
+          label: episodeDetails.label,
+          stats: newStats,
+          url: episodeDetails.url,
+          urlHd: episodeDetails.urlHd);
+    }
   }
 }

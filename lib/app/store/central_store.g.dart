@@ -122,11 +122,11 @@ mixin _$CentralStore on _CentralStoreBase, Store {
   }
 
   @override
-  void dispatchNewEpisode(EpisodeDetails updatedEpisode) {
+  void dispatchNewEpisode(String episodeId, double newStats) {
     final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
         name: '_CentralStoreBase.dispatchNewEpisode');
     try {
-      return super.dispatchNewEpisode(updatedEpisode);
+      return super.dispatchNewEpisode(episodeId, newStats);
     } finally {
       _$_CentralStoreBaseActionController.endAction(_$actionInfo);
     }

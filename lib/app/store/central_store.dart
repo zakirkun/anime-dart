@@ -82,32 +82,19 @@ abstract class _CentralStoreBase with Store {
   Future<void> setEpisodeStats(String episodeId, double newStats) async {
     await watchedRepository.setEpisodeWatchedStats(episodeId, newStats);
 
-    final result = await detailsRepository.getEpisodeDetails(episodeId);
-
-    result.fold((l) => {}, (r) {
-      dispatchNewEpisode(r);
-    });
+    dispatchNewEpisode(episodeId, newStats);
   }
 
   @action
-  void dispatchNewEpisode(EpisodeDetails updatedEpisode) {
+  void dispatchNewEpisode(String episodeId, double newStats) {
     animeDetailsListeners.forEach((_, value) {
-      value.renderUpdatedEpisode(updatedEpisode);
+      value.renderUpdatedEpisode(episodeId, newStats);
     });
 
     watchEpisodeListeners.forEach((_, value) {
-      value.renderUpdatedEpisode(updatedEpisode);
+      value.renderUpdatedEpisode(episodeId, newStats);
     });
+
+    homeStore.renderUpdatedEpisode(episodeId, newStats);
   }
-
-  // @action
-  // void setPlayerEpisode(String targetEpisodeId, String url) {
-  //   if (targetEpisodeId == null || url == null) {
-  //     throw Exception(
-  //         "Invalid. the Episode ID and URL must be String non-null");
-  //   }
-
-  //   episodeIdPlaying = targetEpisodeId;
-  //   episodeUrlPlaying = url;
-  // }
 }

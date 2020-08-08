@@ -156,20 +156,30 @@ abstract class _AnimeDetailsStoreBase with Store {
   }
 
   @action
-  void renderUpdatedEpisode(EpisodeDetails updatedEpisode) {
+  void renderUpdatedEpisode(String id, newStats) {
     if (episodesOfAnimeDetails == null) {
       throw Exception(
           "The episodesOfAnimeDetails must be a valid ObservableList");
     }
 
-    int index = episodesOfAnimeDetails
-        .indexWhere((element) => element.id == updatedEpisode.id);
+    int index =
+        episodesOfAnimeDetails.indexWhere((element) => element.id == id);
 
     if (index == -1) {
       throw Exception(
           "you really expected -1? its really ok? not badd? really?");
     }
 
-    episodesOfAnimeDetails[index] = updatedEpisode;
+    final aux = episodesOfAnimeDetails[index];
+
+    episodesOfAnimeDetails[index] = EpisodeDetails(
+        animeId: aux.animeId,
+        id: aux.id,
+        imageHttpHeaders: aux.imageHttpHeaders,
+        imageUrl: aux.imageUrl,
+        label: aux.label,
+        stats: newStats,
+        url: aux.url,
+        urlHd: aux.urlHd);
   }
 }

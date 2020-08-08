@@ -4,7 +4,7 @@ class AppTheme {
   static ThemeData data(BuildContext context) {
     return ThemeData(
       secondaryHeaderColor: Color.fromRGBO(127, 114, 193, 1).withOpacity(1),
-      canvasColor: Colors.grey[800].withOpacity(0.1),
+      canvasColor: Colors.grey[800].withOpacity(0.4),
       brightness: Brightness.light,
       fontFamily: "Raleway",
       accentColor: Color.fromRGBO(150, 150, 230, 1),

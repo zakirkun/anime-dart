@@ -6,8 +6,10 @@ class LatestsTile extends StatelessWidget {
   final Episode episode;
   final String cardLabel;
   final void Function() onTap;
+  final void Function() onTapBookMark;
 
-  LatestsTile({Key key, this.episode, this.cardLabel, this.onTap})
+  LatestsTile(
+      {Key key, this.episode, this.cardLabel, this.onTap, this.onTapBookMark})
       : super(key: key);
 
   @override
@@ -87,14 +89,20 @@ class LatestsTile extends StatelessWidget {
                     ]))
               ])),
           Positioned(
-              child: Container(
-                  child: Icon(Icons.bookmark,
-                      color: Color.lerp(
-                          Theme.of(context).canvasColor,
-                          Theme.of(context).secondaryHeaderColor,
-                          episode.stats / 100))),
-              right: 10,
-              top: 5)
+              child: GestureDetector(
+                  onTap: onTapBookMark,
+                  child: Container(
+                      height: 85,
+                      width: 85,
+                      padding: EdgeInsets.only(top: 10, right: 10),
+                      alignment: Alignment.topRight,
+                      child: Icon(Icons.bookmark,
+                          color: Color.lerp(
+                              Theme.of(context).canvasColor,
+                              Theme.of(context).secondaryHeaderColor,
+                              episode.stats / 100)))),
+              right: 0,
+              top: 0)
         ]));
   }
 }

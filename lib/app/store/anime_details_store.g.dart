@@ -246,11 +246,11 @@ mixin _$AnimeDetailsStore on _AnimeDetailsStoreBase, Store {
   }
 
   @override
-  void renderUpdatedEpisode(EpisodeDetails updatedEpisode) {
+  void renderUpdatedEpisode(String id, dynamic newStats) {
     final _$actionInfo = _$_AnimeDetailsStoreBaseActionController.startAction(
         name: '_AnimeDetailsStoreBase.renderUpdatedEpisode');
     try {
-      return super.renderUpdatedEpisode(updatedEpisode);
+      return super.renderUpdatedEpisode(id, newStats);
     } finally {
       _$_AnimeDetailsStoreBaseActionController.endAction(_$actionInfo);
     }
