@@ -8,7 +8,7 @@ import 'package:anime_dart/app/core/search/infra/data_sources/search_data_source
 import 'package:anime_dart/app/core/search/infra/models/anime_model.dart';
 
 class AnimeTvSearchDataSource implements SearchDataSource {
-  final _baseUrl = "https://appanimeplus.tk/api-achance.php";
+  final _baseUrl = "https://appanimeplus.tk/api-animesbr-10.php";
   final _imageBaseUrl = "https://cdn.appanimeplus.tk/img/";
   final _httpHeaders = {
     "User-Agent":
@@ -30,7 +30,7 @@ class AnimeTvSearchDataSource implements SearchDataSource {
       final response = await http.get(_baseUrl + "?search=$searchText",
           headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3));
+      final data = json.decode(response.body);
 
       final results = <AnimeModel>[];
 
@@ -66,7 +66,7 @@ class AnimeTvSearchDataSource implements SearchDataSource {
       final response = await http.get(_baseUrl + "?letra=$searchLetter",
           headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3));
+      final data = json.decode(response.body);
 
       final results = <AnimeModel>[];
 

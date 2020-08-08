@@ -9,7 +9,7 @@ import 'package:anime_dart/app/core/favorites/domain/repositories/favorite_repos
 import 'package:anime_dart/app/core/watched/domain/repository/watched_repository.dart';
 
 class AnimeTvDetailsDataSource implements DetailsDataSource {
-  final _baseUrl = "https://appanimeplus.tk/api-achance.php";
+  final _baseUrl = "https://appanimeplus.tk/api-animesbr-10.php";
   final _imageBaseUrl = "https://cdn.appanimeplus.tk/img/";
   final _httpHeaders = {
     "User-Agent":
@@ -33,7 +33,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
       final response =
           await http.get(_baseUrl + "?info=$id", headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3))[0];
+      final data = json.decode(response.body)[0];
 
       bool isFavorite = false;
 
@@ -68,7 +68,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
       final response =
           await http.get(_baseUrl + "?episodios=$id", headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3))[0];
+      final data = json.decode(response.body)[0];
 
       final ownerAnime = await getAnimeDetails(data["category_id"]);
 
@@ -118,7 +118,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
               "?episodios=${currentEpisode.id}&catid=${ownerAnime.id}&next",
           headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3))[0];
+      final data = json.decode(response.body)[0];
 
       double stats = 0;
 
@@ -158,7 +158,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
               "?episodios=${currentEpisode.id}&catid=${ownerAnime.id}&previous",
           headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3))[0];
+      final data = json.decode(response.body)[0];
 
       double stats = 0;
 
@@ -194,7 +194,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
       final response = await http.get(_baseUrl + "?cat_id=${targetAnime.id}",
           headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3));
+      final data = json.decode(response.body);
 
       final episodes = <EpisodeDetailsModel>[];
 

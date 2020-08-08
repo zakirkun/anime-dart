@@ -12,7 +12,7 @@ import 'package:anime_dart/app/core/favorites/domain/repositories/favorite_repos
 import 'package:anime_dart/app/core/search/infra/models/anime_model.dart';
 
 class AnimeTvBrowsingDataSource implements BrowsingDataSource {
-  final _baseUrl = "https://appanimeplus.tk/api-achance.php";
+  final _baseUrl = "https://appanimeplus.tk/api-animesbr-10.php";
   final _imageBaseUrl = "https://cdn.appanimeplus.tk/img/";
   final _httpHeaders = {
     "User-Agent":
@@ -37,7 +37,7 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
       final response =
           await http.get(_baseUrl + "?episodios=$id", headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3))[0];
+      final data = json.decode(response.body)[0];
 
       final anime = await _getAnimeFromId(data["category_id"]);
 
@@ -78,7 +78,7 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
       final response =
           await http.get(_baseUrl + "?info=$id", headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3))[0];
+      final data = json.decode(response.body)[0];
 
       bool isFavorite = false;
 
@@ -147,7 +147,7 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
       final response =
           await http.get(_baseUrl + "?latest", headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3));
+      final data = json.decode(response.body);
 
       final results = <EpisodeModel>[];
 
@@ -188,7 +188,7 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
       final response =
           await http.get(_baseUrl + "?populares", headers: _httpHeaders);
 
-      final data = json.decode(response.body.substring(3));
+      final data = json.decode(response.body);
 
       final results = <AnimeModel>[];
 
