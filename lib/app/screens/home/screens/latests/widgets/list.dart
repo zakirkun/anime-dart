@@ -17,7 +17,7 @@ class LatestsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-        color: Theme.of(context).textTheme.bodyText1.color,
+        color: Theme.of(context).colorScheme.onSecondary,
         backgroundColor: Theme.of(context).colorScheme.secondary,
         onRefresh: this.onRefresh,
         child: ListView.separated(

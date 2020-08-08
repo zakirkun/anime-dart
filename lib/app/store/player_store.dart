@@ -55,6 +55,13 @@ abstract class _PlayerStoreBase with Store {
 
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
 
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
+
     videoPlayerController = VideoPlayerController.network(episodeUrlPlaying);
 
     videoPlayerController.addListener(() {
@@ -91,6 +98,13 @@ abstract class _PlayerStoreBase with Store {
 
     SystemChrome.setEnabledSystemUIOverlays(
         [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
 
     await videoPlayerController?.dispose();
     chewieController?.dispose();

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static ThemeData data(BuildContext context) {
     return ThemeData(
+      secondaryHeaderColor: Color.fromRGBO(127, 114, 193, 1).withOpacity(1),
+      canvasColor: Colors.grey[800].withOpacity(0.1),
       brightness: Brightness.light,
       fontFamily: "Raleway",
       accentColor: Color.fromRGBO(150, 150, 230, 1),
@@ -24,6 +26,8 @@ class AppTheme {
 class AppDarkTheme {
   static ThemeData data(BuildContext context) {
     return ThemeData(
+      secondaryHeaderColor: Color.fromRGBO(87, 74, 153, 1).withOpacity(0.8),
+      canvasColor: Colors.grey[800].withOpacity(0.3),
       brightness: Brightness.dark,
       fontFamily: "Raleway",
       accentColor: Color.fromRGBO(150, 150, 230, 1),
