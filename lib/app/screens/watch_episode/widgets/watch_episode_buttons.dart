@@ -1,4 +1,5 @@
 import 'package:anime_dart/app/constants/utils.dart';
+import 'package:anime_dart/app/screens/player/player_screen.dart';
 import 'package:anime_dart/app/screens/watch_episode/widgets/ripple_button.dart';
 import 'package:anime_dart/app/setup.dart';
 import 'package:anime_dart/app/store/central_store.dart';
@@ -11,7 +12,8 @@ class WatchButtons extends StatefulWidget {
   WatchButtons({Key key, this.storeListenerKey}) : super(key: key);
 
   @override
-  _WatchButtonsState createState() => _WatchButtonsState();
+  _WatchButtonsState createState() =>
+      _WatchButtonsState(storeListenerKey: storeListenerKey);
 }
 
 class _WatchButtonsState extends State<WatchButtons> {
@@ -20,6 +22,9 @@ class _WatchButtonsState extends State<WatchButtons> {
   WatchEpisodeStore localStore;
 
   _WatchButtonsState({this.storeListenerKey}) {
+    if (storeListenerKey == null) {
+      throw Exception("Store key must be != null");
+    }
     localStore = centralStore.getWatchEpisodeListener(storeListenerKey);
   }
 
@@ -37,7 +42,7 @@ class _WatchButtonsState extends State<WatchButtons> {
         return Column(children: [
           Container(
             margin: EdgeInsets.only(top: 20),
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).cardColor,
             padding: EdgeInsets.all(20),
             child: Column(children: [
               Container(
@@ -62,12 +67,12 @@ class _WatchButtonsState extends State<WatchButtons> {
                           return;
                         }
 
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (_) => PlayerScreen(
-                        //             id: localStore.episodeDetails.id,
-                        //             url: localStore.episodeDetails.urlHd)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => PlayerScreen(
+                                    id: localStore.episodeDetails.id,
+                                    url: localStore.episodeDetails.urlHd)));
                       },
                       label: "Assistir em HD")),
               RippleButton(
@@ -77,19 +82,19 @@ class _WatchButtonsState extends State<WatchButtons> {
                       return;
                     }
 
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (_) => PlayerScreen(
-                    //             id: localStore.episodeDetails.id,
-                    //             url: localStore.episodeDetails.url)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => PlayerScreen(
+                                id: localStore.episodeDetails.id,
+                                url: localStore.episodeDetails.url)));
                   },
                   label: "Assistir"),
             ]),
           ),
           Container(
             margin: EdgeInsets.symmetric(vertical: 20),
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).cardColor,
             padding: EdgeInsets.all(20),
             child: Column(children: [
               Container(

@@ -1,6 +1,7 @@
 import 'package:anime_dart/app/constants/utils.dart';
 import 'package:anime_dart/app/setup.dart';
 import 'package:anime_dart/app/store/central_store.dart';
+import 'package:chewie/chewie.dart';
 import 'package:flutter/services.dart';
 import 'package:mobx/mobx.dart';
 import 'package:video_player/video_player.dart';
@@ -29,6 +30,21 @@ abstract class _PlayerStoreBase with Store {
   @observable
   bool playerOk;
 
+  @observable
+  ChewieController chewieController;
+
+  @observable
+  String episodeUrlPlaying;
+
+  @observable
+  String episodeIdPlaying;
+
+  @action
+  void setEpisodeDetails(String id, String url) {
+    episodeUrlPlaying = url;
+    episodeIdPlaying = id;
+  }
+
   @action
   Future<void> initializePlayerController() async {
     if (playerOk != null) {
@@ -37,8 +53,9 @@ abstract class _PlayerStoreBase with Store {
 
     playerOk = false;
 
-    videoPlayerController =
-        VideoPlayerController.network(centralStore.episodeUrlPlaying);
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+
+    videoPlayerController = VideoPlayerController.network(episodeUrlPlaying);
 
     videoPlayerController.addListener(() {
       runInAction(() {
@@ -46,10 +63,15 @@ abstract class _PlayerStoreBase with Store {
       });
     });
 
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-
     await videoPlayerController.initialize();
     await videoPlayerController.play();
+
+    chewieController = ChewieController(
+      videoPlayerController: videoPlayerController,
+      aspectRatio: videoPlayerController.value.aspectRatio,
+      autoPlay: true,
+      looping: true,
+    );
 
     runInAction(() {
       getProgress = Utils.interpolate(
@@ -60,12 +82,12 @@ abstract class _PlayerStoreBase with Store {
     });
   }
 
-  Future<void> destroyPlayer() async {
+  Future<void> exitPlayer() async {
     playerOk = false;
 
     progress = getProgress(seconds);
 
-    centralStore.setEpisodeStats(centralStore.episodeIdPlaying, progress);
+    centralStore.setEpisodeStats(episodeIdPlaying, progress);
 
     SystemChrome.setEnabledSystemUIOverlays(
         [SystemUiOverlay.bottom, SystemUiOverlay.top]);

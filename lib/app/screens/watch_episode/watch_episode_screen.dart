@@ -21,13 +21,13 @@ class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
   String storeListenerKey;
   final String id;
 
-  _WatchEpisodeScreenState({this.id});
+  _WatchEpisodeScreenState({@required this.id});
 
   @override
   initState() {
     super.initState();
 
-    centralStore.addWatchEpisodeListener(localStore);
+    storeListenerKey = centralStore.addWatchEpisodeListener(localStore);
     localStore.setWatchEpisodeId(id);
 
     localStore.loadEpisode();
@@ -52,16 +52,7 @@ class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
             return Text("Ops, algo deu errado");
           }
 
-          return Container(
-            alignment: Alignment.center,
-            padding: EdgeInsets.all(30),
-            child: Text(
-                "Ocorreu um erro ao carregar os dados deste episódio, tente novamente!",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  height: 1.5,
-                )),
-          );
+          return Text(localStore.episodeDetails.label);
         }))),
         body: Container(child: Observer(
           builder: (_) {
@@ -70,7 +61,16 @@ class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
             }
 
             if (localStore.errorMsg != null) {
-              return Center(child: Text(localStore.errorMsg));
+              return Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(30),
+                child: Text(
+                    "Ocorreu um erro ao carregar os dados deste episódio, tente novamente!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      height: 1.5,
+                    )),
+              );
             }
 
             return SingleChildScrollView(
@@ -85,7 +85,9 @@ class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
                         WatchEpisodeHeader(
                           storeListenerKey: storeListenerKey,
                         ),
-                        WatchButtons()
+                        WatchButtons(
+                          storeListenerKey: storeListenerKey,
+                        )
                       ])),
                 ),
               ),

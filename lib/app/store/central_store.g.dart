@@ -9,38 +9,6 @@ part of 'central_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$CentralStore on _CentralStoreBase, Store {
-  final _$episodeIdPlayingAtom =
-      Atom(name: '_CentralStoreBase.episodeIdPlaying');
-
-  @override
-  String get episodeIdPlaying {
-    _$episodeIdPlayingAtom.reportRead();
-    return super.episodeIdPlaying;
-  }
-
-  @override
-  set episodeIdPlaying(String value) {
-    _$episodeIdPlayingAtom.reportWrite(value, super.episodeIdPlaying, () {
-      super.episodeIdPlaying = value;
-    });
-  }
-
-  final _$episodeUrlPlayingAtom =
-      Atom(name: '_CentralStoreBase.episodeUrlPlaying');
-
-  @override
-  String get episodeUrlPlaying {
-    _$episodeUrlPlayingAtom.reportRead();
-    return super.episodeUrlPlaying;
-  }
-
-  @override
-  set episodeUrlPlaying(String value) {
-    _$episodeUrlPlayingAtom.reportWrite(value, super.episodeUrlPlaying, () {
-      super.episodeUrlPlaying = value;
-    });
-  }
-
   final _$animeDetailsListenersAtom =
       Atom(name: '_CentralStoreBase.animeDetailsListeners');
 
@@ -167,8 +135,6 @@ mixin _$CentralStore on _CentralStoreBase, Store {
   @override
   String toString() {
     return '''
-episodeIdPlaying: ${episodeIdPlaying},
-episodeUrlPlaying: ${episodeUrlPlaying},
 animeDetailsListeners: ${animeDetailsListeners},
 watchEpisodeListeners: ${watchEpisodeListeners}
     ''';

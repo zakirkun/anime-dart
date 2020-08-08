@@ -20,6 +20,7 @@ import 'package:anime_dart/app/core/watched/infra/data_sources/watched_data_sour
 import 'package:anime_dart/app/core/watched/infra/repositories/watched_repository.dart';
 import 'package:anime_dart/app/store/central_store.dart';
 import 'package:anime_dart/app/store/home_store.dart';
+import 'package:anime_dart/app/store/player_store.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -82,4 +83,6 @@ void setup() {
       detailsRepository: getIt<DetailsRepository>(),
       homeStore: getIt<HomeStore>(),
       watchedRepository: getIt<WatchedRepository>()));
+
+  getIt.registerSingleton<PlayerStore>(PlayerStore());
 }

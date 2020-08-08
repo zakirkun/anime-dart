@@ -21,13 +21,16 @@ class _WatchEpisodeHeaderState extends State<WatchEpisodeHeader> {
   WatchEpisodeStore localStore;
 
   _WatchEpisodeHeaderState({this.storeListenerKey}) {
+    if (storeListenerKey == null) {
+      throw Exception("The store key must be a valid String");
+    }
     localStore = centralStore.getWatchEpisodeListener(storeListenerKey);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).cardColor,
         padding: EdgeInsets.only(top: 20, bottom: 20, left: 20),
         child: Column(children: [
           Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -67,7 +70,7 @@ class _WatchEpisodeHeaderState extends State<WatchEpisodeHeader> {
                           margin: EdgeInsets.only(top: 10, left: 10, right: 10),
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).colorScheme.secondary,
                               borderRadius: BorderRadius.circular(5)),
                           child: Text("EPISÓDIO",
                               style:
@@ -91,7 +94,9 @@ class _WatchEpisodeHeaderState extends State<WatchEpisodeHeader> {
                             padding: EdgeInsets.only(
                                 top: 20, bottom: 20, left: 10, right: 10),
                             child: Observer(builder: (_) {
-                              return Text(localStore.episodeDetails.label,
+                              return Text(
+                                  localStore.episodeDetails.label +
+                                      " - ${localStore.episodeDetails.stats.toInt()}%",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       height: 1.5,

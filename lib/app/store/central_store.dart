@@ -23,12 +23,6 @@ abstract class _CentralStoreBase with Store {
   });
 
   @observable
-  String episodeIdPlaying;
-
-  @observable
-  String episodeUrlPlaying;
-
-  @observable
   var animeDetailsListeners = ObservableMap<String, AnimeDetailsStore>();
 
   @observable
@@ -61,7 +55,7 @@ abstract class _CentralStoreBase with Store {
   String addWatchEpisodeListener(WatchEpisodeStore listener) {
     var newKey = 0;
 
-    while (watchEpisodeListeners.containsKey(newKey)) {
+    while (watchEpisodeListeners.containsKey(newKey.toString())) {
       newKey++;
     }
 
@@ -72,6 +66,10 @@ abstract class _CentralStoreBase with Store {
 
   @action
   WatchEpisodeStore getWatchEpisodeListener(String key) {
+    if (key == null) {
+      throw Exception("Something is wrong, check this...");
+    }
+
     return watchEpisodeListeners[key];
   }
 
