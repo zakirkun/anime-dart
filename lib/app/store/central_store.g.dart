@@ -1,0 +1,176 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'central_store.dart';
+
+// **************************************************************************
+// StoreGenerator
+// **************************************************************************
+
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+
+mixin _$CentralStore on _CentralStoreBase, Store {
+  final _$episodeIdPlayingAtom =
+      Atom(name: '_CentralStoreBase.episodeIdPlaying');
+
+  @override
+  String get episodeIdPlaying {
+    _$episodeIdPlayingAtom.reportRead();
+    return super.episodeIdPlaying;
+  }
+
+  @override
+  set episodeIdPlaying(String value) {
+    _$episodeIdPlayingAtom.reportWrite(value, super.episodeIdPlaying, () {
+      super.episodeIdPlaying = value;
+    });
+  }
+
+  final _$episodeUrlPlayingAtom =
+      Atom(name: '_CentralStoreBase.episodeUrlPlaying');
+
+  @override
+  String get episodeUrlPlaying {
+    _$episodeUrlPlayingAtom.reportRead();
+    return super.episodeUrlPlaying;
+  }
+
+  @override
+  set episodeUrlPlaying(String value) {
+    _$episodeUrlPlayingAtom.reportWrite(value, super.episodeUrlPlaying, () {
+      super.episodeUrlPlaying = value;
+    });
+  }
+
+  final _$animeDetailsListenersAtom =
+      Atom(name: '_CentralStoreBase.animeDetailsListeners');
+
+  @override
+  ObservableMap<String, AnimeDetailsStore> get animeDetailsListeners {
+    _$animeDetailsListenersAtom.reportRead();
+    return super.animeDetailsListeners;
+  }
+
+  @override
+  set animeDetailsListeners(ObservableMap<String, AnimeDetailsStore> value) {
+    _$animeDetailsListenersAtom.reportWrite(value, super.animeDetailsListeners,
+        () {
+      super.animeDetailsListeners = value;
+    });
+  }
+
+  final _$watchEpisodeListenersAtom =
+      Atom(name: '_CentralStoreBase.watchEpisodeListeners');
+
+  @override
+  ObservableMap<String, WatchEpisodeStore> get watchEpisodeListeners {
+    _$watchEpisodeListenersAtom.reportRead();
+    return super.watchEpisodeListeners;
+  }
+
+  @override
+  set watchEpisodeListeners(ObservableMap<String, WatchEpisodeStore> value) {
+    _$watchEpisodeListenersAtom.reportWrite(value, super.watchEpisodeListeners,
+        () {
+      super.watchEpisodeListeners = value;
+    });
+  }
+
+  final _$setEpisodeStatsAsyncAction =
+      AsyncAction('_CentralStoreBase.setEpisodeStats');
+
+  @override
+  Future<void> setEpisodeStats(String episodeId, double newStats) {
+    return _$setEpisodeStatsAsyncAction
+        .run(() => super.setEpisodeStats(episodeId, newStats));
+  }
+
+  final _$_CentralStoreBaseActionController =
+      ActionController(name: '_CentralStoreBase');
+
+  @override
+  String addAnimeDetailsListener(AnimeDetailsStore listener) {
+    final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
+        name: '_CentralStoreBase.addAnimeDetailsListener');
+    try {
+      return super.addAnimeDetailsListener(listener);
+    } finally {
+      _$_CentralStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  AnimeDetailsStore getAnimeDetailsListener(String key) {
+    final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
+        name: '_CentralStoreBase.getAnimeDetailsListener');
+    try {
+      return super.getAnimeDetailsListener(key);
+    } finally {
+      _$_CentralStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void removeAnimeDetailsListener(String key) {
+    final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
+        name: '_CentralStoreBase.removeAnimeDetailsListener');
+    try {
+      return super.removeAnimeDetailsListener(key);
+    } finally {
+      _$_CentralStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  String addWatchEpisodeListener(WatchEpisodeStore listener) {
+    final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
+        name: '_CentralStoreBase.addWatchEpisodeListener');
+    try {
+      return super.addWatchEpisodeListener(listener);
+    } finally {
+      _$_CentralStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  WatchEpisodeStore getWatchEpisodeListener(String key) {
+    final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
+        name: '_CentralStoreBase.getWatchEpisodeListener');
+    try {
+      return super.getWatchEpisodeListener(key);
+    } finally {
+      _$_CentralStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void removeWatchEpisodeListener(String key) {
+    final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
+        name: '_CentralStoreBase.removeWatchEpisodeListener');
+    try {
+      return super.removeWatchEpisodeListener(key);
+    } finally {
+      _$_CentralStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void dispatchNewEpisode(EpisodeDetails updatedEpisode) {
+    final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
+        name: '_CentralStoreBase.dispatchNewEpisode');
+    try {
+      return super.dispatchNewEpisode(updatedEpisode);
+    } finally {
+      _$_CentralStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  String toString() {
+    return '''
+episodeIdPlaying: ${episodeIdPlaying},
+episodeUrlPlaying: ${episodeUrlPlaying},
+animeDetailsListeners: ${animeDetailsListeners},
+watchEpisodeListeners: ${watchEpisodeListeners}
+    ''';
+  }
+}
