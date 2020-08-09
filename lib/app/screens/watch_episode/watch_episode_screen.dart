@@ -1,4 +1,5 @@
 import 'package:anime_dart/app/screens/anime_details/anime_details_screen.dart';
+import 'package:anime_dart/app/screens/watch_episode/widgets/recommendations.dart';
 import 'package:anime_dart/app/screens/watch_episode/widgets/watch_episode_buttons.dart';
 import 'package:anime_dart/app/screens/watch_episode/widgets/watch_episode_header.dart';
 import 'package:anime_dart/app/setup.dart';
@@ -85,12 +86,15 @@ class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
                 ),
                 child: IntrinsicHeight(
                   child: Container(
-                      margin: EdgeInsets.only(bottom: 60),
+                      margin: EdgeInsets.only(bottom: 85),
                       child: Column(children: [
                         WatchEpisodeHeader(
                           storeListenerKey: storeListenerKey,
                         ),
                         WatchButtons(
+                          storeListenerKey: storeListenerKey,
+                        ),
+                        Recommendations(
                           storeListenerKey: storeListenerKey,
                         )
                       ])),

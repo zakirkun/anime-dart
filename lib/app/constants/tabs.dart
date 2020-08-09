@@ -8,8 +8,6 @@ class MainTabs {
     TabData(builder: (_) => LatestsScreen(), label: "LANÇAMENTOS"),
     TabData(builder: (_) => FavoritesScreen(), label: "FAVORITOS"),
     TabData(builder: (_) => RandomScreen(), label: "RANDOM"),
-    // TabData(builder: (_) => LatestsScreen(), label: "LANÇAMENTOS"),
-    // TabData(builder: (_) => TrendingScreen(), label: "POPULARES"),
   ];
 }
 

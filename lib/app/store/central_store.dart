@@ -143,6 +143,9 @@ abstract class _CentralStoreBase with Store {
     animeDetailsListeners.forEach((_, value) {
       value.renderUpdatedFavorite(anime, newValue);
     });
+    watchEpisodeListeners.forEach((_, value) {
+      value.renderUpdatedFavorite(anime, newValue);
+    });
     searchListeners.forEach((_, value) {
       value.renderUpdatedFavorite(anime, newValue);
     });

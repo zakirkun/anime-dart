@@ -103,6 +103,73 @@ mixin _$WatchEpisodeStore on _WatchEpisodeStoreBase, Store {
     });
   }
 
+  final _$recommendationsAtom =
+      Atom(name: '_WatchEpisodeStoreBase.recommendations');
+
+  @override
+  ObservableList<Anime> get recommendations {
+    _$recommendationsAtom.reportRead();
+    return super.recommendations;
+  }
+
+  @override
+  set recommendations(ObservableList<Anime> value) {
+    _$recommendationsAtom.reportWrite(value, super.recommendations, () {
+      super.recommendations = value;
+    });
+  }
+
+  final _$loadingRecommendationsAtom =
+      Atom(name: '_WatchEpisodeStoreBase.loadingRecommendations');
+
+  @override
+  bool get loadingRecommendations {
+    _$loadingRecommendationsAtom.reportRead();
+    return super.loadingRecommendations;
+  }
+
+  @override
+  set loadingRecommendations(bool value) {
+    _$loadingRecommendationsAtom
+        .reportWrite(value, super.loadingRecommendations, () {
+      super.loadingRecommendations = value;
+    });
+  }
+
+  final _$loadingMoreRecommendationsAtom =
+      Atom(name: '_WatchEpisodeStoreBase.loadingMoreRecommendations');
+
+  @override
+  bool get loadingMoreRecommendations {
+    _$loadingMoreRecommendationsAtom.reportRead();
+    return super.loadingMoreRecommendations;
+  }
+
+  @override
+  set loadingMoreRecommendations(bool value) {
+    _$loadingMoreRecommendationsAtom
+        .reportWrite(value, super.loadingMoreRecommendations, () {
+      super.loadingMoreRecommendations = value;
+    });
+  }
+
+  final _$recommendationsErrorAtom =
+      Atom(name: '_WatchEpisodeStoreBase.recommendationsError');
+
+  @override
+  String get recommendationsError {
+    _$recommendationsErrorAtom.reportRead();
+    return super.recommendationsError;
+  }
+
+  @override
+  set recommendationsError(String value) {
+    _$recommendationsErrorAtom.reportWrite(value, super.recommendationsError,
+        () {
+      super.recommendationsError = value;
+    });
+  }
+
   final _$loadEpisodeAsyncAction =
       AsyncAction('_WatchEpisodeStoreBase.loadEpisode');
 
@@ -125,6 +192,24 @@ mixin _$WatchEpisodeStore on _WatchEpisodeStoreBase, Store {
   @override
   Future<void> loadPrevEpisode() {
     return _$loadPrevEpisodeAsyncAction.run(() => super.loadPrevEpisode());
+  }
+
+  final _$loadRecommendationsAsyncAction =
+      AsyncAction('_WatchEpisodeStoreBase.loadRecommendations');
+
+  @override
+  Future<void> loadRecommendations() {
+    return _$loadRecommendationsAsyncAction
+        .run(() => super.loadRecommendations());
+  }
+
+  final _$loadMoreRecommendationsAsyncAction =
+      AsyncAction('_WatchEpisodeStoreBase.loadMoreRecommendations');
+
+  @override
+  Future<void> loadMoreRecommendations() {
+    return _$loadMoreRecommendationsAsyncAction
+        .run(() => super.loadMoreRecommendations());
   }
 
   final _$_WatchEpisodeStoreBaseActionController =
@@ -153,6 +238,17 @@ mixin _$WatchEpisodeStore on _WatchEpisodeStoreBase, Store {
   }
 
   @override
+  void renderUpdatedFavorite(Anime anime, bool newValue) {
+    final _$actionInfo = _$_WatchEpisodeStoreBaseActionController.startAction(
+        name: '_WatchEpisodeStoreBase.renderUpdatedFavorite');
+    try {
+      return super.renderUpdatedFavorite(anime, newValue);
+    } finally {
+      _$_WatchEpisodeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 episodeDetails: ${episodeDetails},
@@ -160,7 +256,11 @@ loadingWatchEpisode: ${loadingWatchEpisode},
 loadingOtherEpisode: ${loadingOtherEpisode},
 errorMsg: ${errorMsg},
 episodeId: ${episodeId},
-watchEpisodeId: ${watchEpisodeId}
+watchEpisodeId: ${watchEpisodeId},
+recommendations: ${recommendations},
+loadingRecommendations: ${loadingRecommendations},
+loadingMoreRecommendations: ${loadingMoreRecommendations},
+recommendationsError: ${recommendationsError}
     ''';
   }
 }
