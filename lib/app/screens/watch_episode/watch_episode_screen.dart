@@ -1,3 +1,4 @@
+import 'package:anime_dart/app/screens/anime_details/anime_details_screen.dart';
 import 'package:anime_dart/app/screens/watch_episode/widgets/watch_episode_buttons.dart';
 import 'package:anime_dart/app/screens/watch_episode/widgets/watch_episode_header.dart';
 import 'package:anime_dart/app/setup.dart';
@@ -9,19 +10,23 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 class WatchEpisodeScreen extends StatefulWidget {
   final String id;
-  WatchEpisodeScreen({this.id});
+  final bool back;
+
+  WatchEpisodeScreen({this.id, this.back = false});
 
   @override
-  _WatchEpisodeScreenState createState() => _WatchEpisodeScreenState(id: id);
+  _WatchEpisodeScreenState createState() =>
+      _WatchEpisodeScreenState(id: id, back: back);
 }
 
 class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
   final localStore = WatchEpisodeStore();
   final centralStore = getIt<CentralStore>();
+  final bool back;
   String storeListenerKey;
   final String id;
 
-  _WatchEpisodeScreenState({@required this.id});
+  _WatchEpisodeScreenState({@required this.id, this.back});
 
   @override
   initState() {
@@ -99,12 +104,18 @@ class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
             if (localStore.loadingWatchEpisode) {
               return;
             }
-            // Navigator.push(context, MaterialPageRoute(
-            //   builder: (_) => AnimeDetailsScreen(id: localStore.episodeDetails.animeId);
-            // ));
+            if (back) {
+              return Navigator.pop(context);
+            }
+
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => AnimeDetailsScreen(
+                        animeId: localStore.episodeDetails.animeId)));
           },
-          label: Text('Ver lista de episódios'),
-          icon: Icon(Icons.playlist_add_check),
+          label: Text((back ? "Voltar para " : "Ver ") + "lista de episódios"),
+          icon: Icon(back ? Icons.arrow_back : Icons.playlist_add_check),
         ));
   }
 }
