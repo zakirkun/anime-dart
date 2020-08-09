@@ -32,7 +32,7 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
     storeListenerKey = centralStore.addAnimeDetailsListener(localStore);
   }
 
-  _onSearchChanged() {
+  void _onSearchChanged() {
     if (debounce?.isActive ?? false) {
       debounce.cancel();
     }
@@ -49,13 +49,18 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
     });
   }
 
-  _enableSearchMode() {
+  void _enableSearchMode() {
     localStore.showSearchField(true);
   }
 
-  _closeSearchMode() {
+  void _closeSearchMode() {
     searchQuery.clear();
     localStore.closeSearchMode();
+  }
+
+  Future<bool> _preventAcidentalPop() async {
+    _closeSearchMode();
+    return false;
   }
 
   @override
@@ -153,14 +158,20 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
 
           if (localStore.searchMode) {
             if (localStore.notFoundInternalSearch) {
-              return Center(
-                  child: Text(
-                      "Não foi posível encontrar o episódio especificado"));
+              return WillPopScope(
+                  child: Center(
+                      child: Text(
+                          "Não foi posível encontrar o episódio especificado")),
+                  onWillPop: _preventAcidentalPop);
             }
 
-            return AnimeDetailsList(storeListenerKey: storeListenerKey);
+            return WillPopScope(
+                child: AnimeDetailsList(storeListenerKey: storeListenerKey),
+                onWillPop: _preventAcidentalPop);
           } else {
-            return AnimeDetailsList(storeListenerKey: storeListenerKey);
+            return WillPopScope(
+                child: AnimeDetailsList(storeListenerKey: storeListenerKey),
+                onWillPop: _preventAcidentalPop);
           }
         }),
         floatingActionButton: FloatingActionButton(

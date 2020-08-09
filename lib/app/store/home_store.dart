@@ -207,6 +207,21 @@ abstract class _HomeStoreBase with Store {
             isFavorite: newValue);
       }
     }
+
+    if (favorites != null && favorites.length > 0) {
+      int index = favorites.indexWhere((element) => element.id == id);
+
+      if (index != -1) {
+        final aux = favorites[index];
+
+        favorites[index] = Anime(
+            id: aux.id,
+            imageHttpHeaders: aux.imageHttpHeaders,
+            imageUrl: aux.imageUrl,
+            title: aux.title,
+            isFavorite: newValue);
+      }
+    }
   }
 
   @action

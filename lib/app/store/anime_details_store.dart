@@ -164,6 +164,9 @@ abstract class _AnimeDetailsStoreBase with Store {
     int index =
         episodesOfAnimeDetails.indexWhere((element) => element.id == id);
 
+    int filteredIndex =
+        filteredEpisodes.indexWhere((element) => element.id == id);
+
     if (index == -1) {
       throw Exception(
           "you really expected -1? its really ok? not badd? really?");
@@ -180,6 +183,10 @@ abstract class _AnimeDetailsStoreBase with Store {
         stats: newStats,
         url: aux.url,
         urlHd: aux.urlHd);
+
+    if (filteredIndex != null && filteredIndex != -1) {
+      filteredEpisodes[filteredIndex] = episodesOfAnimeDetails[index];
+    }
   }
 
   @action
