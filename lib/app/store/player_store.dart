@@ -58,8 +58,6 @@ abstract class _PlayerStoreBase with Store {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp,
     ]);
 
     videoPlayerController = VideoPlayerController.network(episodeUrlPlaying);
@@ -79,6 +77,8 @@ abstract class _PlayerStoreBase with Store {
       autoPlay: true,
       looping: true,
     );
+
+    chewieController.enterFullScreen();
 
     runInAction(() {
       getProgress = Utils.interpolate(
@@ -100,8 +100,6 @@ abstract class _PlayerStoreBase with Store {
         [SystemUiOverlay.bottom, SystemUiOverlay.top]);
 
     SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
