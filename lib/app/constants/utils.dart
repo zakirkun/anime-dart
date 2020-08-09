@@ -8,6 +8,12 @@ class Utils {
     return random.nextInt(max - min) + min;
   }
 
+  static double randomDouble(double min, double max) {
+    final random = Random();
+
+    return ((max - min) * random.nextDouble()) + min;
+  }
+
   static double Function(double xA) interpolate(
       {List<double> xInterval, List<double> yInterval}) {
     double x0 = xInterval[0];
