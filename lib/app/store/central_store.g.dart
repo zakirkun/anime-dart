@@ -43,6 +43,21 @@ mixin _$CentralStore on _CentralStoreBase, Store {
     });
   }
 
+  final _$searchListenersAtom = Atom(name: '_CentralStoreBase.searchListeners');
+
+  @override
+  ObservableMap<String, SearchStore> get searchListeners {
+    _$searchListenersAtom.reportRead();
+    return super.searchListeners;
+  }
+
+  @override
+  set searchListeners(ObservableMap<String, SearchStore> value) {
+    _$searchListenersAtom.reportWrite(value, super.searchListeners, () {
+      super.searchListeners = value;
+    });
+  }
+
   final _$setEpisodeStatsAsyncAction =
       AsyncAction('_CentralStoreBase.setEpisodeStats');
 
@@ -131,6 +146,39 @@ mixin _$CentralStore on _CentralStoreBase, Store {
   }
 
   @override
+  String addSearchListener(SearchStore listener) {
+    final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
+        name: '_CentralStoreBase.addSearchListener');
+    try {
+      return super.addSearchListener(listener);
+    } finally {
+      _$_CentralStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  SearchStore getSearchListener(String key) {
+    final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
+        name: '_CentralStoreBase.getSearchListener');
+    try {
+      return super.getSearchListener(key);
+    } finally {
+      _$_CentralStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void removeSearchListener(String key) {
+    final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
+        name: '_CentralStoreBase.removeSearchListener');
+    try {
+      return super.removeSearchListener(key);
+    } finally {
+      _$_CentralStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void dispatchNewEpisode(String episodeId, double newStats) {
     final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
         name: '_CentralStoreBase.dispatchNewEpisode');
@@ -156,7 +204,8 @@ mixin _$CentralStore on _CentralStoreBase, Store {
   String toString() {
     return '''
 animeDetailsListeners: ${animeDetailsListeners},
-watchEpisodeListeners: ${watchEpisodeListeners}
+watchEpisodeListeners: ${watchEpisodeListeners},
+searchListeners: ${searchListeners}
     ''';
   }
 }

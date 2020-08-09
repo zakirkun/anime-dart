@@ -29,15 +29,20 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           return Center(child: CircularProgressIndicator());
         }
         if (homeStore.favoritesError != null) {
-          return Center(
+          return Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(30),
               child: Column(
-            children: [
-              Text(homeStore.favoritesError),
-              FlatButton(
-                  onPressed: homeStore.loadFavorites,
-                  child: Text("Tentar novamente"))
-            ],
-          ));
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(homeStore.favoritesError),
+                  FlatButton(
+                      color: Theme.of(context).colorScheme.secondary,
+                      onPressed: homeStore.loadFavorites,
+                      child: Text("Tentar novamente"))
+                ],
+              ));
         }
 
         if (homeStore.emptyFavoriteList) {

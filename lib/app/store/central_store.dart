@@ -1,4 +1,5 @@
 import 'package:anime_dart/app/core/favorites/domain/repositories/favorite_repository.dart';
+import 'package:anime_dart/app/store/search_store.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:anime_dart/app/core/details/domain/repository/details_repository.dart';
@@ -28,6 +29,9 @@ abstract class _CentralStoreBase with Store {
 
   @observable
   var watchEpisodeListeners = ObservableMap<String, WatchEpisodeStore>();
+
+  @observable
+  var searchListeners = ObservableMap<String, SearchStore>();
 
   @action
   String addAnimeDetailsListener(AnimeDetailsStore listener) {
@@ -76,7 +80,34 @@ abstract class _CentralStoreBase with Store {
 
   @action
   void removeWatchEpisodeListener(String key) {
-    watchEpisodeListeners.remove(key);
+    searchListeners.remove(key);
+  }
+
+  @action
+  String addSearchListener(SearchStore listener) {
+    var newKey = 0;
+
+    while (searchListeners.containsKey(newKey.toString())) {
+      newKey++;
+    }
+
+    searchListeners[newKey.toString()] = listener;
+
+    return newKey.toString();
+  }
+
+  @action
+  SearchStore getSearchListener(String key) {
+    if (key == null) {
+      throw Exception("Something is wrong, check this...");
+    }
+
+    return searchListeners[key];
+  }
+
+  @action
+  void removeSearchListener(String key) {
+    searchListeners.remove(key);
   }
 
   @action
@@ -109,6 +140,9 @@ abstract class _CentralStoreBase with Store {
   @action
   void dispatchChangeFavorite(String animeId, bool newValue) {
     animeDetailsListeners.forEach((_, value) {
+      value.renderUpdatedFavorite(animeId, newValue);
+    });
+    searchListeners.forEach((_, value) {
       value.renderUpdatedFavorite(animeId, newValue);
     });
 

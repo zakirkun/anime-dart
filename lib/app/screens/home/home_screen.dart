@@ -1,4 +1,5 @@
 import 'package:anime_dart/app/constants/tabs.dart';
+import 'package:anime_dart/app/screens/search/search_screen.dart';
 import 'package:anime_dart/app/setup.dart';
 import 'package:anime_dart/app/store/home_store.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [for (final tab in MainTabs.tabs) tab.builder(context)],
             ),
             floatingActionButton: FloatingActionButton(
-                onPressed: () {}, child: Icon(Icons.search))));
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => SearchScreen()));
+                },
+                child: Icon(Icons.search))));
   }
 }

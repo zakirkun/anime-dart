@@ -38,9 +38,9 @@ class AnimeTvSearchDataSource implements SearchDataSource {
         bool isFavorite = false;
 
         try {
-          final result = await favorites.isFavorite(data["id"]);
+          final response = await favorites.isFavorite(result["id"]);
 
-          result.fold((l) => throw l, (r) => isFavorite = r);
+          response.fold((l) => throw l, (r) => isFavorite = r);
         } catch (e) {}
 
         Map<String, dynamic> source = {
