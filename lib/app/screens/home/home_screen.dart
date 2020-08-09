@@ -1,4 +1,5 @@
 import 'package:anime_dart/app/constants/tabs.dart';
+import 'package:anime_dart/app/screens/about/about_screen.dart';
 import 'package:anime_dart/app/screens/search/search_screen.dart';
 import 'package:anime_dart/app/setup.dart';
 import 'package:anime_dart/app/store/home_store.dart';
@@ -26,13 +27,33 @@ class _HomeScreenState extends State<HomeScreen> {
         length: MainTabs.tabs.length,
         child: Scaffold(
             appBar: AppBar(
-              title: Text("Anime Dart",
-                  style: TextStyle(
-                      color: Theme.of(context)
-                          .primaryTextTheme
-                          .bodyText1
-                          .color
-                          .withOpacity(.60))),
+              title: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Anime Dart",
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color
+                                .withOpacity(.60))),
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (_) => AboutScreen()));
+                        },
+                        child: Container(
+                            alignment: Alignment.centerRight,
+                            height: 100,
+                            width: 100,
+                            child: Icon(Icons.info_outline,
+                                color: Theme.of(context)
+                                    .primaryTextTheme
+                                    .bodyText1
+                                    .color
+                                    .withOpacity(.60))))
+                  ]),
               automaticallyImplyLeading: false,
               bottom: TabBar(
                 indicatorColor: Colors.white,

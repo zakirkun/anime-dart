@@ -34,7 +34,7 @@ class AppDarkTheme {
       backgroundColor: Color.fromRGBO(60, 60, 80, 1),
       scaffoldBackgroundColor: Color.fromRGBO(10, 10, 20, 1),
       dialogBackgroundColor: Color.fromRGBO(20, 20, 30, 1),
-      cardColor: Color.fromRGBO(15, 15, 25, 1),
+      cardColor: Color.fromRGBO(18, 18, 28, 1),
       appBarTheme: AppBarTheme(color: Color.fromRGBO(25, 25, 35, 1)),
       textTheme: Theme.of(context).textTheme.apply(
           fontFamily: "Raleway", bodyColor: Color.fromRGBO(200, 200, 250, 1)),
