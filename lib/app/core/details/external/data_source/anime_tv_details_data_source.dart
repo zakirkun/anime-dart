@@ -123,7 +123,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
       double stats = 0;
 
       try {
-        final res = await watched.getEpisodeWatchedStats(id);
+        final res = await watched.getEpisodeWatchedStats(data["video_id"]);
         res.fold((l) => throw l, (r) => stats = r);
       } catch (e) {}
 
@@ -153,17 +153,17 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
 
       final ownerAnime = await getAnimeDetails(currentEpisode.animeId);
 
-      final response = await http.get(
-          _baseUrl +
-              "?episodios=${currentEpisode.id}&catid=${ownerAnime.id}&previous",
-          headers: _httpHeaders);
+      final endpoint = _baseUrl +
+          "?episodios=${currentEpisode.id}&catid=${ownerAnime.id}&previous";
+
+      final response = await http.get(endpoint, headers: _httpHeaders);
 
       final data = json.decode(response.body)[0];
 
       double stats = 0;
 
       try {
-        final res = await watched.getEpisodeWatchedStats(id);
+        final res = await watched.getEpisodeWatchedStats(data["video_id"]);
         res.fold((l) => throw l, (r) => stats = r);
       } catch (e) {}
 

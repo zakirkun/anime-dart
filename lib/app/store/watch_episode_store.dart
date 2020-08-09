@@ -87,6 +87,9 @@ abstract class _WatchEpisodeStoreBase with Store {
         episodeDetails = r;
       });
 
+      print("kdddd krlllllllllll");
+      print(episodeDetails.stats);
+
       loadingOtherEpisode = false;
     });
   }
