@@ -1,3 +1,4 @@
+import 'package:anime_dart/app/core/search/domain/entities/anime.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:anime_dart/app/core/favorites/domain/errors/exceptions.dart';
@@ -24,13 +25,24 @@ class FavoritesRepositoryImplementation implements FavoritesRepository {
 
   @override
   Future<Either<FavoritesException, void>> setFavorite(
-      String id, bool isFavorite) async {
+      Anime anime, bool isFavorite) async {
     try {
-      await dataSource.setFavorite(id, isFavorite);
+      await dataSource.setFavorite(anime, isFavorite);
 
       return Right(null);
     } catch (e) {
       return Left(RequestFavoriteFailed("Unable to set favorite stats"));
+    }
+  }
+
+  @override
+  Future<Either<FavoritesException, List<Anime>>> getFavorites() async {
+    try {
+      final result = await dataSource.getFavorites();
+
+      return Right(result);
+    } catch (e) {
+      return Left(RequestFavoriteFailed("Unable to read favorite stats"));
     }
   }
 }

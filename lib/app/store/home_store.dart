@@ -192,9 +192,9 @@ abstract class _HomeStoreBase with Store {
   }
 
   @action
-  void renderUpdatedFavorite(String id, bool newValue) {
+  void renderUpdatedFavorite(Anime anime, bool newValue) {
     if (random != null && random.length > 0) {
-      int index = random.indexWhere((element) => element.id == id);
+      int index = random.indexWhere((element) => element.id == anime.id);
 
       if (index != -1) {
         final aux = random[index];
@@ -209,7 +209,7 @@ abstract class _HomeStoreBase with Store {
     }
 
     if (favorites != null && favorites.length > 0) {
-      int index = favorites.indexWhere((element) => element.id == id);
+      int index = favorites.indexWhere((element) => element.id == anime.id);
 
       if (index != -1) {
         final aux = favorites[index];

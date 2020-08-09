@@ -105,11 +105,11 @@ mixin _$SearchStore on _SearchStoreBase, Store {
   }
 
   @override
-  void renderUpdatedFavorite(String id, bool newValue) {
+  void renderUpdatedFavorite(Anime anime, bool newValue) {
     final _$actionInfo = _$_SearchStoreBaseActionController.startAction(
         name: '_SearchStoreBase.renderUpdatedFavorite');
     try {
-      return super.renderUpdatedFavorite(id, newValue);
+      return super.renderUpdatedFavorite(anime, newValue);
     } finally {
       _$_SearchStoreBaseActionController.endAction(_$actionInfo);
     }

@@ -257,11 +257,11 @@ mixin _$AnimeDetailsStore on _AnimeDetailsStoreBase, Store {
   }
 
   @override
-  void renderUpdatedFavorite(String id, bool newValue) {
+  void renderUpdatedFavorite(Anime anime, bool newValue) {
     final _$actionInfo = _$_AnimeDetailsStoreBaseActionController.startAction(
         name: '_AnimeDetailsStoreBase.renderUpdatedFavorite');
     try {
-      return super.renderUpdatedFavorite(id, newValue);
+      return super.renderUpdatedFavorite(anime, newValue);
     } finally {
       _$_AnimeDetailsStoreBaseActionController.endAction(_$actionInfo);
     }

@@ -3,6 +3,7 @@ import 'package:anime_dart/app/core/details/domain/entities/anime_details.dart';
 import 'package:anime_dart/app/core/details/domain/entities/episode_details.dart';
 import 'package:anime_dart/app/core/details/domain/repository/details_repository.dart';
 import 'package:anime_dart/app/core/favorites/domain/repositories/favorite_repository.dart';
+import 'package:anime_dart/app/core/search/domain/entities/anime.dart';
 import 'package:anime_dart/app/core/watched/domain/repository/watched_repository.dart';
 import 'package:anime_dart/app/setup.dart';
 import 'package:mobx/mobx.dart';
@@ -135,8 +136,16 @@ abstract class _AnimeDetailsStoreBase with Store {
   Future<void> toggleFavorite() async {
     bool newValue = !animeDetails.isFavorite;
 
-    final result =
-        await favoritesRepository.setFavorite(animeDetails.id, newValue);
+    final aux = animeDetails;
+
+    final result = await favoritesRepository.setFavorite(
+        Anime(
+            id: aux.id,
+            imageHttpHeaders: aux.imageHttpHeaders,
+            imageUrl: aux.imageUrl,
+            isFavorite: aux.isFavorite,
+            title: aux.title),
+        newValue);
 
     runInAction(() {
       result.fold((l) {
@@ -190,8 +199,8 @@ abstract class _AnimeDetailsStoreBase with Store {
   }
 
   @action
-  void renderUpdatedFavorite(String id, bool newValue) {
-    if (animeDetails.id != id) {
+  void renderUpdatedFavorite(Anime anime, bool newValue) {
+    if (animeDetails.id != anime.id) {
       throw Exception(
           "Dont scare, just for precaution I put this warning here, if you think its is a mistake, just remove it");
     }

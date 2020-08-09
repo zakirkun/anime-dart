@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:anime_dart/app/core/search/domain/entities/anime.dart';
 import 'package:anime_dart/app/screens/anime_details/widgets/anime_details_list.dart';
 import 'package:anime_dart/app/screens/anime_details/widgets/anime_details_list_with_header.dart';
 import 'package:anime_dart/app/setup.dart';
@@ -181,8 +182,16 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
                 return;
               }
 
+              final aux = localStore.animeDetails;
+
               centralStore.setEpisodeFavorite(
-                  localStore.animeId, !localStore.animeDetails.isFavorite);
+                  Anime(
+                      id: aux.id,
+                      imageHttpHeaders: aux.imageHttpHeaders,
+                      imageUrl: aux.imageUrl,
+                      isFavorite: aux.isFavorite,
+                      title: aux.title),
+                  !localStore.animeDetails.isFavorite);
             },
             child: Observer(builder: (_) {
               Color fill = Theme.of(context).textTheme.bodyText1.color;

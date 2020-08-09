@@ -1,4 +1,5 @@
 import 'package:anime_dart/app/core/favorites/domain/repositories/favorite_repository.dart';
+import 'package:anime_dart/app/core/search/domain/entities/anime.dart';
 import 'package:anime_dart/app/store/search_store.dart';
 import 'package:mobx/mobx.dart';
 
@@ -131,21 +132,21 @@ abstract class _CentralStoreBase with Store {
   }
 
   @action
-  Future<void> setEpisodeFavorite(String animeId, bool newValue) async {
-    await favoritesRepository.setFavorite(animeId, newValue);
+  Future<void> setEpisodeFavorite(Anime anime, bool newValue) async {
+    await favoritesRepository.setFavorite(anime, newValue);
 
-    dispatchChangeFavorite(animeId, newValue);
+    dispatchChangeFavorite(anime, newValue);
   }
 
   @action
-  void dispatchChangeFavorite(String animeId, bool newValue) {
+  void dispatchChangeFavorite(Anime anime, bool newValue) {
     animeDetailsListeners.forEach((_, value) {
-      value.renderUpdatedFavorite(animeId, newValue);
+      value.renderUpdatedFavorite(anime, newValue);
     });
     searchListeners.forEach((_, value) {
-      value.renderUpdatedFavorite(animeId, newValue);
+      value.renderUpdatedFavorite(anime, newValue);
     });
 
-    homeStore.renderUpdatedFavorite(animeId, newValue);
+    homeStore.renderUpdatedFavorite(anime, newValue);
   }
 }

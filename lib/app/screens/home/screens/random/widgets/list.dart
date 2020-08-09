@@ -1,3 +1,4 @@
+import 'package:anime_dart/app/core/search/domain/entities/anime.dart';
 import 'package:anime_dart/app/screens/anime_details/anime_details_screen.dart';
 import 'package:anime_dart/app/screens/home/screens/random/widgets/tile.dart';
 import 'package:anime_dart/app/setup.dart';
@@ -64,7 +65,14 @@ class _RandomListState extends State<RandomList> {
                 }
 
                 void onTapFavorite() {
-                  centralStore.setEpisodeFavorite(anime.id, !anime.isFavorite);
+                  centralStore.setEpisodeFavorite(
+                      Anime(
+                          id: anime.id,
+                          imageHttpHeaders: anime.imageHttpHeaders,
+                          imageUrl: anime.imageUrl,
+                          isFavorite: anime.isFavorite,
+                          title: anime.title),
+                      !anime.isFavorite);
                 }
 
                 return RandomTile(

@@ -59,9 +59,9 @@ abstract class _SearchStoreBase with Store {
   }
 
   @action
-  void renderUpdatedFavorite(String id, bool newValue) {
+  void renderUpdatedFavorite(Anime anime, bool newValue) {
     if (results != null && results.length > 0) {
-      int index = results.indexWhere((element) => element.id == id);
+      int index = results.indexWhere((element) => element.id == anime.id);
 
       if (index != -1) {
         final aux = results[index];

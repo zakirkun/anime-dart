@@ -1,4 +1,5 @@
 import 'package:anime_dart/app/core/favorites/infra/data_sources/favorites_data_source.dart';
+import 'package:anime_dart/app/core/search/domain/entities/anime.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefsFavoritesDataSource implements FavoritesDataSource {
@@ -34,19 +35,19 @@ class SharedPrefsFavoritesDataSource implements FavoritesDataSource {
   }
 
   @override
-  Future<void> setFavorite(String id, bool newValue) async {
+  Future<void> setFavorite(Anime anime, bool newValue) async {
     try {
       final prefs = await _getPrefs();
 
-      prefs.setBool(_getFavoriteKey(id), newValue);
+      prefs.setBool(_getFavoriteKey(anime.id), newValue);
 
-      final favoritesList = prefs.getStringList(_favoriteListKey) ?? <String>[];
+      List<Anime> favoritesList = await getFavorites();
 
-      int index = favoritesList.indexOf(id);
+      int index = favoritesList.indexWhere((element) => element.id == anime.id);
 
       if (newValue) {
         if (index == -1) {
-          favoritesList.insert(0, id);
+          favoritesList.insert(0, anime.copyWith(isFavorite: true));
         }
       } else {
         if (index != -1) {
@@ -54,7 +55,32 @@ class SharedPrefsFavoritesDataSource implements FavoritesDataSource {
         }
       }
 
-      prefs.setStringList(_favoriteListKey, favoritesList);
+      final result = <String>[];
+
+      for (final value in favoritesList) {
+        result.add(value.toJson());
+      }
+
+      prefs.setStringList(_favoriteListKey, result);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @override
+  Future<List<Anime>> getFavorites() async {
+    try {
+      final prefs = await _getPrefs();
+
+      final favoritesListString = prefs.getStringList(_favoriteListKey) ?? [];
+
+      final favoritesList = <Anime>[];
+
+      for (final f in favoritesListString) {
+        favoritesList.add(Anime.fromJson(f));
+      }
+
+      return favoritesList;
     } catch (e) {
       throw e;
     }

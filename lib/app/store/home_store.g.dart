@@ -282,11 +282,11 @@ mixin _$HomeStore on _HomeStoreBase, Store {
   }
 
   @override
-  void renderUpdatedFavorite(String id, bool newValue) {
+  void renderUpdatedFavorite(Anime anime, bool newValue) {
     final _$actionInfo = _$_HomeStoreBaseActionController.startAction(
         name: '_HomeStoreBase.renderUpdatedFavorite');
     try {
-      return super.renderUpdatedFavorite(id, newValue);
+      return super.renderUpdatedFavorite(anime, newValue);
     } finally {
       _$_HomeStoreBaseActionController.endAction(_$actionInfo);
     }

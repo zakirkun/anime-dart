@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:anime_dart/app/core/search/domain/entities/anime.dart';
 import 'package:anime_dart/app/core/watched/domain/repository/watched_repository.dart';
 import "package:http/http.dart" as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +19,6 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
     "User-Agent":
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36"
   };
-  final _favoriteListKey = "anime__dart__application__favorites__animes";
   final _watchedListKey = "anime__dart__application__watched__episodes";
 
   final _minAnimeId = 3;
@@ -119,23 +119,15 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
   }
 
   @override
-  Future<List<AnimeModel>> getFavoriteAnimes() async {
+  Future<List<Anime>> getFavoriteAnimes() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
+      final results = await favorites.getFavorites();
 
-      final favoritesId = prefs.getStringList(_favoriteListKey) ?? <String>[];
+      var right;
 
-      final favorites = <AnimeModel>[];
+      results.fold((l) => throw Exception(), (r) => right = r);
 
-      for (final favoriteId in favoritesId) {
-        try {
-          final anime = await _getAnimeFromId(favoriteId);
-
-          favorites.add(anime);
-        } catch (e) {}
-      }
-
-      return favorites;
+      return right;
     } catch (e) {
       throw UnableToFetchDataException("A internal server error");
     }

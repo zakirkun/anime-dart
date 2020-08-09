@@ -71,9 +71,9 @@ mixin _$CentralStore on _CentralStoreBase, Store {
       AsyncAction('_CentralStoreBase.setEpisodeFavorite');
 
   @override
-  Future<void> setEpisodeFavorite(String animeId, bool newValue) {
+  Future<void> setEpisodeFavorite(Anime anime, bool newValue) {
     return _$setEpisodeFavoriteAsyncAction
-        .run(() => super.setEpisodeFavorite(animeId, newValue));
+        .run(() => super.setEpisodeFavorite(anime, newValue));
   }
 
   final _$_CentralStoreBaseActionController =
@@ -190,11 +190,11 @@ mixin _$CentralStore on _CentralStoreBase, Store {
   }
 
   @override
-  void dispatchChangeFavorite(String animeId, bool newValue) {
+  void dispatchChangeFavorite(Anime anime, bool newValue) {
     final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
         name: '_CentralStoreBase.dispatchChangeFavorite');
     try {
-      return super.dispatchChangeFavorite(animeId, newValue);
+      return super.dispatchChangeFavorite(anime, newValue);
     } finally {
       _$_CentralStoreBaseActionController.endAction(_$actionInfo);
     }
