@@ -52,6 +52,15 @@ mixin _$CentralStore on _CentralStoreBase, Store {
         .run(() => super.setEpisodeStats(episodeId, newStats));
   }
 
+  final _$setEpisodeFavoriteAsyncAction =
+      AsyncAction('_CentralStoreBase.setEpisodeFavorite');
+
+  @override
+  Future<void> setEpisodeFavorite(String animeId, bool newValue) {
+    return _$setEpisodeFavoriteAsyncAction
+        .run(() => super.setEpisodeFavorite(animeId, newValue));
+  }
+
   final _$_CentralStoreBaseActionController =
       ActionController(name: '_CentralStoreBase');
 
@@ -127,6 +136,17 @@ mixin _$CentralStore on _CentralStoreBase, Store {
         name: '_CentralStoreBase.dispatchNewEpisode');
     try {
       return super.dispatchNewEpisode(episodeId, newStats);
+    } finally {
+      _$_CentralStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void dispatchChangeFavorite(String animeId, bool newValue) {
+    final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
+        name: '_CentralStoreBase.dispatchChangeFavorite');
+    try {
+      return super.dispatchChangeFavorite(animeId, newValue);
     } finally {
       _$_CentralStoreBaseActionController.endAction(_$actionInfo);
     }

@@ -80,6 +80,7 @@ void setup() {
       watchedRepository: getIt<WatchedRepository>()));
 
   getIt.registerSingleton<CentralStore>(CentralStore(
+      favoritesRepository: getIt<FavoritesRepository>(),
       detailsRepository: getIt<DetailsRepository>(),
       homeStore: getIt<HomeStore>(),
       watchedRepository: getIt<WatchedRepository>()));

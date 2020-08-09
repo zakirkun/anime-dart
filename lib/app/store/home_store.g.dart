@@ -282,6 +282,17 @@ mixin _$HomeStore on _HomeStoreBase, Store {
   }
 
   @override
+  void renderUpdatedFavorite(String id, bool newValue) {
+    final _$actionInfo = _$_HomeStoreBaseActionController.startAction(
+        name: '_HomeStoreBase.renderUpdatedFavorite');
+    try {
+      return super.renderUpdatedFavorite(id, newValue);
+    } finally {
+      _$_HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void dispose() {
     final _$actionInfo = _$_HomeStoreBaseActionController.startAction(
         name: '_HomeStoreBase.dispose');

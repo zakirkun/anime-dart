@@ -1,6 +1,5 @@
 import 'package:anime_dart/app/core/browsing/domain/entities/episode.dart';
 import 'package:anime_dart/app/core/browsing/domain/repositories/browsing_repository.dart';
-import 'package:anime_dart/app/core/details/domain/entities/episode_details.dart';
 import 'package:anime_dart/app/core/details/domain/repository/details_repository.dart';
 import 'package:anime_dart/app/core/favorites/domain/repositories/favorite_repository.dart';
 import 'package:anime_dart/app/core/search/domain/entities/anime.dart';
@@ -188,6 +187,24 @@ abstract class _HomeStoreBase with Store {
             imageUrl: aux.imageUrl,
             label: aux.label,
             stats: newStats);
+      }
+    }
+  }
+
+  @action
+  void renderUpdatedFavorite(String id, bool newValue) {
+    if (random != null && random.length > 0) {
+      int index = random.indexWhere((element) => element.id == id);
+
+      if (index != -1) {
+        final aux = random[index];
+
+        random[index] = Anime(
+            id: aux.id,
+            imageHttpHeaders: aux.imageHttpHeaders,
+            imageUrl: aux.imageUrl,
+            title: aux.title,
+            isFavorite: newValue);
       }
     }
   }

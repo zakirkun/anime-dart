@@ -156,10 +156,9 @@ abstract class _AnimeDetailsStoreBase with Store {
   }
 
   @action
-  void renderUpdatedEpisode(String id, newStats) {
+  void renderUpdatedEpisode(String id, double newStats) {
     if (episodesOfAnimeDetails == null) {
-      throw Exception(
-          "The episodesOfAnimeDetails must be a valid ObservableList");
+      throw Exception("The id must be a valid String");
     }
 
     int index =
@@ -181,5 +180,30 @@ abstract class _AnimeDetailsStoreBase with Store {
         stats: newStats,
         url: aux.url,
         urlHd: aux.urlHd);
+  }
+
+  @action
+  void renderUpdatedFavorite(String id, bool newValue) {
+    if (animeDetails.id != id) {
+      throw Exception(
+          "Dont scare, just for precaution I put this warning here, if you think its is a mistake, just remove it");
+    }
+
+    if (episodesOfAnimeDetails == null) {
+      throw Exception("The anime must be rendered to continue");
+    }
+
+    final aux = animeDetails;
+
+    animeDetails = AnimeDetails(
+      id: aux.id,
+      imageHttpHeaders: aux.imageHttpHeaders,
+      imageUrl: aux.imageUrl,
+      title: aux.title,
+      genres: aux.genres,
+      isFavorite: newValue,
+      synopsis: aux.synopsis,
+      year: aux.year,
+    );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:anime_dart/app/core/details/domain/entities/episode_details.dart';
+import 'package:anime_dart/app/core/favorites/domain/repositories/favorite_repository.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:anime_dart/app/core/details/domain/repository/details_repository.dart';
@@ -14,13 +14,14 @@ class CentralStore = _CentralStoreBase with _$CentralStore;
 abstract class _CentralStoreBase with Store {
   final HomeStore homeStore;
   final WatchedRepository watchedRepository;
+  final FavoritesRepository favoritesRepository;
   final DetailsRepository detailsRepository;
 
-  _CentralStoreBase({
-    this.homeStore,
-    this.watchedRepository,
-    this.detailsRepository,
-  });
+  _CentralStoreBase(
+      {this.homeStore,
+      this.watchedRepository,
+      this.detailsRepository,
+      this.favoritesRepository});
 
   @observable
   var animeDetailsListeners = ObservableMap<String, AnimeDetailsStore>();
@@ -96,5 +97,21 @@ abstract class _CentralStoreBase with Store {
     });
 
     homeStore.renderUpdatedEpisode(episodeId, newStats);
+  }
+
+  @action
+  Future<void> setEpisodeFavorite(String animeId, bool newValue) async {
+    await favoritesRepository.setFavorite(animeId, newValue);
+
+    dispatchChangeFavorite(animeId, newValue);
+  }
+
+  @action
+  void dispatchChangeFavorite(String animeId, bool newValue) {
+    animeDetailsListeners.forEach((_, value) {
+      value.renderUpdatedFavorite(animeId, newValue);
+    });
+
+    homeStore.renderUpdatedFavorite(animeId, newValue);
   }
 }

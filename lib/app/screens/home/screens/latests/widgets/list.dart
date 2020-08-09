@@ -1,4 +1,3 @@
-import 'package:anime_dart/app/core/browsing/domain/entities/episode.dart';
 import 'package:anime_dart/app/screens/home/screens/latests/widgets/tile.dart';
 import 'package:anime_dart/app/screens/watch_episode/watch_episode_screen.dart';
 import 'package:anime_dart/app/setup.dart';

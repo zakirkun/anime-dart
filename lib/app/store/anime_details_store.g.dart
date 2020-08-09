@@ -246,11 +246,22 @@ mixin _$AnimeDetailsStore on _AnimeDetailsStoreBase, Store {
   }
 
   @override
-  void renderUpdatedEpisode(String id, dynamic newStats) {
+  void renderUpdatedEpisode(String id, double newStats) {
     final _$actionInfo = _$_AnimeDetailsStoreBaseActionController.startAction(
         name: '_AnimeDetailsStoreBase.renderUpdatedEpisode');
     try {
       return super.renderUpdatedEpisode(id, newStats);
+    } finally {
+      _$_AnimeDetailsStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void renderUpdatedFavorite(String id, bool newValue) {
+    final _$actionInfo = _$_AnimeDetailsStoreBaseActionController.startAction(
+        name: '_AnimeDetailsStoreBase.renderUpdatedFavorite');
+    try {
+      return super.renderUpdatedFavorite(id, newValue);
     } finally {
       _$_AnimeDetailsStoreBaseActionController.endAction(_$actionInfo);
     }
