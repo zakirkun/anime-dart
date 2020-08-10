@@ -8,7 +8,7 @@
 <p align="center">
   <img  src="https://img.shields.io/badge/category-mobile_development-purple" alt="Application Category" />
   <img  src="https://img.shields.io/badge/language-dart-blue" alt="Repo Main Language" />
-  <img  src="https://img.shields.io/badge/tech-flutter" alt="Module Bundler" />
+  <img  src="https://img.shields.io/badge/technology-flutter-blue" alt="Module Bundler" />
   <img  src="https://img.shields.io/badge/type-project-success" alt="Repo Type" />
   <img  src="https://img.shields.io/badge/name-anime_dart-green" alt="Game Ref" />
 </p>
