@@ -18,20 +18,19 @@ class _AnimeDetailsHeaderState extends State<AnimeDetailsHeader> {
   final centralStore = getIt<CentralStore>();
   AnimeDetailsStore localStore;
 
-  _AnimeDetailsHeaderState({Key key, @required this.storeListenerKey}) {
+  _AnimeDetailsHeaderState({Key key, @required this.storeListenerKey});
+
+  @override
+  void initState() {
+    super.initState();
+
     localStore = centralStore.getAnimeDetailsListener(storeListenerKey);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            border: Border(
-                left: BorderSide(
-                    color: Theme.of(context).colorScheme.secondary,
-                    style: BorderStyle.solid,
-                    width: 5))),
+        decoration: BoxDecoration(color: Theme.of(context).cardColor),
         child: Column(children: [
           Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Container(

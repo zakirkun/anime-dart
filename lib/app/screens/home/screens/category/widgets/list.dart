@@ -32,13 +32,13 @@ class _CategoryListState extends State<CategoryList> {
   void initState() {
     super.initState();
 
-    storeListenerKey = centralStore.addcategoryListener(localStore);
+    storeListenerKey = centralStore.addCategoryListener(localStore);
     localStore.loadResults(query);
   }
 
   @override
   void dispose() {
-    centralStore.removecategoryListener(storeListenerKey);
+    centralStore.removeCategoryListener(storeListenerKey);
     super.dispose();
   }
 

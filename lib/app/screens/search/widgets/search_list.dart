@@ -21,7 +21,12 @@ class _SearchListState extends State<SearchList> {
   SearchStore localStore;
   final centralStore = getIt<CentralStore>();
 
-  _SearchListState({@required this.storeListenerKey}) {
+  _SearchListState({@required this.storeListenerKey});
+
+  @override
+  void initState() {
+    super.initState();
+
     localStore = centralStore.getSearchListener(storeListenerKey);
   }
 

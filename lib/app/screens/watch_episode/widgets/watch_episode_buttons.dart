@@ -21,7 +21,12 @@ class _WatchButtonsState extends State<WatchButtons> {
   final centralStore = getIt<CentralStore>();
   WatchEpisodeStore localStore;
 
-  _WatchButtonsState({this.storeListenerKey}) {
+  _WatchButtonsState({this.storeListenerKey});
+
+  @override
+  void initState() {
+    super.initState();
+
     if (storeListenerKey == null) {
       throw Exception("Store key must be != null");
     }
@@ -55,15 +60,18 @@ class _WatchButtonsState extends State<WatchButtons> {
                               .bodyText1
                               .color
                               .withOpacity(0.5)))),
-              localStore.episodeDetails?.urlHd == null
+              localStore.episodeDetails?.urlHd == null ||
+                      (localStore.episodeDetails?.urlHd?.isEmpty ?? false)
                   ? (RippleButton(
-                      color: Colors.black26,
+                      color: Colors.white.withOpacity(0.01),
                       onTap: () {},
                       label: "Esse episódio não está disponível em HD"))
                   : (RippleButton(
                       color: Theme.of(context).colorScheme.secondary,
                       onTap: () {
-                        if (localStore.episodeDetails?.urlHd == null) {
+                        if (localStore.episodeDetails?.urlHd == null ||
+                            (localStore.episodeDetails?.urlHd?.isEmpty ??
+                                false)) {
                           return;
                         }
 
@@ -107,15 +115,18 @@ class _WatchButtonsState extends State<WatchButtons> {
                               .bodyText1
                               .color
                               .withOpacity(0.5)))),
-              localStore.episodeDetails?.urlHd == null
+              localStore.episodeDetails?.urlHd == null ||
+                      (localStore.episodeDetails?.urlHd?.isEmpty ?? false)
                   ? (RippleButton(
-                      color: Colors.black26,
+                      color: Colors.white.withOpacity(0.01),
                       onTap: () {},
                       label: "Esse episódio não está disponível em HD"))
                   : (RippleButton(
                       color: Theme.of(context).colorScheme.secondary,
                       onTap: () {
-                        if (localStore.episodeDetails?.urlHd == null) {
+                        if (localStore.episodeDetails?.urlHd == null ||
+                            (localStore.episodeDetails?.urlHd?.isEmpty ??
+                                false)) {
                           return;
                         }
                         Utils.openUrl(localStore.episodeDetails?.urlHd);

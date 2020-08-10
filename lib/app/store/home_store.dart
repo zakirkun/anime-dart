@@ -220,6 +220,8 @@ abstract class _HomeStoreBase with Store {
             imageUrl: aux.imageUrl,
             title: aux.title,
             isFavorite: newValue);
+      } else if (newValue) {
+        favorites.insert(0, anime.copyWith(isFavorite: newValue));
       }
     }
   }

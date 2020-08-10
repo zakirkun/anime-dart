@@ -42,7 +42,7 @@ abstract class _CentralStoreBase with Store {
   String addAnimeDetailsListener(AnimeDetailsStore listener) {
     var newKey = 0;
 
-    while (animeDetailsListeners.containsKey(newKey)) {
+    while (animeDetailsListeners.containsKey(newKey.toString())) {
       newKey++;
     }
 
@@ -116,10 +116,10 @@ abstract class _CentralStoreBase with Store {
   }
 
   @action
-  String addcategoryListener(CategoryStore listener) {
+  String addCategoryListener(CategoryStore listener) {
     var newKey = 0;
 
-    while (categoryListeners.containsKey(newKey)) {
+    while (categoryListeners.containsKey(newKey.toString())) {
       newKey++;
     }
 
@@ -129,12 +129,12 @@ abstract class _CentralStoreBase with Store {
   }
 
   @action
-  CategoryStore getcategoryListener(String key) {
+  CategoryStore getCategoryListener(String key) {
     return categoryListeners[key];
   }
 
   @action
-  void removecategoryListener(String key) {
+  void removeCategoryListener(String key) {
     categoryListeners.remove(key);
   }
 

@@ -22,13 +22,7 @@ class _RecommendationsState extends State<Recommendations> {
   WatchEpisodeStore localStore;
   ScrollController recommendationController;
 
-  _RecommendationsState({@required this.storeListenerKey}) {
-    if (storeListenerKey == null) {
-      throw Exception("Recommendation components: missing storeListenerKey");
-    }
-
-    localStore = centralStore.getWatchEpisodeListener(storeListenerKey);
-  }
+  _RecommendationsState({@required this.storeListenerKey});
 
   void scrollRecommendationsListener() {
     if (localStore.loadingMoreRecommendations) {
@@ -36,7 +30,7 @@ class _RecommendationsState extends State<Recommendations> {
     }
 
     if (recommendationController.offset >=
-            (recommendationController.position.maxScrollExtent - 300) &&
+            (recommendationController.position.maxScrollExtent - 600) &&
         !recommendationController.position.outOfRange) {
       localStore.loadMoreRecommendations();
     }
@@ -44,12 +38,18 @@ class _RecommendationsState extends State<Recommendations> {
 
   @override
   void initState() {
+    super.initState();
+
+    if (storeListenerKey == null) {
+      throw Exception("Recommendation components: missing storeListenerKey");
+    }
+
+    localStore = centralStore.getWatchEpisodeListener(storeListenerKey);
+
     localStore.loadRecommendations();
 
     recommendationController = ScrollController();
     recommendationController.addListener(scrollRecommendationsListener);
-
-    super.initState();
   }
 
   @override

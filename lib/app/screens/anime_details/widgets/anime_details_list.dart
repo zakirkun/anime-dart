@@ -20,10 +20,16 @@ class _AnimeDetailsListState extends State<AnimeDetailsList> {
   AnimeDetailsStore localStore;
   final centralStore = getIt<CentralStore>();
 
-  _AnimeDetailsListState({Key key, @required this.storeListenerKey}) {
+  _AnimeDetailsListState({Key key, @required this.storeListenerKey});
+
+  @override
+  void initState() {
+    super.initState();
+
     localStore = centralStore.getAnimeDetailsListener(storeListenerKey);
   }
 
+  @override
   void dispose() {
     super.dispose();
   }

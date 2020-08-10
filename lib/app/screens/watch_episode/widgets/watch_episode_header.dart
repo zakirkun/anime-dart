@@ -20,7 +20,12 @@ class _WatchEpisodeHeaderState extends State<WatchEpisodeHeader> {
   final centralStore = getIt<CentralStore>();
   WatchEpisodeStore localStore;
 
-  _WatchEpisodeHeaderState({this.storeListenerKey}) {
+  _WatchEpisodeHeaderState({this.storeListenerKey});
+
+  @override
+  void initState() {
+    super.initState();
+
     if (storeListenerKey == null) {
       throw Exception("The store key must be a valid String");
     }

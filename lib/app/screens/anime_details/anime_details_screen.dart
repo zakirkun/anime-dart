@@ -29,9 +29,7 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
   final searchQuery = TextEditingController();
   Timer debounce;
 
-  _AnimeDetailsScreenState({@required this.animeId}) {
-    storeListenerKey = centralStore.addAnimeDetailsListener(localStore);
-  }
+  _AnimeDetailsScreenState({@required this.animeId});
 
   void _onSearchChanged() {
     if (debounce?.isActive ?? false) {
@@ -68,8 +66,9 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
   void initState() {
     super.initState();
 
-    localStore.setAnimeDetailsId(animeId);
-    localStore.loadAnimeDetails();
+    storeListenerKey = centralStore.addAnimeDetailsListener(localStore);
+
+    localStore.loadAnimeDetails(animeId);
 
     searchQuery.addListener(_onSearchChanged);
   }

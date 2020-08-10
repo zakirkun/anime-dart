@@ -195,33 +195,33 @@ mixin _$CentralStore on _CentralStoreBase, Store {
   }
 
   @override
-  String addcategoryListener(CategoryStore listener) {
+  String addCategoryListener(CategoryStore listener) {
     final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
-        name: '_CentralStoreBase.addcategoryListener');
+        name: '_CentralStoreBase.addCategoryListener');
     try {
-      return super.addcategoryListener(listener);
+      return super.addCategoryListener(listener);
     } finally {
       _$_CentralStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  CategoryStore getcategoryListener(String key) {
+  CategoryStore getCategoryListener(String key) {
     final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
-        name: '_CentralStoreBase.getcategoryListener');
+        name: '_CentralStoreBase.getCategoryListener');
     try {
-      return super.getcategoryListener(key);
+      return super.getCategoryListener(key);
     } finally {
       _$_CentralStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void removecategoryListener(String key) {
+  void removeCategoryListener(String key) {
     final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
-        name: '_CentralStoreBase.removecategoryListener');
+        name: '_CentralStoreBase.removeCategoryListener');
     try {
-      return super.removecategoryListener(key);
+      return super.removeCategoryListener(key);
     } finally {
       _$_CentralStoreBaseActionController.endAction(_$actionInfo);
     }

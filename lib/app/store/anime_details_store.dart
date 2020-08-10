@@ -39,12 +39,6 @@ abstract class _AnimeDetailsStoreBase with Store {
   bool showSearch = false;
 
   @observable
-  String episodeIdPlaying;
-
-  @observable
-  String episodeUrlPlaying;
-
-  @observable
   String animeId;
 
   @computed
@@ -58,25 +52,7 @@ abstract class _AnimeDetailsStoreBase with Store {
       episodesOfAnimeDetails == null && animeDetails == null && error == null;
 
   @action
-  void setAnimeDetailsId(String newAnimeId) {
-    animeId = newAnimeId;
-  }
-
-  @action
-  Future<void> loadAnimeDetails() async {
-    if (animeDetails != null && animeDetails.id == animeId) {
-      return;
-    } else {
-      animeDetails = null;
-      episodesOfAnimeDetails = null;
-      error = null;
-      internalSearch = "";
-      filteredEpisodes = ObservableList<EpisodeDetails>.of([]);
-      showSearch = false;
-      episodeIdPlaying = null;
-      episodeUrlPlaying = null;
-    }
-
+  Future<void> loadAnimeDetails(String animeId) async {
     final result = await detailsRepository.getAnimeDetails(animeId);
     final resultEps = await detailsRepository.getEpisodesOf(animeId);
 
@@ -177,8 +153,7 @@ abstract class _AnimeDetailsStoreBase with Store {
         filteredEpisodes.indexWhere((element) => element.id == id);
 
     if (index == -1) {
-      throw Exception(
-          "you really expected -1? its really ok? not badd? really?");
+      return;
     }
 
     final aux = episodesOfAnimeDetails[index];

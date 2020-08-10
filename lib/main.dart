@@ -2,9 +2,15 @@ import 'package:anime_dart/app/constants/app_theme.dart';
 import 'package:anime_dart/app/screens/home/home_screen.dart';
 import 'package:anime_dart/app/setup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   setup();
+
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   runApp(AnimeDartApplication());
 }

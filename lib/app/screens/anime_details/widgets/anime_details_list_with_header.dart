@@ -24,7 +24,12 @@ class _AnimeDetailsListWithHeaderState
   AnimeDetailsStore localStore;
 
   _AnimeDetailsListWithHeaderState({Key key, @required this.storeListenerKey})
-      : assert(storeListenerKey != null) {
+      : assert(storeListenerKey != null);
+
+  @override
+  void initState() {
+    super.initState();
+
     localStore = centralStore.getAnimeDetailsListener(storeListenerKey);
   }
 

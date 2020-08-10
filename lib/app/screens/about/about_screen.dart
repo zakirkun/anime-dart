@@ -28,7 +28,7 @@ class _AboutScreenState extends State<AboutScreen> {
               Divider(height: 10, color: Colors.transparent),
               WaifuWidget(),
               buildProfileCard(
-                  externalUrl: "https://github.com/LaksCasrtro",
+                  externalUrl: "https://github.com/LaksCastro",
                   imgUrl: laksImageUrl,
                   name: "LaksCastro",
                   subject: "Web and Mobile Developer"),
@@ -38,7 +38,7 @@ class _AboutScreenState extends State<AboutScreen> {
                   imgUrl: mannoeuImageUrl,
                   name: "Emmanuel",
                   subject: "Expert Front-end Developer"),
-              Divider(height: 10, color: Colors.transparent),
+              Divider(height: 20, color: Colors.transparent),
               Container(
                   decoration: BoxDecoration(
                       color: Theme.of(context).cardColor,
@@ -111,6 +111,7 @@ class _AboutScreenState extends State<AboutScreen> {
                                     .color
                                     .withOpacity(0.5))),
                         Container(
+                            margin: EdgeInsets.only(top: 10),
                             child: FlatButton(
                                 color: Theme.of(context).colorScheme.secondary,
                                 onPressed: () {

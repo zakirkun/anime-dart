@@ -25,7 +25,7 @@ class _RandomListState extends State<RandomList> {
     }
 
     if (scrollController.offset >=
-            (scrollController.position.maxScrollExtent - 300) &&
+            (scrollController.position.maxScrollExtent - 600) &&
         !scrollController.position.outOfRange) {
       homeStore.loadMoreRandom();
     }

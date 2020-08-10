@@ -124,38 +124,6 @@ mixin _$AnimeDetailsStore on _AnimeDetailsStoreBase, Store {
     });
   }
 
-  final _$episodeIdPlayingAtom =
-      Atom(name: '_AnimeDetailsStoreBase.episodeIdPlaying');
-
-  @override
-  String get episodeIdPlaying {
-    _$episodeIdPlayingAtom.reportRead();
-    return super.episodeIdPlaying;
-  }
-
-  @override
-  set episodeIdPlaying(String value) {
-    _$episodeIdPlayingAtom.reportWrite(value, super.episodeIdPlaying, () {
-      super.episodeIdPlaying = value;
-    });
-  }
-
-  final _$episodeUrlPlayingAtom =
-      Atom(name: '_AnimeDetailsStoreBase.episodeUrlPlaying');
-
-  @override
-  String get episodeUrlPlaying {
-    _$episodeUrlPlayingAtom.reportRead();
-    return super.episodeUrlPlaying;
-  }
-
-  @override
-  set episodeUrlPlaying(String value) {
-    _$episodeUrlPlayingAtom.reportWrite(value, super.episodeUrlPlaying, () {
-      super.episodeUrlPlaying = value;
-    });
-  }
-
   final _$animeIdAtom = Atom(name: '_AnimeDetailsStoreBase.animeId');
 
   @override
@@ -175,8 +143,9 @@ mixin _$AnimeDetailsStore on _AnimeDetailsStoreBase, Store {
       AsyncAction('_AnimeDetailsStoreBase.loadAnimeDetails');
 
   @override
-  Future<void> loadAnimeDetails() {
-    return _$loadAnimeDetailsAsyncAction.run(() => super.loadAnimeDetails());
+  Future<void> loadAnimeDetails(String animeId) {
+    return _$loadAnimeDetailsAsyncAction
+        .run(() => super.loadAnimeDetails(animeId));
   }
 
   final _$toggleFavoriteAsyncAction =
@@ -189,17 +158,6 @@ mixin _$AnimeDetailsStore on _AnimeDetailsStoreBase, Store {
 
   final _$_AnimeDetailsStoreBaseActionController =
       ActionController(name: '_AnimeDetailsStoreBase');
-
-  @override
-  void setAnimeDetailsId(String newAnimeId) {
-    final _$actionInfo = _$_AnimeDetailsStoreBaseActionController.startAction(
-        name: '_AnimeDetailsStoreBase.setAnimeDetailsId');
-    try {
-      return super.setAnimeDetailsId(newAnimeId);
-    } finally {
-      _$_AnimeDetailsStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   dynamic showSearchField(bool yesOrNo) {
@@ -276,8 +234,6 @@ error: ${error},
 internalSearch: ${internalSearch},
 filteredEpisodes: ${filteredEpisodes},
 showSearch: ${showSearch},
-episodeIdPlaying: ${episodeIdPlaying},
-episodeUrlPlaying: ${episodeUrlPlaying},
 animeId: ${animeId},
 searchMode: ${searchMode},
 notFoundInternalSearch: ${notFoundInternalSearch},

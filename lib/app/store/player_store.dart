@@ -72,13 +72,32 @@ abstract class _PlayerStoreBase with Store {
     await videoPlayerController.play();
 
     chewieController = ChewieController(
-      videoPlayerController: videoPlayerController,
-      aspectRatio: videoPlayerController.value.aspectRatio,
-      autoPlay: true,
-      looping: true,
-    );
+        videoPlayerController: videoPlayerController,
+        aspectRatio: videoPlayerController.value.aspectRatio,
+        autoPlay: true,
+        looping: true,
+        allowFullScreen: true,
+        allowedScreenSleep: false,
+        autoInitialize: true,
+        fullScreenByDefault: true,
+        deviceOrientationsAfterFullScreen: [
+          DeviceOrientation.portraitDown,
+          DeviceOrientation.portraitUp,
+        ],
+        systemOverlaysAfterFullScreen: [
+          SystemUiOverlay.top,
+          SystemUiOverlay.bottom
+        ]);
 
     chewieController.enterFullScreen();
+    chewieController.addListener(() {
+      if (chewieController.isFullScreen) {
+        SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+      } else {
+        SystemChrome.setEnabledSystemUIOverlays(
+            [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+      }
+    });
 
     runInAction(() {
       getProgress = Utils.interpolate(
@@ -96,10 +115,10 @@ abstract class _PlayerStoreBase with Store {
 
     centralStore?.setEpisodeStats(episodeIdPlaying, progress);
 
-    SystemChrome.setEnabledSystemUIOverlays(
+    await SystemChrome.setEnabledSystemUIOverlays(
         [SystemUiOverlay.bottom, SystemUiOverlay.top]);
 
-    SystemChrome.setPreferredOrientations([
+    await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
