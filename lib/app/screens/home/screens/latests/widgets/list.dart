@@ -1,3 +1,4 @@
+import 'package:anime_dart/app/screens/anime_details/anime_details_screen.dart';
 import 'package:anime_dart/app/screens/home/screens/latests/widgets/tile.dart';
 import 'package:anime_dart/app/screens/watch_episode/watch_episode_screen.dart';
 import 'package:anime_dart/app/setup.dart';
@@ -27,7 +28,7 @@ class _LatestsListState extends State<LatestsList> {
           return ListView.separated(
               separatorBuilder: (_, __) =>
                   Divider(color: Colors.transparent, height: 10),
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+              padding: EdgeInsets.only(top: 20, bottom: 85),
               itemCount: homeStore.latests.length,
               itemBuilder: (BuildContext context, int index) {
                 final episode = homeStore.latests[index];
@@ -44,8 +45,17 @@ class _LatestsListState extends State<LatestsList> {
                       episode.id, episode.stats < 10 ? 100 : 0);
                 }
 
+                void onLongPress() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) =>
+                              AnimeDetailsScreen(animeId: episode.animeId)));
+                }
+
                 return LatestsTile(
                     onTapBookMark: onTapBpokMark,
+                    onLongPress: onLongPress,
                     episode: episode,
                     cardLabel: "LANÇAMENTOS",
                     onTap: onTap);

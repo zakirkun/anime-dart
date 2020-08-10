@@ -28,7 +28,7 @@ class _FavoritesListState extends State<FavoritesList> {
           return ListView.separated(
               separatorBuilder: (_, __) =>
                   Divider(color: Colors.transparent, height: 10),
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+              padding: EdgeInsets.only(top: 20, bottom: 85),
               itemCount: homeStore.favorites.length,
               itemBuilder: (BuildContext context, int index) {
                 final anime = homeStore.favorites[index];

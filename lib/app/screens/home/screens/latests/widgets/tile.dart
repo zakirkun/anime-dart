@@ -7,9 +7,15 @@ class LatestsTile extends StatelessWidget {
   final String cardLabel;
   final void Function() onTap;
   final void Function() onTapBookMark;
+  final void Function() onLongPress;
 
   LatestsTile(
-      {Key key, this.episode, this.cardLabel, this.onTap, this.onTapBookMark})
+      {Key key,
+      this.episode,
+      this.cardLabel,
+      this.onTap,
+      this.onTapBookMark,
+      this.onLongPress})
       : super(key: key);
 
   @override
@@ -19,6 +25,7 @@ class LatestsTile extends StatelessWidget {
 
     return GestureDetector(
         onTap: onTap,
+        onLongPress: onLongPress,
         child: Stack(children: [
           Container(
               decoration: BoxDecoration(color: Theme.of(context).cardColor),
