@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="/src/assets/logo.svg" width="150" />
+  <img src="/assets/ic_launcher-xl.png" width="150" />
 </p>
 <p align="center">⭐⭐⭐⭐⭐</p>
-<h1 align="center">Web Snake Game - Fluid and Responsive</h1>
-<h4 align="center"><a href="https://lakscastro.github.io/anime-dart"><code>Play in Browser</code></a></h4>
+<h1 align="center">Anime Dart</h1>
+<h4 align="center"><a href="https://github.com/LaksCastro/anime-dart/releases/"><code>Download Apk</code></a></h4>
 <p align="center">A implementation of classic Snake Game with HTML5 Canvas Engine. Written in Typescript</p>
 <p align="center">
   <img  src="https://img.shields.io/badge/category-gamedev-orange" alt="Application Category" />
