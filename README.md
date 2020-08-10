@@ -4,14 +4,13 @@
 <p align="center">⭐⭐⭐⭐⭐</p>
 <h1 align="center">Anime Dart</h1>
 <h4 align="center"><a href="https://github.com/LaksCastro/anime-dart/releases/"><code>Download Apk</code></a></h4>
-<p align="center">A implementation of classic Snake Game with HTML5 Canvas Engine. Written in Typescript</p>
+<p align="center">Um aplicativo open-source para assistir e fazer o Download de Animes, disponível para Android, totalmente open-source em sem fins lucrativos.</a></p>
 <p align="center">
-  <img  src="https://img.shields.io/badge/category-gamedev-orange" alt="Application Category" />
-  <img  src="https://img.shields.io/badge/language-typescript-blue" alt="Repo Main Language" />
-  <img  src="https://img.shields.io/badge/bundler-parcel-blueviolet" alt="Module Bundler" />
-  <img  src="https://img.shields.io/badge/architecture-factory_functions-blueviolet" alt="Repo API" />
+  <img  src="https://img.shields.io/badge/category-mobile_development-purple" alt="Application Category" />
+  <img  src="https://img.shields.io/badge/language-dart-blue" alt="Repo Main Language" />
+  <img  src="https://img.shields.io/badge/tech-flutter" alt="Module Bundler" />
   <img  src="https://img.shields.io/badge/type-project-success" alt="Repo Type" />
-  <img  src="https://img.shields.io/badge/name-snake_game-green" alt="Game Ref" />
+  <img  src="https://img.shields.io/badge/name-anime_dart-green" alt="Game Ref" />
 </p>
 
 <p align="center">
