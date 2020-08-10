@@ -201,8 +201,7 @@ abstract class _AnimeDetailsStoreBase with Store {
   @action
   void renderUpdatedFavorite(Anime anime, bool newValue) {
     if (animeDetails.id != anime.id) {
-      throw Exception(
-          "Dont scare, just for precaution I put this warning here, if you think its is a mistake, just remove it");
+      return;
     }
 
     if (episodesOfAnimeDetails == null) {
