@@ -36,6 +36,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/waifu.png
   fonts:
     - family: Raleway
       fonts:

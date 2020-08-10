@@ -11,4 +11,6 @@ abstract class BrowsingDataSource {
   Future<List<Anime>> getFavoriteAnimes();
 
   Future<List<Anime>> getRandomAnimes();
+
+  Future<List<Anime>> getByCategory(String category);
 }

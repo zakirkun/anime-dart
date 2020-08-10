@@ -184,9 +184,9 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
 
       final results = <AnimeModel>[];
 
-      bool isFavorite = false;
-
       for (final result in data) {
+        bool isFavorite = false;
+
         try {
           final req = await favorites.isFavorite(result["id"]);
 
@@ -228,6 +228,40 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
       }
 
       return watched;
+    } catch (e) {
+      throw UnableToFetchDataException("A internal server error");
+    }
+  }
+
+  @override
+  Future<List<Anime>> getByCategory(String category) async {
+    try {
+      final endpoint = "$_baseUrl?categoria=$category";
+
+      final response = await http.get(endpoint, headers: _httpHeaders);
+
+      final data = json.decode(response.body);
+
+      final animes = <Anime>[];
+
+      for (final item in data) {
+        bool isFavorite = false;
+
+        try {
+          final req = await favorites.isFavorite(item["id"]);
+
+          req.fold((l) => throw l, (r) => isFavorite = r);
+        } catch (e) {}
+
+        animes.add(Anime(
+            id: item["id"],
+            title: item["category_name"],
+            imageUrl: _getCompleteImageUrl(item["category_image"]),
+            imageHttpHeaders: _httpHeaders,
+            isFavorite: isFavorite));
+      }
+
+      return animes;
     } catch (e) {
       throw UnableToFetchDataException("A internal server error");
     }

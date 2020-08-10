@@ -13,4 +13,6 @@ abstract class BrowsingRepository {
   Future<Either<BrowsingException, List<Anime>>> getFavoriteAnimes();
 
   Future<Either<BrowsingException, List<Anime>>> getRandomAnimes();
+
+  Future<Either<BrowsingException, List<Anime>>> getByCategory(String category);
 }

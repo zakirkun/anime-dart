@@ -58,6 +58,22 @@ mixin _$CentralStore on _CentralStoreBase, Store {
     });
   }
 
+  final _$categoryListenersAtom =
+      Atom(name: '_CentralStoreBase.categoryListeners');
+
+  @override
+  ObservableMap<String, CategoryStore> get categoryListeners {
+    _$categoryListenersAtom.reportRead();
+    return super.categoryListeners;
+  }
+
+  @override
+  set categoryListeners(ObservableMap<String, CategoryStore> value) {
+    _$categoryListenersAtom.reportWrite(value, super.categoryListeners, () {
+      super.categoryListeners = value;
+    });
+  }
+
   final _$setEpisodeStatsAsyncAction =
       AsyncAction('_CentralStoreBase.setEpisodeStats');
 
@@ -179,6 +195,39 @@ mixin _$CentralStore on _CentralStoreBase, Store {
   }
 
   @override
+  String addcategoryListener(CategoryStore listener) {
+    final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
+        name: '_CentralStoreBase.addcategoryListener');
+    try {
+      return super.addcategoryListener(listener);
+    } finally {
+      _$_CentralStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  CategoryStore getcategoryListener(String key) {
+    final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
+        name: '_CentralStoreBase.getcategoryListener');
+    try {
+      return super.getcategoryListener(key);
+    } finally {
+      _$_CentralStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void removecategoryListener(String key) {
+    final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
+        name: '_CentralStoreBase.removecategoryListener');
+    try {
+      return super.removecategoryListener(key);
+    } finally {
+      _$_CentralStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void dispatchNewEpisode(String episodeId, double newStats) {
     final _$actionInfo = _$_CentralStoreBaseActionController.startAction(
         name: '_CentralStoreBase.dispatchNewEpisode');
@@ -205,7 +254,8 @@ mixin _$CentralStore on _CentralStoreBase, Store {
     return '''
 animeDetailsListeners: ${animeDetailsListeners},
 watchEpisodeListeners: ${watchEpisodeListeners},
-searchListeners: ${searchListeners}
+searchListeners: ${searchListeners},
+categoryListeners: ${categoryListeners}
     ''';
   }
 }

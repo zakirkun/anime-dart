@@ -1,4 +1,5 @@
 import 'package:anime_dart/app/constants/utils.dart';
+import 'package:anime_dart/app/widgets/waifu/waifu_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,8 @@ class _AboutScreenState extends State<AboutScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+              Divider(height: 10, color: Colors.transparent),
+              WaifuWidget(),
               buildProfileCard(
                   externalUrl: "https://github.com/LaksCasrtro",
                   imgUrl: laksImageUrl,

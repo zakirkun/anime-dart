@@ -5,6 +5,7 @@ import 'package:anime_dart/app/screens/watch_episode/widgets/watch_episode_heade
 import 'package:anime_dart/app/setup.dart';
 import 'package:anime_dart/app/store/central_store.dart';
 import 'package:anime_dart/app/store/watch_episode_store.dart';
+import 'package:anime_dart/app/widgets/waifu/waifu_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -86,18 +87,18 @@ class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
                 ),
                 child: IntrinsicHeight(
                   child: Container(
-                      margin: EdgeInsets.only(bottom: 85),
                       child: Column(children: [
-                        WatchEpisodeHeader(
-                          storeListenerKey: storeListenerKey,
-                        ),
-                        WatchButtons(
-                          storeListenerKey: storeListenerKey,
-                        ),
-                        Recommendations(
-                          storeListenerKey: storeListenerKey,
-                        )
-                      ])),
+                    WatchEpisodeHeader(
+                      storeListenerKey: storeListenerKey,
+                    ),
+                    WatchButtons(
+                      storeListenerKey: storeListenerKey,
+                    ),
+                    Recommendations(
+                      storeListenerKey: storeListenerKey,
+                    ),
+                    WaifuWidget(),
+                  ])),
                 ),
               ),
             );

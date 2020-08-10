@@ -60,6 +60,7 @@ class _RecommendationsState extends State<Recommendations> {
     return Container(
         color: Theme.of(context).cardColor,
         padding: EdgeInsets.symmetric(vertical: 20),
+        margin: EdgeInsets.only(bottom: 10),
         child: Column(children: [
           Container(
               child: Column(children: [

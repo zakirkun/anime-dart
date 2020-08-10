@@ -4,6 +4,7 @@ import 'package:anime_dart/app/screens/search/search_screen.dart';
 import 'package:anime_dart/app/setup.dart';
 import 'package:anime_dart/app/store/home_store.dart';
 import 'package:flutter/material.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -47,12 +48,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             alignment: Alignment.centerRight,
                             height: 100,
                             width: 100,
-                            child: Icon(Icons.info_outline,
+                            child: Icon(OMIcons.code,
                                 color: Theme.of(context)
                                     .primaryTextTheme
                                     .bodyText1
                                     .color
-                                    .withOpacity(.60))))
+                                    .withOpacity(.3))))
                   ]),
               automaticallyImplyLeading: false,
               bottom: TabBar(

@@ -67,4 +67,17 @@ class BrowsingRepositoryImplementation implements BrowsingRepository {
           "An error ocurred on fetch the random animes"));
     }
   }
+
+  @override
+  Future<Either<BrowsingException, List<Anime>>> getByCategory(
+      String category) async {
+    try {
+      final results = await dataSource.getByCategory(category);
+
+      return Right(results);
+    } catch (e) {
+      return Left(UnableToFetchDataException(
+          "An error ocurred on fetch the random animes"));
+    }
+  }
 }
