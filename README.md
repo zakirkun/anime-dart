@@ -23,59 +23,35 @@
   <img src="./src/assets/snake-game-printscreen.png" width="350">
 </p>
 
-<p>
-  <img src="./src/assets/pt-br.png" alt="Portuguese" height="16">
-  <a href="https://github.com/LaksCastro/snake-game/blob/master/README-ptbr.md">Ler em português</a>
-</p>
-
-# Play in Browser
-
-[Clicking here](https://lakscastro.github.io/snake-game/) you can play, enjoy :D
-
-# What is it?
-Its a implementation of classic Snake Game with HTML5 Canvas and Typescript. Differentials: is responsive, therefore is possible to open in mobile device or a desktop for same experience. In mobile, the Snake commands are handled with swipe gestures, enjoy
-
 # How to clone project
 
 ### 1. Clone repository
 
 ```
-git clone https://github.com/LaksCastro/snake-game.git
+git clone https://github.com/LaksCastro/anime-dart.git
 ```
 
 ### 2. Change directory
 
 ```
-cd snake-game
+cd anime-dart
 ```
 
-### 3. To install dependencies (2 dependencies: hammerjs to work with gestures and lodash.debounce to improve performance)
+### 3. Install dependencies
 ```
-yarn install
-```
-or, for npm users:
-```
-npm install
+flutter pub get
 ```
 
-### 4. To run development server
-
+### 4. Debug Mode
+Press F5 if Vscode or run in Command-Line:
 ```
-yarn dev
-```
-or, for npm users:  
-```
-npm run dev
+flutter run
 ```
 
-### 5. To create static files and deploy to github pages (gh-pages branch)
+### 5. To build
 
 ```
-yarn build
-```
-or, for npm users:  
-```
-npm run build
+flutter build apk --split-per-abi
 ```
 
 <br>
@@ -89,7 +65,7 @@ npm run build
 <p align="center">
   <sub>Copyright © 2020-present, Laks Castro.</sub>
 </p>
-<p align="center">Web Snake Game Code <a href="https://github.com/LaksCastro/anime-dart/blob/master/LICENSE.md">is MIT licensed 💖</a></p>
+<p align="center">Anime Dart <a href="https://github.com/LaksCastro/anime-dart/blob/master/LICENSE.md">is MIT licensed 💖</a></p>
 <p align="center">
-  <img src="./src/assets/logo64.png" width="35" />
+  <img src="./assets/ic_launcher-m.png" width="35" />
 </p>
