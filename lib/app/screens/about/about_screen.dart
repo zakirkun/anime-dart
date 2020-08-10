@@ -85,15 +85,15 @@ class _AboutScreenState extends State<AboutScreen> {
         width: double.infinity,
         child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ClipRRect(
                   borderRadius: BorderRadius.circular(40),
                   child: CachedNetworkImage(
                       imageUrl: imgUrl,
                       fit: BoxFit.cover,
-                      height: 80,
-                      width: 80)),
+                      height: 70,
+                      width: 70)),
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
