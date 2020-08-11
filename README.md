@@ -19,10 +19,6 @@
   </a>
 </p>
 
-<p align="center">
-  <img src="./src/assets/snake-game-printscreen.png" width="350">
-</p>
-
 ### Printscreens
 <table>
   <tr>
