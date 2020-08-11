@@ -96,7 +96,7 @@
       <img src="/assets/random-l.jpeg" width="250">
     </td>
     <td>
-      <img src="/assets/fav-l" width="250">
+      <img src="/assets/fav-l.jpeg" width="250">
     </td>
   </tr>
   <tr>
