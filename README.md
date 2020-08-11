@@ -6,7 +6,7 @@
 <h4 align="center"><a href="https://github.com/LaksCastro/anime-dart/releases/"><code>Download Apk</code></a></h4>
 <p align="center">Um aplicativo para assistir e fazer o download de episódios de Animes, disponível para Android, totalmente open-source.</a></p>
 <p align="center">
-  <img  src="https://img.shields.io/badge/category-mobile_development-purple" alt="Application Category" />
+  <img  src="https://img.shields.io/badge/development-mobile-purple" alt="Application Category" />
   <img  src="https://img.shields.io/badge/language-dart-blue" alt="Repo Main Language" />
   <img  src="https://img.shields.io/badge/technology-flutter-blue" alt="Module Bundler" />
   <img  src="https://img.shields.io/badge/type-project-success" alt="Repo Type" />
