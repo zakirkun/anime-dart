@@ -67,7 +67,7 @@
   </tr>
 </table>
 
-### Printscreens - Dark Mode
+### Printscreens - Light Mode
 <table>
   <tr>
     <td>
@@ -104,13 +104,10 @@
   </tr>
   <tr>
     <td>
-      <img src="/assets/lan.jpeg" width="250">
+      <img src="/assets/lan-l.jpeg" width="250">
     </td>
     <td>
       <img src="/assets/search-l.jpeg" width="250">
-    </td>
-    <td>
-      <img src="/assets/search.jpeg" width="250">
     </td>
   </tr>
 </table>
