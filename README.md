@@ -19,7 +19,7 @@
   </a>
 </p>
 
-### Printscreens
+### Printscreens - Dark Mode
 <table>
   <tr>
     <td>
@@ -60,6 +60,54 @@
     </td>
     <td>
       <img src="/assets/rec.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/search.jpeg" width="250">
+    </td>
+  </tr>
+</table>
+
+### Printscreens - Dark Mode
+<table>
+  <tr>
+    <td>
+      <img src="/assets/ep-list-l.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/rec-l.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/marcar-como-l.jpeg" width="250">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="/assets/cat-l.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/ep-de-l.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/cat-bottom-l.jpeg" width="250">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="/assets/ep-de-no-view.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/random-l.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/fav-l" width="250">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="/assets/lan.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/search-l.jpeg" width="250">
     </td>
     <td>
       <img src="/assets/search.jpeg" width="250">
