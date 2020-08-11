@@ -93,9 +93,6 @@
   </tr>
   <tr>
     <td>
-      <img src="/assets/ep-de-no-view.jpeg" width="250">
-    </td>
-    <td>
       <img src="/assets/random-l.jpeg" width="250">
     </td>
     <td>
