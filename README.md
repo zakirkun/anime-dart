@@ -23,32 +23,32 @@
   <img src="./src/assets/snake-game-printscreen.png" width="350">
 </p>
 
-# How to clone project
+### How to clone project
 
-### 1. Clone repository
+#### 1. Clone repository
 
 ```
 git clone https://github.com/LaksCastro/anime-dart.git
 ```
 
-### 2. Change directory
+#### 2. Change directory
 
 ```
 cd anime-dart
 ```
 
-### 3. Install dependencies
+#### 3. Install dependencies
 ```
 flutter pub get
 ```
 
-### 4. Debug Mode
+#### 4. Debug Mode
 Press F5 if Vscode or run in Command-Line:
 ```
 flutter run
 ```
 
-### 5. To build
+#### 5. To build
 
 ```
 flutter build apk --split-per-abi
