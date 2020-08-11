@@ -23,6 +23,54 @@
   <img src="./src/assets/snake-game-printscreen.png" width="350">
 </p>
 
+### Printscreens
+<table>
+  <tr>
+    <td>
+      <img src="/assets/lan.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/random.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/cat.jpeg" width="250">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="/assets/fav.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/ep-de.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/cat-bottom.jpeg" width="250">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="/assets/ep-de-no-view.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/ep-list.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/ep-list-no-view.jpeg" width="250">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="/assets/marcar-como.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/rec.jpeg" width="250">
+    </td>
+    <td>
+      <img src="/assets/search.jpeg" width="250">
+    </td>
+  </tr>
+</table>
+
 ### How to clone project
 
 #### 1. Clone repository
