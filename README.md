@@ -19,6 +19,8 @@
   </a>
 </p>
 
+> _**If you know another API in another language, feel free to contact me or open an issue to include your language in the App**_
+
 ### Printscreens - Dark Mode
 <table>
   <tr>
