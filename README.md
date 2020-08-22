@@ -128,7 +128,7 @@
 <br>
 
 ## Arquivos de instalação para Android
-Na aba assets desta release há os arquivos de instalação para Android, tanto para a arquitetura 32 bit quanto para 64 (Caso nenhum dos dois funcione, tente instalar o arquivo app-armeabi-v7a-release.apk), basta fazer o download e instalar, você também pode baixar o app no celular escaneando o QR Code do arquivo de sua arquitetura. Qualquer problema ocorrer no aplicativo, basta abrir uma issue. Todo o código do aplicativo [está aqui.](https://github.com/LaksCastro/anime-dart)
+Na aba assets desta release há os arquivos de instalação para Android, tanto para a arquitetura 32 bit quanto para 64 (Caso nenhum dos dois funcione, tente instalar o arquivo x86-64), basta fazer o download e instalar, você também pode baixar o app no celular escaneando o QR Code do arquivo de sua arquitetura. Qualquer problema ocorrer no aplicativo, basta abrir uma issue. Todo o código do aplicativo [está aqui.](https://github.com/LaksCastro/anime-dart)
 
 ## Arquivos
 <img src="https://github.com/LaksCastro/anime-dart/blob/master/assets/x64-qrcode.png" width="150" align="left">
