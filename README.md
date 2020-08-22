@@ -21,7 +21,19 @@
 
 > _**If you know another API in another language, feel free to contact me or open an issue to include your language in the App**_
 
-### Printscreens - Dark Mode
+<br>
+<br>
+
+## Table of contents
+- [Printscreens - Dark Mode](#printscreens---dark-mode)
+- [Printscreens - Light Mode](#printscreens---light-mode)
+- [Download - QR Code](#arquivos-de-instalação-para-android)
+- [Como clonar este projeto](#como-clonar-este-projeto)
+
+<br>
+<br>
+
+## Printscreens - Dark Mode
 <table>
   <tr>
     <td>
@@ -69,7 +81,7 @@
   </tr>
 </table>
 
-### Printscreens - Light Mode
+## Printscreens - Light Mode
 <table>
   <tr>
     <td>
@@ -111,32 +123,67 @@
   </tr>
 </table>
 
-### How to clone project
+<br>
+<br>
+<br>
 
-#### 1. Clone repository
+## Arquivos de instalação para Android
+Na aba assets desta release há os arquivos de instalação para Android, tanto para a arquitetura 32 bit quanto para 64 (Caso nenhum dos dois funcione, tente instalar o arquivo app-armeabi-v7a-release.apk), basta fazer o download e instalar, você também pode baixar o app no celular escaneando o QR Code do arquivo de sua arquitetura. Qualquer problema ocorrer no aplicativo, basta abrir uma issue. Todo o código do aplicativo [está aqui.](https://github.com/LaksCastro/anime-dart)
+
+## Arquivos
+<img src="https://github.com/LaksCastro/anime-dart/blob/master/assets/x64-qrcode.png" width="150" align="left">
+
+- ### [x64 (Download)](https://github.com/LaksCastro/anime-dart/releases/download/v1.0.0/app-arm64-v8a-release.apk)
+  - This ABI is for ARMv8-A based CPUs, which support the 64-bit AArch64 architecture. It includes the Advanced SIMD (Neon) architecture extensions ([Android Docs](https://developer.android.com/ndk/guides/abis#arm64-v8a)).
+
+<br>
+<br>
+<br>
+
+<img src="https://github.com/LaksCastro/anime-dart/blob/master/assets/x86-qrcode.png" width="150" align="left">
+
+- ### [x86 (Download)](https://github.com/LaksCastro/anime-dart/releases/download/v1.0.0/app-armeabi-v7a-release.apk)
+  - This ABI is for CPUs supporting the instruction set commonly known as "x86", "i386", or "IA-32" ([Android Docs](https://developer.android.com/ndk/guides/abis#x86)).
+
+<br>
+<br>
+<br>
+
+<img src="https://github.com/LaksCastro/anime-dart/blob/master/assets/x86-64-qrcode.png" width="150" align="left">
+
+- ### [x86-64 (Download)](https://github.com/LaksCastro/anime-dart/releases/download/v1.0.0/app-x86_64-release.apk)
+  - This ABI is for CPUs supporting the instruction set commonly referred to as "x86-64." ([Android Docs](https://developer.android.com/ndk/guides/abis#86-64)).
+
+<br>
+<br>
+<br>
+
+## Como clonar este projeto
+
+### 1. Clone o repositório
 
 ```
 git clone https://github.com/LaksCastro/anime-dart.git
 ```
 
-#### 2. Change directory
+### 2. Mude a pasta
 
 ```
 cd anime-dart
 ```
 
-#### 3. Install dependencies
+### 3. Instale as dependências
 ```
 flutter pub get
 ```
 
-#### 4. Debug Mode
+### 4. Debug Mode
 Press F5 if Vscode or run in Command-Line:
 ```
 flutter run
 ```
 
-#### 5. To build
+### 5. Gere a build
 
 ```
 flutter build apk --split-per-abi
