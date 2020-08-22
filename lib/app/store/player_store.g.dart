@@ -71,21 +71,6 @@ mixin _$PlayerStore on _PlayerStoreBase, Store {
     });
   }
 
-  final _$playerOkAtom = Atom(name: '_PlayerStoreBase.playerOk');
-
-  @override
-  bool get playerOk {
-    _$playerOkAtom.reportRead();
-    return super.playerOk;
-  }
-
-  @override
-  set playerOk(bool value) {
-    _$playerOkAtom.reportWrite(value, super.playerOk, () {
-      super.playerOk = value;
-    });
-  }
-
   final _$chewieControllerAtom =
       Atom(name: '_PlayerStoreBase.chewieController');
 
@@ -134,6 +119,36 @@ mixin _$PlayerStore on _PlayerStoreBase, Store {
     });
   }
 
+  final _$isMountedAtom = Atom(name: '_PlayerStoreBase.isMounted');
+
+  @override
+  bool get isMounted {
+    _$isMountedAtom.reportRead();
+    return super.isMounted;
+  }
+
+  @override
+  set isMounted(bool value) {
+    _$isMountedAtom.reportWrite(value, super.isMounted, () {
+      super.isMounted = value;
+    });
+  }
+
+  final _$loadingPlayerAtom = Atom(name: '_PlayerStoreBase.loadingPlayer');
+
+  @override
+  bool get loadingPlayer {
+    _$loadingPlayerAtom.reportRead();
+    return super.loadingPlayer;
+  }
+
+  @override
+  set loadingPlayer(bool value) {
+    _$loadingPlayerAtom.reportWrite(value, super.loadingPlayer, () {
+      super.loadingPlayer = value;
+    });
+  }
+
   final _$initializePlayerControllerAsyncAction =
       AsyncAction('_PlayerStoreBase.initializePlayerController');
 
@@ -147,11 +162,55 @@ mixin _$PlayerStore on _PlayerStoreBase, Store {
       ActionController(name: '_PlayerStoreBase');
 
   @override
+  void setMounted(bool newValue) {
+    final _$actionInfo = _$_PlayerStoreBaseActionController.startAction(
+        name: '_PlayerStoreBase.setMounted');
+    try {
+      return super.setMounted(newValue);
+    } finally {
+      _$_PlayerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setEpisodeDetails(String id, String url) {
     final _$actionInfo = _$_PlayerStoreBaseActionController.startAction(
         name: '_PlayerStoreBase.setEpisodeDetails');
     try {
       return super.setEpisodeDetails(id, url);
+    } finally {
+      _$_PlayerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void _saveProgress() {
+    final _$actionInfo = _$_PlayerStoreBaseActionController.startAction(
+        name: '_PlayerStoreBase._saveProgress');
+    try {
+      return super._saveProgress();
+    } finally {
+      _$_PlayerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void nextFiveSeconds() {
+    final _$actionInfo = _$_PlayerStoreBaseActionController.startAction(
+        name: '_PlayerStoreBase.nextFiveSeconds');
+    try {
+      return super.nextFiveSeconds();
+    } finally {
+      _$_PlayerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void backFiveSeconds() {
+    final _$actionInfo = _$_PlayerStoreBaseActionController.startAction(
+        name: '_PlayerStoreBase.backFiveSeconds');
+    try {
+      return super.backFiveSeconds();
     } finally {
       _$_PlayerStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -164,10 +223,11 @@ videoPlayerController: ${videoPlayerController},
 getProgress: ${getProgress},
 progress: ${progress},
 seconds: ${seconds},
-playerOk: ${playerOk},
 chewieController: ${chewieController},
 episodeUrlPlaying: ${episodeUrlPlaying},
-episodeIdPlaying: ${episodeIdPlaying}
+episodeIdPlaying: ${episodeIdPlaying},
+isMounted: ${isMounted},
+loadingPlayer: ${loadingPlayer}
     ''';
   }
 }

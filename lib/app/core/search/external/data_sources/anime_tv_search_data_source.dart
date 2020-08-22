@@ -1,7 +1,5 @@
-import 'dart:convert';
-
+import 'package:anime_dart/app/constants/utils.dart';
 import 'package:anime_dart/app/core/favorites/domain/repositories/favorite_repository.dart';
-import "package:http/http.dart" as http;
 
 import 'package:anime_dart/app/core/search/domain/errors/exceptions.dart';
 import 'package:anime_dart/app/core/search/infra/data_sources/search_data_source.dart';
@@ -12,9 +10,11 @@ class AnimeTvSearchDataSource implements SearchDataSource {
   final _imageBaseUrl = "https://cdn.appanimeplus.tk/img/";
   final _httpHeaders = {
     "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36"
+        "Mozilla/5.0 (Linux; Android 5.1.1; SM-G928X Build/LMY47X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36"
   };
   final FavoritesRepository favorites;
+
+  final dio = Utils.dio;
 
   AnimeTvSearchDataSource({
     this.favorites,
@@ -27,10 +27,9 @@ class AnimeTvSearchDataSource implements SearchDataSource {
   @override
   Future<List<AnimeModel>> searchByText(String searchText) async {
     try {
-      final response = await http.get(_baseUrl + "?search=$searchText",
-          headers: _httpHeaders);
+      final response = await dio.get(_baseUrl + "?search=$searchText");
 
-      final data = json.decode(response.body);
+      final data = response.data;
 
       final results = <AnimeModel>[];
 
@@ -63,10 +62,9 @@ class AnimeTvSearchDataSource implements SearchDataSource {
   @override
   Future<List<AnimeModel>> searchByLetter(String searchLetter) async {
     try {
-      final response = await http.get(_baseUrl + "?letra=$searchLetter",
-          headers: _httpHeaders);
+      final response = await dio.get(_baseUrl + "?letra=$searchLetter");
 
-      final data = json.decode(response.body);
+      final data = response.data;
 
       final results = <AnimeModel>[];
 

@@ -31,15 +31,26 @@ class _LatestsScreenState extends State<LatestsScreen> {
           return Center(child: CircularProgressIndicator());
         }
         if (homeStore.latestsError != null) {
-          return Center(
+          return Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(30),
               child: Column(
-            children: [
-              Text(homeStore.latestsError),
-              FlatButton(
-                  onPressed: homeStore.loadLatests,
-                  child: Text("Tentar novamente"))
-            ],
-          ));
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: Text(homeStore.latestsError,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            height: 1.5,
+                          ))),
+                  FlatButton(
+                      color: Theme.of(context).colorScheme.secondary,
+                      onPressed: homeStore.loadLatests,
+                      child: Text("Tentar novamente"))
+                ],
+              ));
         }
 
         return LatestsList();

@@ -28,9 +28,6 @@ abstract class _PlayerStoreBase with Store {
   double seconds;
 
   @observable
-  bool playerOk;
-
-  @observable
   ChewieController chewieController;
 
   @observable
@@ -39,6 +36,17 @@ abstract class _PlayerStoreBase with Store {
   @observable
   String episodeIdPlaying;
 
+  @observable
+  bool isMounted;
+
+  @observable
+  bool loadingPlayer;
+
+  @action
+  void setMounted(bool newValue) {
+    isMounted = newValue;
+  }
+
   @action
   void setEpisodeDetails(String id, String url) {
     episodeUrlPlaying = url;
@@ -46,12 +54,57 @@ abstract class _PlayerStoreBase with Store {
   }
 
   @action
-  Future<void> initializePlayerController() async {
-    if (playerOk != null) {
+  void _saveProgress() {
+    if (getProgress == null || seconds == null) {
       return;
     }
 
-    playerOk = false;
+    progress = getProgress(seconds);
+
+    centralStore?.setEpisodeStats(episodeIdPlaying, progress);
+  }
+
+  @action
+  void nextFiveSeconds() {
+    if (videoPlayerController == null) {
+      return;
+    }
+
+    final currentTime = videoPlayerController.value.position;
+    final timeLimit = videoPlayerController.value.duration;
+    final nextTime = Duration(seconds: currentTime.inSeconds + 5);
+
+    if (nextTime.inSeconds >= timeLimit.inSeconds) {
+      return;
+    }
+
+    videoPlayerController.seekTo(nextTime);
+  }
+
+  @action
+  void backFiveSeconds() {
+    if (videoPlayerController == null) {
+      return;
+    }
+
+    final currentTime = videoPlayerController.value.position;
+    final timeLimit = Duration(seconds: 0);
+    final nextTime = Duration(seconds: currentTime.inSeconds - 5);
+
+    if (nextTime.inSeconds <= timeLimit.inSeconds) {
+      return;
+    }
+
+    videoPlayerController.seekTo(nextTime);
+  }
+
+  @action
+  Future<void> initializePlayerController() async {
+    if (isMounted == null || !isMounted) {
+      return;
+    }
+
+    loadingPlayer = true;
 
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
 
@@ -65,6 +118,9 @@ abstract class _PlayerStoreBase with Store {
     videoPlayerController.addListener(() {
       runInAction(() {
         seconds = videoPlayerController.value.position.inSeconds.toDouble();
+        if (seconds.toInt() % 10 == 0) {
+          _saveProgress();
+        }
       });
     });
 
@@ -75,53 +131,32 @@ abstract class _PlayerStoreBase with Store {
         videoPlayerController: videoPlayerController,
         aspectRatio: videoPlayerController.value.aspectRatio,
         autoPlay: true,
-        looping: true,
+        looping: false,
         allowFullScreen: true,
         allowedScreenSleep: false,
         autoInitialize: true,
-        fullScreenByDefault: true,
-        deviceOrientationsAfterFullScreen: [
-          DeviceOrientation.portraitDown,
-          DeviceOrientation.portraitUp,
-        ],
-        systemOverlaysAfterFullScreen: [
-          SystemUiOverlay.top,
-          SystemUiOverlay.bottom
-        ]);
+        fullScreenByDefault: true);
 
     chewieController.enterFullScreen();
-    chewieController.addListener(() {
-      if (chewieController.isFullScreen) {
-        SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-      } else {
-        SystemChrome.setEnabledSystemUIOverlays(
-            [SystemUiOverlay.bottom, SystemUiOverlay.top]);
-      }
-    });
 
     runInAction(() {
+      loadingPlayer = false;
       getProgress = Utils.interpolate(
           xInterval: [0, videoPlayerController.value.duration.inSeconds * 0.8],
           yInterval: [0, 100]);
+    });
 
-      playerOk = true;
+    runInAction(() {
+      loadingPlayer = false;
+      if (!isMounted) {
+        videoPlayerController?.dispose();
+        chewieController?.dispose();
+      }
     });
   }
 
   Future<void> exitPlayer() async {
-    playerOk = false;
-
-    progress = getProgress(seconds);
-
-    centralStore?.setEpisodeStats(episodeIdPlaying, progress);
-
-    await SystemChrome.setEnabledSystemUIOverlays(
-        [SystemUiOverlay.bottom, SystemUiOverlay.top]);
-
-    await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp,
-    ]);
+    _saveProgress();
 
     await videoPlayerController?.dispose();
     chewieController?.dispose();
@@ -130,6 +165,5 @@ abstract class _PlayerStoreBase with Store {
     getProgress = null;
     progress = null;
     seconds = null;
-    playerOk = null;
   }
 }

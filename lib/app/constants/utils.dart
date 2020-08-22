@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:dio/adapter.dart';
+import 'package:dio/dio.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:math';
 
@@ -44,4 +48,24 @@ class Utils {
       throw Exception('Could not launch $url');
     }
   }
+
+  static Dio dio = (() {
+    final dio = Dio();
+    dio.options.headers["User-Agent"] =
+        "Mozilla/5.0 (Linux; Android 5.1.1; SM-G928X Build/LMY47X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36";
+    dio.options.headers["accept"] =
+        "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
+
+    // NOTE: uncomment this lines if proxy is needed to fetch API Data
+    // (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+    //     (HttpClient client) {
+    //   client.findProxy = (uri) {
+    //     return "PROXY 45.33.32.179:3128";
+    //   };
+    //   client.badCertificateCallback =
+    //       (X509Certificate cert, String host, int port) => true;
+    // };
+
+    return dio;
+  })();
 }

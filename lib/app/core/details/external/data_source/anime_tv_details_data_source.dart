@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:anime_dart/app/constants/utils.dart';
 import "package:http/http.dart" as http;
 
 import 'package:anime_dart/app/core/details/infra/data_source/details_data_source.dart';
@@ -18,6 +19,8 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
   final FavoritesRepository favorites;
   final WatchedRepository watched;
 
+  final dio = Utils.dio;
+
   AnimeTvDetailsDataSource({
     this.favorites,
     this.watched,
@@ -30,10 +33,9 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
   @override
   Future<AnimeDetailsModel> getAnimeDetails(String id) async {
     try {
-      final response =
-          await http.get(_baseUrl + "?info=$id", headers: _httpHeaders);
+      final response = await dio.get(_baseUrl + "?info=$id");
 
-      final data = json.decode(response.body)[0];
+      final data = response.data[0];
 
       bool isFavorite = false;
 
@@ -65,10 +67,9 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
   @override
   Future<EpisodeDetailsModel> getEpisodeDetails(String id) async {
     try {
-      final response =
-          await http.get(_baseUrl + "?episodios=$id", headers: _httpHeaders);
+      final response = await dio.get(_baseUrl + "?episodios=$id");
 
-      final data = json.decode(response.body)[0];
+      final data = response.data[0];
 
       final ownerAnime = await getAnimeDetails(data["category_id"]);
 
@@ -113,12 +114,12 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
 
       final ownerAnime = await getAnimeDetails(currentEpisode.animeId);
 
-      final response = await http.get(
-          _baseUrl +
-              "?episodios=${currentEpisode.id}&catid=${ownerAnime.id}&next",
-          headers: _httpHeaders);
+      final response = await dio.get(
+        _baseUrl +
+            "?episodios=${currentEpisode.id}&catid=${ownerAnime.id}&next",
+      );
 
-      final data = json.decode(response.body)[0];
+      final data = response.data[0];
 
       double stats = 0;
 
@@ -156,9 +157,9 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
       final endpoint = _baseUrl +
           "?episodios=${currentEpisode.id}&catid=${ownerAnime.id}&previous";
 
-      final response = await http.get(endpoint, headers: _httpHeaders);
+      final response = await dio.get(endpoint);
 
-      final data = json.decode(response.body)[0];
+      final data = response.data[0];
 
       double stats = 0;
 
@@ -191,10 +192,9 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
     try {
       final targetAnime = await getAnimeDetails(id);
 
-      final response = await http.get(_baseUrl + "?cat_id=${targetAnime.id}",
-          headers: _httpHeaders);
+      final response = await dio.get(_baseUrl + "?cat_id=${targetAnime.id}");
 
-      final data = json.decode(response.body);
+      final data = response.data;
 
       final episodes = <EpisodeDetailsModel>[];
 

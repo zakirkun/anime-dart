@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:anime_dart/app/core/search/domain/entities/anime.dart';
 import 'package:anime_dart/app/core/watched/domain/repository/watched_repository.dart';
-import "package:http/http.dart" as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:anime_dart/app/constants/utils.dart';
@@ -17,8 +14,10 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
   final _imageBaseUrl = "https://cdn.appanimeplus.tk/img/";
   final _httpHeaders = {
     "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36"
+        "Mozilla/5.0 (Linux; Android 5.1.1; SM-G928X Build/LMY47X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36",
   };
+  final dio = Utils.dio;
+
   final _watchedListKey = "anime__dart__application__watched__episodes";
 
   final _minAnimeId = 3;
@@ -34,10 +33,9 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
 
   Future<EpisodeModel> _getEpisodeFromId(String id) async {
     try {
-      final response =
-          await http.get(_baseUrl + "?episodios=$id", headers: _httpHeaders);
+      final response = await dio.get(_baseUrl + "?episodios=$id");
 
-      final data = json.decode(response.body)[0];
+      final data = response.data[0];
 
       final anime = await _getAnimeFromId(data["category_id"]);
 
@@ -75,10 +73,9 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
 
   Future<AnimeModel> _getAnimeFromId(String id) async {
     try {
-      final response =
-          await http.get(_baseUrl + "?info=$id", headers: _httpHeaders);
+      final response = await dio.get(_baseUrl + "?info=$id");
 
-      final data = json.decode(response.body)[0];
+      final data = response.data[0];
 
       bool isFavorite = false;
 
@@ -136,10 +133,9 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
   @override
   Future<List<EpisodeModel>> getLatestEpisodes() async {
     try {
-      final response =
-          await http.get(_baseUrl + "?latest", headers: _httpHeaders);
+      final response = await dio.get(_baseUrl + "?latest");
 
-      final data = json.decode(response.body);
+      final data = response.data;
 
       final results = <EpisodeModel>[];
 
@@ -177,10 +173,9 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
   @override
   Future<List<AnimeModel>> getTrendingAnimes() async {
     try {
-      final response =
-          await http.get(_baseUrl + "?populares", headers: _httpHeaders);
+      final response = await dio.get(_baseUrl + "?populares");
 
-      final data = json.decode(response.body);
+      final data = response.data;
 
       final results = <AnimeModel>[];
 
@@ -238,9 +233,9 @@ class AnimeTvBrowsingDataSource implements BrowsingDataSource {
     try {
       final endpoint = "$_baseUrl?categoria=$category";
 
-      final response = await http.get(endpoint, headers: _httpHeaders);
+      final response = await dio.get(endpoint);
 
-      final data = json.decode(response.body);
+      final data = response.data;
 
       final animes = <Anime>[];
 

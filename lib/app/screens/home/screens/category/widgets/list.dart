@@ -62,7 +62,13 @@ class _CategoryListState extends State<CategoryList> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(localStore.error),
+                      Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          child: Text(localStore.error,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                height: 1.5,
+                              ))),
                       FlatButton(
                           color: Theme.of(context).colorScheme.secondary,
                           onPressed: () => localStore.loadResults(query),

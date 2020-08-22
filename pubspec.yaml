@@ -20,11 +20,12 @@ dependencies:
   shared_preferences: ^0.5.8
   diacritic: ^0.1.1
   url_launcher: ^5.5.0
-  equatable: ^1.2.3
   mockito: ^4.1.1
   dartz: ^0.9.1
   string_validator: ^0.1.4
-  connectivity: ^0.4.9
+  dio: ^3.0.10
+  screen: ^0.0.5
+  pull_to_refresh: ^1.6.1
   flutter:
     sdk: flutter
 
