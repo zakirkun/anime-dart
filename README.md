@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/assets/ic_launcher-xl.png" width="150" />
+  <img src="/assets/logo-xl.png" width="150" />
 </p>
 <p align="center">⭐⭐⭐⭐⭐</p>
 <h1 align="center">Anime Dart</h1>
@@ -25,6 +25,7 @@
 <br>
 
 ## Table of contents
+
 - [Printscreens - Dark Mode](#printscreens---dark-mode)
 - [Printscreens - Light Mode](#printscreens---light-mode)
 - [Download - QR Code](#arquivos-de-instalação-para-android)
@@ -34,6 +35,7 @@
 <br>
 
 ## Printscreens - Dark Mode
+
 <table>
   <tr>
     <td>
@@ -82,6 +84,7 @@
 </table>
 
 ## Printscreens - Light Mode
+
 <table>
   <tr>
     <td>
@@ -128,9 +131,11 @@
 <br>
 
 ## Arquivos de instalação para Android
+
 Na aba assets desta release há os arquivos de instalação para Android, tanto para a arquitetura 32 bit quanto para 64 (Caso nenhum dos dois funcione, tente instalar o arquivo x86-64), basta fazer o download e instalar, você também pode baixar o app no celular escaneando o QR Code do arquivo de sua arquitetura. Qualquer problema ocorrer no aplicativo, basta abrir uma issue. Todo o código do aplicativo [está aqui.](https://github.com/LaksCastro/anime-dart)
 
 ## Arquivos
+
 <img src="https://github.com/LaksCastro/anime-dart/blob/master/assets/x64-qrcode.png" width="150" align="left">
 
 - ### [x64 (Download)](https://github.com/LaksCastro/anime-dart/releases/download/v1.0.0/app-arm64-v8a-release.apk)
@@ -173,12 +178,15 @@ cd anime-dart
 ```
 
 ### 3. Instale as dependências
+
 ```
 flutter pub get
 ```
 
 ### 4. Debug Mode
+
 Press F5 if Vscode or run in Command-Line:
+
 ```
 flutter run
 ```
