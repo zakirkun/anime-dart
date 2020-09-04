@@ -202,5 +202,5 @@ flutter build apk --split-per-abi
 </p>
 <p align="center">Anime Dart <a href="https://github.com/LaksCastro/anime-dart/blob/master/LICENSE.md">is MIT licensed 💖</a></p>
 <p align="center">
-  <img src="./assets/ic_launcher-m.png" width="35" />
+  <img src="./assets/words_launcher-m.png" height="100" />
 </p>
