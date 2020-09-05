@@ -143,32 +143,30 @@
 <br>
 
 ## Arquivos de instalação para Android
-
 Na aba assets desta release há os arquivos de instalação para Android, tanto para a arquitetura 32 bit quanto para 64 (Caso nenhum dos dois funcione, tente instalar o arquivo x86-64), basta fazer o download e instalar, você também pode baixar o app no celular escaneando o QR Code do arquivo de sua arquitetura. Qualquer problema ocorrer no aplicativo, basta abrir uma issue. Todo o código do aplicativo [está aqui.](https://github.com/LaksCastro/anime-dart)
 
-## Arquivos
+## Files
+<img src="https://github.com/LaksCastro/anime-dart/blob/master/assets/x64-v1.0.1.png" width="150" align="left">
 
-<img src="https://github.com/LaksCastro/anime-dart/blob/master/assets/x64-qrcode.png" width="150" align="left">
-
-- ### [x64 (Download)](https://github.com/LaksCastro/anime-dart/releases/download/v1.0.0/app-arm64-v8a-release.apk)
+- ### [x64 (Download)](https://github.com/LaksCastro/anime-dart/releases/download/v1.0.1/app-arm64-v8a-release.apk)
   - This ABI is for ARMv8-A based CPUs, which support the 64-bit AArch64 architecture. It includes the Advanced SIMD (Neon) architecture extensions ([Android Docs](https://developer.android.com/ndk/guides/abis#arm64-v8a)).
 
 <br>
 <br>
 <br>
 
-<img src="https://github.com/LaksCastro/anime-dart/blob/master/assets/x86-qrcode.png" width="150" align="left">
+<img src="https://github.com/LaksCastro/anime-dart/blob/master/assets/x86-v1.0.1.png" width="150" align="left">
 
-- ### [x86 (Download)](https://github.com/LaksCastro/anime-dart/releases/download/v1.0.0/app-armeabi-v7a-release.apk)
+- ### [x86 (Download)](https://github.com/LaksCastro/anime-dart/releases/download/v1.0.1/app-armeabi-v7a-release.apk)
   - This ABI is for CPUs supporting the instruction set commonly known as "x86", "i386", or "IA-32" ([Android Docs](https://developer.android.com/ndk/guides/abis#x86)).
 
 <br>
 <br>
 <br>
 
-<img src="https://github.com/LaksCastro/anime-dart/blob/master/assets/x86-64-qrcode.png" width="150" align="left">
+<img src="https://github.com/LaksCastro/anime-dart/blob/master/assets/x86-64-v1.0.1.png" width="150" align="left">
 
-- ### [x86-64 (Download)](https://github.com/LaksCastro/anime-dart/releases/download/v1.0.0/app-x86_64-release.apk)
+- ### [x86-64 (Download)](https://github.com/LaksCastro/anime-dart/releases/download/v1.0.1/app-x86_64-release.apk)
   - This ABI is for CPUs supporting the instruction set commonly referred to as "x86-64." ([Android Docs](https://developer.android.com/ndk/guides/abis#86-64)).
 
 <br>
