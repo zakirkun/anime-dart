@@ -5,6 +5,7 @@
 <h1 align="center">Anime Dart</h1>
 <h4 align="center"><a href="https://github.com/LaksCastro/anime-dart/releases/"><code>Download Apk</code></a></h4>
 <p align="center">Um aplicativo para assistir e fazer o download de episódios de Animes, disponível para Android, totalmente open-source.</p>
+
 <p align="center">
   <img  src="https://img.shields.io/badge/development-mobile-purple" alt="Application Category" />
   <img  src="https://img.shields.io/badge/language-dart-blue" alt="Repo Main Language" />
@@ -17,9 +18,20 @@
   <a href="https://www.linkedin.com/in/lakscastro" target="_blank">
     <img src="https://img.shields.io/twitter/url?label=Connect%20%40LaksCastro&logo=linkedin&url=https%3A%2F%2Fwww.twitter.com%2Flakscastro%2F" alt="Follow" />
   </a>
+  <a href="https://www.linkedin.com/in/emmanuel-messias-535621127/" target="_blank">
+    <img src="https://img.shields.io/twitter/url?label=Connect%20%40Emmanuel&logo=linkedin&url=https%3A%2F%2Fwww.twitter.com%2Flakscastro%2F" alt="Follow" />
+  </a>
 </p>
 
-> _**If you know another API in another language, feel free to contact me or open an issue to include your language in the App**_
+<br>
+<h3 align="center">💜</h3>
+<p align="center"><b>Quero agradecer especialmente ao <a href="https://github.com/mannoeu">@Emmanuel</a> por ter criado o ícone do aplicativo! =D</b></p>
+<br>
+
+<br>
+<br>
+
+> _**Note: this application is in PT-BR, but if you know another API in another idiom, feel free to contact me or open an issue to include your language in the App**_
 
 <br>
 <br>
