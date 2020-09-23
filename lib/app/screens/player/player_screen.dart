@@ -87,8 +87,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final half = MediaQuery.of(context).size.width / 2;
-
     return Material(
       color: Color.fromRGBO(15, 15, 25, 1),
       elevation: 0,

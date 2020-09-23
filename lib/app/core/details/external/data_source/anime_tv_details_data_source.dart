@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:anime_dart/app/constants/utils.dart';
-import "package:http/http.dart" as http;
 
 import 'package:anime_dart/app/core/details/infra/data_source/details_data_source.dart';
 import 'package:anime_dart/app/core/details/infra/models/anime_details_model.dart';

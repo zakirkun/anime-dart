@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:math';
