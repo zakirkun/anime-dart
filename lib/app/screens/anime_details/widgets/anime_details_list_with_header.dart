@@ -35,8 +35,12 @@ class _AnimeDetailsListWithHeaderState
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: Observer(builder: (_) {
-      return ListView.separated(
+    return Observer(builder: (_) {
+      return RefreshIndicator(
+        onRefresh: () =>
+            localStore.loadAnimeDetails(localStore.animeDetails.id),
+        child: ListView.separated(
+          physics: BouncingScrollPhysics(),
           padding: EdgeInsets.only(bottom: 85),
           itemBuilder: (_, i) {
             if (i == 0) {
@@ -51,7 +55,9 @@ class _AnimeDetailsListWithHeaderState
           },
           separatorBuilder: (_, i) =>
               Divider(color: Colors.transparent, height: i == 0 ? 20 : 10),
-          itemCount: localStore.episodesOfAnimeDetails.length + 1);
-    }));
+          itemCount: localStore.episodesOfAnimeDetails.length + 1,
+        ),
+      );
+    });
   }
 }

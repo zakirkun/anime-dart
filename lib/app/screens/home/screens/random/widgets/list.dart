@@ -47,6 +47,7 @@ class _RandomListState extends State<RandomList> {
         onRefresh: homeStore.loadRandom,
         child: Observer(builder: (_) {
           return ListView.separated(
+              physics: BouncingScrollPhysics(),
               controller: scrollController,
               separatorBuilder: (_, __) =>
                   Divider(color: Colors.transparent, height: 10),

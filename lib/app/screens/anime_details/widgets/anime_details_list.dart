@@ -36,21 +36,27 @@ class _AnimeDetailsListState extends State<AnimeDetailsList> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: Observer(builder: (_) {
-      return ListView.separated(
-          padding: EdgeInsets.only(bottom: 85),
-          itemBuilder: (_, i) {
-            final episode = (localStore.searchMode
-                ? localStore.filteredEpisodes
-                : localStore.episodesOfAnimeDetails)[i];
+    return Container(
+      child: Observer(
+        builder: (_) {
+          return ListView.separated(
+            physics: BouncingScrollPhysics(),
+            padding: EdgeInsets.only(bottom: 85),
+            separatorBuilder: (_, __) =>
+                Divider(color: Colors.transparent, height: 10),
+            itemCount: localStore.searchMode
+                ? localStore.filteredEpisodes.length
+                : localStore.episodesOfAnimeDetails.length,
+            itemBuilder: (_, i) {
+              final episode = (localStore.searchMode
+                  ? localStore.filteredEpisodes
+                  : localStore.episodesOfAnimeDetails)[i];
 
-            return AnimeDetailsTile(episode: episode);
-          },
-          separatorBuilder: (_, __) =>
-              Divider(color: Colors.transparent, height: 10),
-          itemCount: localStore.searchMode
-              ? localStore.filteredEpisodes.length
-              : localStore.episodesOfAnimeDetails.length);
-    }));
+              return AnimeDetailsTile(episode: episode);
+            },
+          );
+        },
+      ),
+    );
   }
 }

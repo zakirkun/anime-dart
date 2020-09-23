@@ -26,7 +26,7 @@ class _LatestsListState extends State<LatestsList> {
         onRefresh: homeStore.loadLatests,
         child: Observer(builder: (_) {
           return ListView.separated(
-              physics: AlwaysScrollableScrollPhysics(),
+              physics: BouncingScrollPhysics(),
               separatorBuilder: (_, __) =>
                   Divider(color: Colors.transparent, height: 10),
               padding: EdgeInsets.only(top: 20, bottom: 85),

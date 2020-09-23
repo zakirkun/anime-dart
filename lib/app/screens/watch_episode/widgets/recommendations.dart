@@ -58,28 +58,35 @@ class _RecommendationsState extends State<Recommendations> {
     double imageHeight = 185.50;
 
     return Container(
-        color: Theme.of(context).cardColor,
-        padding: EdgeInsets.symmetric(vertical: 20),
-        margin: EdgeInsets.only(bottom: 10),
-        child: Column(children: [
+      color: Theme.of(context).cardColor,
+      padding: EdgeInsets.symmetric(vertical: 20),
+      margin: EdgeInsets.only(bottom: 10),
+      child: Column(
+        children: [
           Container(
-              child: Column(children: [
-            Container(
-                alignment: Alignment.centerLeft,
-                padding: EdgeInsets.only(left: 20, right: 20, bottom: 5),
-                child: Text("Você pode gostar...")),
-            Container(
-                alignment: Alignment.centerLeft,
-                padding: EdgeInsets.only(bottom: 20, left: 20, right: 20),
-                child: Text(
+            child: Column(
+              children: [
+                Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 5),
+                    child: Text("Você pode gostar...")),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(bottom: 20, left: 20, right: 20),
+                  child: Text(
                     "Clique para favoritar ou pressione para ver detalhes",
                     style: TextStyle(
-                        color: Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            .color
-                            .withOpacity(0.3))))
-          ])),
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyText1
+                          .color
+                          .withOpacity(0.3),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
           Observer(builder: (_) {
             if (localStore.loadingRecommendations) {
               return Container(
@@ -95,6 +102,7 @@ class _RecommendationsState extends State<Recommendations> {
             return Container(
               height: imageHeight,
               child: ListView.separated(
+                physics: BouncingScrollPhysics(),
                 controller: recommendationController,
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 itemCount: localStore.recommendations.length,
@@ -109,7 +117,9 @@ class _RecommendationsState extends State<Recommendations> {
               ),
             );
           })
-        ]));
+        ],
+      ),
+    );
   }
 
   Widget recommendationCard(Anime anime) {
@@ -122,59 +132,74 @@ class _RecommendationsState extends State<Recommendations> {
 
     void onLongPress() {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (_) => AnimeDetailsScreen(animeId: anime.id)));
+        context,
+        MaterialPageRoute(
+          builder: (_) => AnimeDetailsScreen(animeId: anime.id),
+        ),
+      );
     }
 
     return GestureDetector(
-        onLongPress: onLongPress,
-        onTap: onTap,
-        child: Container(
-            margin: EdgeInsets.only(right: 10),
-            child: Stack(children: [
-              Container(
-                  width: imageWidth,
-                  child: Column(children: [
-                    Expanded(
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(5),
-                            child: CachedNetworkImage(
-                                width: imageWidth,
-                                height: imageHeight,
-                                fit: BoxFit.cover,
-                                httpHeaders: anime.imageHttpHeaders,
-                                imageUrl: anime.imageUrl,
-                                placeholder: (context, url) => Container(
-                                    width: imageWidth,
-                                    height: imageHeight,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary
-                                        .withOpacity(.10)),
-                                errorWidget: (context, url, error) => Container(
-                                    width: imageWidth,
-                                    height: imageHeight,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary
-                                        .withOpacity(.10)
-                                        .withOpacity(.60))))),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.only(top: 8),
-                      child: Text(
-                        anime.title,
-                        overflow: TextOverflow.ellipsis,
+      onLongPress: onLongPress,
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.only(right: 10),
+        child: Stack(
+          children: [
+            Container(
+              width: imageWidth,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: CachedNetworkImage(
+                        width: imageWidth,
+                        height: imageHeight,
+                        fit: BoxFit.cover,
+                        httpHeaders: anime.imageHttpHeaders,
+                        imageUrl: anime.imageUrl,
+                        placeholder: (context, url) => Container(
+                            width: imageWidth,
+                            height: imageHeight,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .secondary
+                                .withOpacity(.10)),
+                        errorWidget: (context, url, error) => Container(
+                          width: imageWidth,
+                          height: imageHeight,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .secondary
+                              .withOpacity(.10)
+                              .withOpacity(.60),
+                        ),
                       ),
-                    )
-                  ])),
-              Positioned(
-                  top: 5,
-                  right: 5,
-                  child: Container(
-                      child: Icon(Icons.favorite,
-                          color: anime.isFavorite ? Colors.red : Colors.white)))
-            ])));
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.only(top: 8),
+                    child: Text(
+                      anime.title,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Positioned(
+              top: 5,
+              right: 5,
+              child: Container(
+                child: Icon(Icons.favorite,
+                    color: anime.isFavorite ? Colors.red : Colors.white),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
