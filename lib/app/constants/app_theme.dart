@@ -12,9 +12,13 @@ class AppTheme {
       scaffoldBackgroundColor: Color.fromRGBO(235, 235, 245, 1),
       dialogBackgroundColor: Color.fromRGBO(255, 255, 255, 1),
       cardColor: Color.fromRGBO(255, 255, 255, 1),
-      appBarTheme: AppBarTheme(color: Color.fromRGBO(130, 130, 210, 1)),
+      appBarTheme: AppBarTheme(
+        color: Color.fromRGBO(130, 130, 210, 1),
+      ),
       textTheme: Theme.of(context).textTheme.apply(
-          fontFamily: "Raleway", bodyColor: Color.fromRGBO(100, 100, 150, 1)),
+            fontFamily: "Raleway",
+            bodyColor: Color.fromRGBO(100, 100, 150, 1),
+          ),
       colorScheme: ThemeData.light().colorScheme.copyWith(
           secondary: Color.fromRGBO(150, 150, 230, 1),
           secondaryVariant: Color.fromRGBO(170, 170, 250, 1),
@@ -35,9 +39,13 @@ class AppDarkTheme {
       scaffoldBackgroundColor: Color.fromRGBO(10, 10, 20, 1),
       dialogBackgroundColor: Color.fromRGBO(20, 20, 30, 1),
       cardColor: Color.fromRGBO(18, 18, 28, 1),
-      appBarTheme: AppBarTheme(color: Color.fromRGBO(25, 25, 45, 1)),
+      appBarTheme: AppBarTheme(
+        color: Color.fromRGBO(25, 25, 45, 1),
+      ),
       textTheme: Theme.of(context).textTheme.apply(
-          fontFamily: "Raleway", bodyColor: Color.fromRGBO(200, 200, 250, 1)),
+            fontFamily: "Raleway",
+            bodyColor: Color.fromRGBO(200, 200, 250, 1),
+          ),
       colorScheme: ColorScheme.dark().copyWith(
           secondary: Color.fromRGBO(30, 30, 50, 1),
           secondaryVariant: Color.fromRGBO(45, 45, 65, 1),

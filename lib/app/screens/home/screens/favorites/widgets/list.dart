@@ -21,45 +21,54 @@ class _FavoritesListState extends State<FavoritesList> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-        color: Theme.of(context).colorScheme.onSecondary,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        onRefresh: homeStore.loadFavorites,
-        child: Observer(builder: (_) {
+      color: Theme.of(context).colorScheme.onSecondary,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      onRefresh: homeStore.loadFavorites,
+      child: Observer(
+        builder: (_) {
           return ListView.separated(
-              physics: BouncingScrollPhysics(),
-              separatorBuilder: (_, __) =>
-                  Divider(color: Colors.transparent, height: 10),
-              padding: EdgeInsets.only(top: 20, bottom: 85),
-              itemCount: homeStore.favorites.length,
-              itemBuilder: (BuildContext context, int index) {
-                final anime = homeStore.favorites[index];
+            physics: BouncingScrollPhysics(),
+            separatorBuilder: (_, __) =>
+                Divider(color: Colors.transparent, height: 10),
+            padding: EdgeInsets.only(top: 20, bottom: 85),
+            itemCount: homeStore.favorites.length,
+            itemBuilder: (BuildContext context, int index) {
+              final anime = homeStore.favorites[index];
 
-                void onTap() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => AnimeDetailsScreen(
-                                animeId: anime.id,
-                              )));
-                }
+              void onTap() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => AnimeDetailsScreen(
+                      animeId: anime.id,
+                    ),
+                  ),
+                );
+              }
 
-                void onTapFavorite() {
-                  centralStore.setEpisodeFavorite(
-                      Anime(
-                          id: anime.id,
-                          imageHttpHeaders: anime.imageHttpHeaders,
-                          imageUrl: anime.imageUrl,
-                          isFavorite: anime.isFavorite,
-                          title: anime.title),
-                      !anime.isFavorite);
-                }
+              void onTapFavorite() {
+                centralStore.setEpisodeFavorite(
+                  Anime(
+                    id: anime.id,
+                    imageHttpHeaders: anime.imageHttpHeaders,
+                    imageUrl: anime.imageUrl,
+                    isFavorite: anime.isFavorite,
+                    title: anime.title,
+                  ),
+                  !anime.isFavorite,
+                );
+              }
 
-                return FavoritesTile(
-                    anime: anime,
-                    cardLabel: "FAVORITOS",
-                    onTap: onTap,
-                    onTapFavorite: onTapFavorite);
-              });
-        }));
+              return FavoritesTile(
+                anime: anime,
+                cardLabel: "FAVORITOS",
+                onTap: onTap,
+                onTapFavorite: onTapFavorite,
+              );
+            },
+          );
+        },
+      ),
+    );
   }
 }

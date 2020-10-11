@@ -57,71 +57,81 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            iconTheme: IconThemeData(
-              color: Theme.of(context).textTheme.bodyText1.color,
-            ),
-            backgroundColor: Theme.of(context).cardColor,
-            title: TextField(
-                autofocus: true,
-                cursorColor: Theme.of(context).textTheme.bodyText1.color,
-                decoration: InputDecoration.collapsed(
-                    hintStyle: TextStyle(
-                        color: Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            .color
-                            .withOpacity(0.5)),
-                    hintText: 'Digite uma palavra chave'),
-                controller: searchQuery)),
-        body: Observer(
-          builder: (_) {
-            if (localStore.waitingType) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Flexible(
-                      child: Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(20),
-                          child: Text(
-                              "Digite o nome de um anime para procurar...")))
-                ],
-              );
-            }
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Theme.of(context).textTheme.bodyText1.color,
+        ),
+        backgroundColor: Theme.of(context).cardColor,
+        title: TextField(
+            autofocus: true,
+            cursorColor: Theme.of(context).textTheme.bodyText1.color,
+            decoration: InputDecoration.collapsed(
+                hintStyle: TextStyle(
+                  color: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .color
+                      .withOpacity(0.5),
+                ),
+                hintText: 'Digite uma palavra chave'),
+            controller: searchQuery),
+      ),
+      body: Observer(
+        builder: (_) {
+          if (localStore.waitingType) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(20),
+                    child: Text("Digite o nome de um anime para procurar..."),
+                  ),
+                )
+              ],
+            );
+          }
 
-            if (localStore.loading) {
-              return Center(child: CircularProgressIndicator());
-            }
+          if (localStore.loading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
 
-            if (localStore.error != null) {
-              return Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(30),
-                child: Text(localStore.error,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      height: 1.5,
-                    )),
-              );
-            }
+          if (localStore.error != null) {
+            return Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(30),
+              child: Text(
+                localStore.error,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  height: 1.5,
+                ),
+              ),
+            );
+          }
 
-            if (localStore.notFound) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Flexible(
-                      child: Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(20),
-                          child: Text(
-                              "Anime não encontrado, tente outra palavra chave...")))
-                ],
-              );
-            }
+          if (localStore.notFound) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(20),
+                    child: Text(
+                        "Anime não encontrado, tente outra palavra chave..."),
+                  ),
+                )
+              ],
+            );
+          }
 
-            return SearchList(storeListenerKey: storeListenerKey);
-          },
-        ));
+          return SearchList(storeListenerKey: storeListenerKey);
+        },
+      ),
+    );
   }
 }

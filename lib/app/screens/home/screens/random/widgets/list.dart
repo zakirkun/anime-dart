@@ -42,10 +42,11 @@ class _RandomListState extends State<RandomList> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-        color: Theme.of(context).colorScheme.onSecondary,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        onRefresh: homeStore.loadRandom,
-        child: Observer(builder: (_) {
+      color: Theme.of(context).colorScheme.onSecondary,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      onRefresh: homeStore.loadRandom,
+      child: Observer(
+        builder: (_) {
           return ListView.separated(
               physics: BouncingScrollPhysics(),
               controller: scrollController,
@@ -58,11 +59,13 @@ class _RandomListState extends State<RandomList> {
 
                 void onTap() {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => AnimeDetailsScreen(
-                                animeId: anime.id,
-                              )));
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => AnimeDetailsScreen(
+                        animeId: anime.id,
+                      ),
+                    ),
+                  );
                 }
 
                 void onTapFavorite() {
@@ -82,6 +85,8 @@ class _RandomListState extends State<RandomList> {
                     onTap: onTap,
                     onTapFavorite: onTapFavorite);
               });
-        }));
+        },
+      ),
+    );
   }
 }

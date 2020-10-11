@@ -50,21 +50,30 @@ class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Container(child: Observer(builder: (_) {
-          if (localStore.loadingWatchEpisode) {
-            return Text("Carregando...");
-          }
+      appBar: AppBar(
+        title: Container(
+          child: Observer(
+            builder: (_) {
+              if (localStore.loadingWatchEpisode) {
+                return Text("Carregando...");
+              }
 
-          if (localStore.errorMsg != null) {
-            return Text("Ops, algo deu errado");
-          }
+              if (localStore.errorMsg != null) {
+                return Text("Ops, algo deu errado");
+              }
 
-          return Text(localStore.episodeDetails.label);
-        }))),
-        body: Container(child: Observer(
+              return Text(localStore.episodeDetails.label);
+            },
+          ),
+        ),
+      ),
+      body: Container(
+        child: Observer(
           builder: (_) {
             if (localStore.loadingWatchEpisode) {
-              return Center(child: CircularProgressIndicator());
+              return Center(
+                child: CircularProgressIndicator(),
+              );
             }
 
             if (localStore.errorMsg != null) {
@@ -72,11 +81,12 @@ class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(30),
                 child: Text(
-                    "Ocorreu um erro ao carregar os dados deste episódio, tente novamente!",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      height: 1.5,
-                    )),
+                  "Ocorreu um erro ao carregar os dados deste episódio, tente novamente!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    height: 1.5,
+                  ),
+                ),
               );
             }
 
@@ -87,40 +97,48 @@ class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
                 ),
                 child: IntrinsicHeight(
                   child: Container(
-                      child: Column(children: [
-                    WatchEpisodeHeader(
-                      storeListenerKey: storeListenerKey,
+                    child: Column(
+                      children: [
+                        WatchEpisodeHeader(
+                          storeListenerKey: storeListenerKey,
+                        ),
+                        WatchButtons(
+                          storeListenerKey: storeListenerKey,
+                        ),
+                        Recommendations(
+                          storeListenerKey: storeListenerKey,
+                        ),
+                        WaifuWidget(),
+                      ],
                     ),
-                    WatchButtons(
-                      storeListenerKey: storeListenerKey,
-                    ),
-                    Recommendations(
-                      storeListenerKey: storeListenerKey,
-                    ),
-                    WaifuWidget(),
-                  ])),
+                  ),
                 ),
               ),
             );
           },
-        )),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            if (localStore.loadingWatchEpisode) {
-              return;
-            }
-            if (back) {
-              return Navigator.pop(context);
-            }
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          if (localStore.loadingWatchEpisode) {
+            return;
+          }
+          if (back) {
+            return Navigator.pop(context);
+          }
 
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => AnimeDetailsScreen(
-                        animeId: localStore.episodeDetails.animeId)));
-          },
-          label: Text((back ? "Voltar para " : "Ver ") + "lista de episódios"),
-          icon: Icon(back ? Icons.arrow_back : Icons.playlist_add_check),
-        ));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => AnimeDetailsScreen(
+                animeId: localStore.episodeDetails.animeId,
+              ),
+            ),
+          );
+        },
+        label: Text((back ? "Voltar para " : "Ver ") + "lista de episódios"),
+        icon: Icon(back ? Icons.arrow_back : Icons.playlist_add_check),
+      ),
+    );
   }
 }

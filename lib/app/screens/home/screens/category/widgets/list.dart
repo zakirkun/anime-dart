@@ -45,73 +45,88 @@ class _CategoryListState extends State<CategoryList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(label)),
+      appBar: AppBar(
+        title: Text(label),
+      ),
       body: RefreshIndicator(
-          color: Theme.of(context).colorScheme.onSecondary,
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          onRefresh: () => localStore.loadResults(query),
-          child: Observer(builder: (_) {
+        color: Theme.of(context).colorScheme.onSecondary,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        onRefresh: () => localStore.loadResults(query),
+        child: Observer(
+          builder: (_) {
             if (localStore.loading) {
-              return Center(child: CircularProgressIndicator());
+              return Center(
+                child: CircularProgressIndicator(),
+              );
             }
             if (localStore.error != null) {
               return Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(30),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                          margin: EdgeInsets.only(bottom: 10),
-                          child: Text(localStore.error,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                height: 1.5,
-                              ))),
-                      FlatButton(
-                          color: Theme.of(context).colorScheme.secondary,
-                          onPressed: () => localStore.loadResults(query),
-                          child: Text("Tentar novamente"))
-                    ],
-                  ));
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        localStore.error,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          height: 1.5,
+                        ),
+                      ),
+                    ),
+                    FlatButton(
+                      color: Theme.of(context).colorScheme.secondary,
+                      onPressed: () => localStore.loadResults(query),
+                      child: Text("Tentar novamente"),
+                    )
+                  ],
+                ),
+              );
             }
             return ListView.separated(
-                physics: BouncingScrollPhysics(),
-                separatorBuilder: (_, __) =>
-                    Divider(color: Colors.transparent, height: 10),
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
-                itemCount: localStore.results.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final anime = localStore.results[index];
+              physics: BouncingScrollPhysics(),
+              separatorBuilder: (_, __) =>
+                  Divider(color: Colors.transparent, height: 10),
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+              itemCount: localStore.results.length,
+              itemBuilder: (BuildContext context, int index) {
+                final anime = localStore.results[index];
 
-                  void onTap() {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => AnimeDetailsScreen(
-                                  animeId: anime.id,
-                                )));
-                  }
+                void onTap() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => AnimeDetailsScreen(
+                        animeId: anime.id,
+                      ),
+                    ),
+                  );
+                }
 
-                  void onTapFavorite() {
-                    centralStore.setEpisodeFavorite(
-                        Anime(
-                            id: anime.id,
-                            imageHttpHeaders: anime.imageHttpHeaders,
-                            imageUrl: anime.imageUrl,
-                            isFavorite: anime.isFavorite,
-                            title: anime.title),
-                        !anime.isFavorite);
-                  }
+                void onTapFavorite() {
+                  centralStore.setEpisodeFavorite(
+                      Anime(
+                          id: anime.id,
+                          imageHttpHeaders: anime.imageHttpHeaders,
+                          imageUrl: anime.imageUrl,
+                          isFavorite: anime.isFavorite,
+                          title: anime.title),
+                      !anime.isFavorite);
+                }
 
-                  return CategoryTile(
-                      anime: anime,
-                      cardLabel: label,
-                      onTap: onTap,
-                      onTapFavorite: onTapFavorite);
-                });
-          })),
+                return CategoryTile(
+                    anime: anime,
+                    cardLabel: label,
+                    onTap: onTap,
+                    onTapFavorite: onTapFavorite);
+              },
+            );
+          },
+        ),
+      ),
     );
   }
 }

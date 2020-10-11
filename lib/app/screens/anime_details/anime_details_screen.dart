@@ -85,57 +85,73 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Observer(builder: (_) {
-          if (localStore.loading) {
-            return Text("Carregando...");
-          }
+      appBar: AppBar(
+        title: Observer(
+          builder: (_) {
+            if (localStore.loading) {
+              return Text("Carregando...");
+            }
 
-          if (localStore.error != null) {
-            return Text("Oooops...");
-          }
+            if (localStore.error != null) {
+              return Text("Oooops...");
+            }
 
-          if (localStore.showSearch) {
-            return Row(children: [
-              Expanded(
-                  child: TextField(
-                      autofocus: true,
-                      style: TextStyle(
-                          color: Theme.of(context).primaryIconTheme.color),
-                      cursorColor: Theme.of(context).primaryIconTheme.color,
-                      decoration: InputDecoration.collapsed(
-                          hintStyle: TextStyle(
+            if (localStore.showSearch) {
+              return Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                        autofocus: true,
+                        style: TextStyle(
+                            color: Theme.of(context).primaryIconTheme.color),
+                        cursorColor: Theme.of(context).primaryIconTheme.color,
+                        decoration: InputDecoration.collapsed(
+                            hintStyle: TextStyle(
                               color: Theme.of(context)
                                   .primaryIconTheme
                                   .color
-                                  .withOpacity(0.5)),
-                          hintText: 'Digite o número do episódio'),
-                      controller: searchQuery)),
-              GestureDetector(
-                  onTap: _closeSearchMode,
-                  child: Container(
-                      height: 40,
-                      width: 50,
-                      child: Icon(Icons.close),
-                      alignment: Alignment.centerRight))
-            ]);
-          }
-
-          return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(child: Text(localStore.animeDetails.title)),
-                GestureDetector(
-                    onTap: _enableSearchMode,
+                                  .withOpacity(0.5),
+                            ),
+                            hintText: 'Digite o número do episódio'),
+                        controller: searchQuery),
+                  ),
+                  GestureDetector(
+                    onTap: _closeSearchMode,
                     child: Container(
                         height: 40,
                         width: 50,
-                        child: Icon(Icons.search),
-                        alignment: Alignment.centerRight))
-              ]);
-        })),
-        body: Observer(builder: (_) {
+                        child: Icon(Icons.close),
+                        alignment: Alignment.centerRight),
+                  )
+                ],
+              );
+            }
+
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(localStore.animeDetails.title),
+                ),
+                GestureDetector(
+                  onTap: _enableSearchMode,
+                  child: Container(
+                      height: 40,
+                      width: 50,
+                      child: Icon(Icons.search),
+                      alignment: Alignment.centerRight),
+                )
+              ],
+            );
+          },
+        ),
+      ),
+      body: Observer(
+        builder: (_) {
           if (localStore.loading) {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           }
 
           if (localStore.error != null) {
@@ -143,11 +159,12 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
               alignment: Alignment.center,
               padding: EdgeInsets.all(30),
               child: Text(
-                  "Ocorreu um erro ao carregar os episódios deste anime, tente novamente!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    height: 1.5,
-                  )),
+                "Ocorreu um erro ao carregar os episódios deste anime, tente novamente!",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  height: 1.5,
+                ),
+              ),
             );
           }
 
@@ -160,8 +177,10 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
             if (localStore.notFoundInternalSearch) {
               return WillPopScope(
                   child: Center(
-                      child: Text(
-                          "Não foi posível encontrar o episódio especificado")),
+                    child: Text(
+                      "Não foi posível encontrar o episódio especificado",
+                    ),
+                  ),
                   onWillPop: _preventAcidentalPop);
             }
 
@@ -173,37 +192,47 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
                 child: AnimeDetailsList(storeListenerKey: storeListenerKey),
                 onWillPop: _preventAcidentalPop);
           }
-        }),
-        floatingActionButton: FloatingActionButton(
-            backgroundColor: Theme.of(context).cardColor,
-            onPressed: () {
-              if (localStore.loading || localStore.error != null) {
-                return;
-              }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).cardColor,
+        onPressed: () {
+          if (localStore.loading || localStore.error != null) {
+            return;
+          }
 
-              final aux = localStore.animeDetails;
+          final aux = localStore.animeDetails;
 
-              centralStore.setEpisodeFavorite(
-                  Anime(
-                      id: aux.id,
-                      imageHttpHeaders: aux.imageHttpHeaders,
-                      imageUrl: aux.imageUrl,
-                      isFavorite: aux.isFavorite,
-                      title: aux.title),
-                  !localStore.animeDetails.isFavorite);
-            },
-            child: Observer(builder: (_) {
-              Color fill = Theme.of(context).textTheme.bodyText1.color;
+          centralStore.setEpisodeFavorite(
+              Anime(
+                  id: aux.id,
+                  imageHttpHeaders: aux.imageHttpHeaders,
+                  imageUrl: aux.imageUrl,
+                  isFavorite: aux.isFavorite,
+                  title: aux.title),
+              !localStore.animeDetails.isFavorite);
+        },
+        child: Observer(
+          builder: (_) {
+            Color fill = Theme.of(context).textTheme.bodyText1.color;
 
-              if (localStore.loading || localStore.error != null) {
-                return Icon(OMIcons.helpOutline, color: fill.withOpacity(0.3));
-              }
+            if (localStore.loading || localStore.error != null) {
+              return Icon(
+                OMIcons.helpOutline,
+                color: fill.withOpacity(
+                  0.3,
+                ),
+              );
+            }
 
-              if (localStore.animeDetails.isFavorite) {
-                return Icon(Icons.favorite, color: fill);
-              }
+            if (localStore.animeDetails.isFavorite) {
+              return Icon(Icons.favorite, color: fill);
+            }
 
-              return Icon(OMIcons.favoriteBorder, color: fill);
-            })));
+            return Icon(OMIcons.favoriteBorder, color: fill);
+          },
+        ),
+      ),
+    );
   }
 }

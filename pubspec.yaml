@@ -25,7 +25,6 @@ dependencies:
   string_validator: ^0.1.4
   dio: ^3.0.10
   screen: ^0.0.5
-  pull_to_refresh: ^1.6.1
   flutter:
     sdk: flutter
 

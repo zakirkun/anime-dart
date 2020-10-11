@@ -25,25 +25,33 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
           void onTap() {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => CategoryList(
-                        label: categories[index]["label"],
-                        query: categories[index]["query"])));
+              context,
+              MaterialPageRoute(
+                builder: (_) => CategoryList(
+                  label: categories[index]["label"],
+                  query: categories[index]["query"],
+                ),
+              ),
+            );
           }
 
           return GestureDetector(
-              onTap: onTap,
-              child: Container(
-                  color: Theme.of(context).cardColor,
-                  child: ListTile(
-                      title: Text(categories[index]["label"]),
-                      leading: Icon(categories[index]["icon"],
-                          color: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              .color
-                              .withOpacity(0.5)))));
+            onTap: onTap,
+            child: Container(
+              color: Theme.of(context).cardColor,
+              child: ListTile(
+                title: Text(categories[index]["label"]),
+                leading: Icon(
+                  categories[index]["icon"],
+                  color: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .color
+                      .withOpacity(0.5),
+                ),
+              ),
+            ),
+          );
         });
   }
 }

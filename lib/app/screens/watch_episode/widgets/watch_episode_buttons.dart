@@ -36,120 +36,146 @@ class _WatchButtonsState extends State<WatchButtons> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Observer(builder: (_) {
-        if (localStore.loadingWatchEpisode || localStore.loadingOtherEpisode) {
-          return Container(
+      child: Observer(
+        builder: (_) {
+          if (localStore.loadingWatchEpisode ||
+              localStore.loadingOtherEpisode) {
+            return Container(
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(vertical: 50, horizontal: 15),
-              child: CircularProgressIndicator());
-        }
+              child: CircularProgressIndicator(),
+            );
+          }
 
-        return Column(children: [
-          Container(
-            margin: EdgeInsets.only(top: 20),
-            color: Theme.of(context).cardColor,
-            padding: EdgeInsets.all(20),
-            child: Column(children: [
+          return Column(
+            children: [
               Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text("Assistir Online:",
-                      style: TextStyle(
+                margin: EdgeInsets.only(top: 20),
+                color: Theme.of(context).cardColor,
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Assistir Online:",
+                        style: TextStyle(
                           fontSize: 12,
                           color: Theme.of(context)
                               .textTheme
                               .bodyText1
                               .color
-                              .withOpacity(0.5)))),
-              localStore.episodeDetails?.urlHd == null ||
-                      (localStore.episodeDetails?.urlHd?.isEmpty ?? false)
-                  ? (RippleButton(
-                      color: Colors.white.withOpacity(0.01),
-                      onTap: () {},
-                      label: "Esse episódio não está disponível em HD"))
-                  : (RippleButton(
-                      color: Theme.of(context).colorScheme.secondary,
+                              .withOpacity(0.5),
+                        ),
+                      ),
+                    ),
+                    localStore.episodeDetails?.urlHd == null ||
+                            (localStore.episodeDetails?.urlHd?.isEmpty ?? false)
+                        ? (RippleButton(
+                            color: Colors.white.withOpacity(0.01),
+                            onTap: () {},
+                            label: "Esse episódio não está disponível em HD",
+                          ))
+                        : (RippleButton(
+                            color: Theme.of(context).colorScheme.secondary,
+                            onTap: () {
+                              if (localStore.episodeDetails?.urlHd == null ||
+                                  (localStore.episodeDetails?.urlHd?.isEmpty ??
+                                      false)) {
+                                return;
+                              }
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => PlayerScreen(
+                                    id: localStore.episodeDetails.id,
+                                    url: localStore.episodeDetails.urlHd,
+                                  ),
+                                ),
+                              );
+                            },
+                            label: "Assistir em HD")),
+                    RippleButton(
+                      color: Theme.of(context).colorScheme.secondaryVariant,
                       onTap: () {
-                        if (localStore.episodeDetails?.urlHd == null ||
-                            (localStore.episodeDetails?.urlHd?.isEmpty ??
-                                false)) {
+                        if (localStore.episodeDetails?.url == null) {
                           return;
                         }
 
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => PlayerScreen(
-                                    id: localStore.episodeDetails.id,
-                                    url: localStore.episodeDetails.urlHd)));
-                      },
-                      label: "Assistir em HD")),
-              RippleButton(
-                  color: Theme.of(context).colorScheme.secondaryVariant,
-                  onTap: () {
-                    if (localStore.episodeDetails?.url == null) {
-                      return;
-                    }
-
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
+                          context,
+                          MaterialPageRoute(
                             builder: (_) => PlayerScreen(
-                                id: localStore.episodeDetails.id,
-                                url: localStore.episodeDetails.url)));
-                  },
-                  label: "Assistir"),
-            ]),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 20),
-            color: Theme.of(context).cardColor,
-            padding: EdgeInsets.all(20),
-            child: Column(children: [
+                              id: localStore.episodeDetails.id,
+                              url: localStore.episodeDetails.url,
+                            ),
+                          ),
+                        );
+                      },
+                      label: "Assistir",
+                    ),
+                  ],
+                ),
+              ),
               Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text("Fazer Download:",
-                      style: TextStyle(
+                margin: EdgeInsets.symmetric(vertical: 20),
+                color: Theme.of(context).cardColor,
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Fazer Download:",
+                        style: TextStyle(
                           fontSize: 12,
                           color: Theme.of(context)
                               .textTheme
                               .bodyText1
                               .color
-                              .withOpacity(0.5)))),
-              localStore.episodeDetails?.urlHd == null ||
-                      (localStore.episodeDetails?.urlHd?.isEmpty ?? false)
-                  ? (RippleButton(
-                      color: Colors.white.withOpacity(0.01),
-                      onTap: () {},
-                      label: "Esse episódio não está disponível em HD"))
-                  : (RippleButton(
-                      color: Theme.of(context).colorScheme.secondary,
-                      onTap: () {
-                        if (localStore.episodeDetails?.urlHd == null ||
-                            (localStore.episodeDetails?.urlHd?.isEmpty ??
-                                false)) {
-                          return;
-                        }
-                        Utils.openUrl(localStore.episodeDetails?.urlHd);
-                      },
-                      label: "Download em HD")),
-              RippleButton(
-                  color: Theme.of(context).colorScheme.secondaryVariant,
-                  onTap: () async {
-                    if (localStore.episodeDetails?.url == null) {
-                      return;
-                    }
+                              .withOpacity(0.5),
+                        ),
+                      ),
+                    ),
+                    localStore.episodeDetails?.urlHd == null ||
+                            (localStore.episodeDetails?.urlHd?.isEmpty ?? false)
+                        ? (RippleButton(
+                            color: Colors.white.withOpacity(0.01),
+                            onTap: () {},
+                            label: "Esse episódio não está disponível em HD"))
+                        : (RippleButton(
+                            color: Theme.of(context).colorScheme.secondary,
+                            onTap: () {
+                              if (localStore.episodeDetails?.urlHd == null ||
+                                  (localStore.episodeDetails?.urlHd?.isEmpty ??
+                                      false)) {
+                                return;
+                              }
+                              Utils.openUrl(localStore.episodeDetails?.urlHd);
+                            },
+                            label: "Download em HD")),
+                    RippleButton(
+                        color: Theme.of(context).colorScheme.secondaryVariant,
+                        onTap: () async {
+                          if (localStore.episodeDetails?.url == null) {
+                            return;
+                          }
 
-                    try {
-                      await Utils.openUrl(localStore.episodeDetails?.url);
-                    } catch (e) {
-                      print(e);
-                    }
-                  },
-                  label: "Download"),
-            ]),
-          )
-        ]);
-      }),
+                          try {
+                            await Utils.openUrl(localStore.episodeDetails?.url);
+                          } catch (e) {
+                            print(e);
+                          }
+                        },
+                        label: "Download"),
+                  ],
+                ),
+              )
+            ],
+          );
+        },
+      ),
     );
   }
 }

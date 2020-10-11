@@ -15,30 +15,42 @@ class AnimeDetailsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) =>
-                      WatchEpisodeScreen(id: episode.id, back: true)));
-        },
-        child: Container(
-            decoration: BoxDecoration(
-                color: Theme.of(context).cardColor,
-                border: Border(
-                    left: BorderSide(
-                        width: 5,
-                        color: Color.lerp(
-                            Colors.red, Colors.green, episode.stats / 100)))),
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-            child: ListTile(
-              title: Text(episode.label, style: TextStyle(height: 1.5)),
-              leading: Icon(OMIcons.playArrow,
-                  color: Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      .color
-                      .withOpacity(0.5)),
-            )));
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => WatchEpisodeScreen(id: episode.id, back: true),
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          border: Border(
+            left: BorderSide(
+              width: 5,
+              color: Color.lerp(
+                Colors.red,
+                Colors.green,
+                episode.stats / 100,
+              ),
+            ),
+          ),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+        child: ListTile(
+          title: Text(
+            episode.label,
+            style: TextStyle(
+              height: 1.5,
+            ),
+          ),
+          leading: Icon(
+            OMIcons.playArrow,
+            color: Theme.of(context).textTheme.bodyText1.color.withOpacity(0.5),
+          ),
+        ),
+      ),
+    );
   }
 }

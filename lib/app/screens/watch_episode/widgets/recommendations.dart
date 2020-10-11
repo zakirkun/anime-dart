@@ -67,9 +67,10 @@ class _RecommendationsState extends State<Recommendations> {
             child: Column(
               children: [
                 Container(
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 5),
-                    child: Text("Você pode gostar...")),
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 5),
+                  child: Text("Você pode gostar..."),
+                ),
                 Container(
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.only(bottom: 20, left: 20, right: 20),
@@ -90,9 +91,12 @@ class _RecommendationsState extends State<Recommendations> {
           Observer(builder: (_) {
             if (localStore.loadingRecommendations) {
               return Container(
-                  height: imageHeight,
-                  width: imageWidth,
-                  child: Center(child: CircularProgressIndicator()));
+                height: imageHeight,
+                width: imageWidth,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
             }
 
             if (localStore.recommendationsError != null) {
@@ -160,12 +164,13 @@ class _RecommendationsState extends State<Recommendations> {
                         httpHeaders: anime.imageHttpHeaders,
                         imageUrl: anime.imageUrl,
                         placeholder: (context, url) => Container(
-                            width: imageWidth,
-                            height: imageHeight,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .secondary
-                                .withOpacity(.10)),
+                          width: imageWidth,
+                          height: imageHeight,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .secondary
+                              .withOpacity(.10),
+                        ),
                         errorWidget: (context, url, error) => Container(
                           width: imageWidth,
                           height: imageHeight,
