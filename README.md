@@ -4,7 +4,7 @@
 <p align="center">⭐⭐⭐⭐⭐</p>
 <h1 align="center">Anime Dart</h1>
 <h4 align="center"><a href="https://github.com/LaksCastro/anime-dart/releases/"><code>Download Apk</code></a></h4>
-<p align="center">Um aplicativo para assistir e fazer o download de episódios de Animes, disponível para Android, totalmente open-source.</p>
+<p align="center">Um aplicativo para assistir e fazer download de episódios de Animes, disponível para Android, totalmente open-source.</p>
 
 <p align="center">
   <img  src="https://img.shields.io/badge/development-mobile-purple" alt="Application Category" />
@@ -143,7 +143,7 @@
 <br>
 
 ## Arquivos de instalação para Android
-Na aba assets desta release há os arquivos de instalação para Android, tanto para a arquitetura 32 bit quanto para 64 (Caso nenhum dos dois funcione, tente instalar o arquivo x86-64), basta fazer o download e instalar, você também pode baixar o app no celular escaneando o QR Code do arquivo de sua arquitetura. Qualquer problema ocorrer no aplicativo, basta abrir uma issue. Todo o código do aplicativo [está aqui.](https://github.com/LaksCastro/anime-dart)
+Na aba assets desta release há os arquivos de instalação para Android, tanto para a arquitetura 32 bit quanto para 64 (Caso nenhum dos dois funcione, tente instalar o arquivo x86-64), basta fazer o download e instalar, você também pode baixar o app no celular escaneando o QR Code do arquivo de sua arquitetura. Qualquer problema que ocorrer no aplicativo, basta abrir uma issue. Todo o código do aplicativo [está aqui.](https://github.com/LaksCastro/anime-dart)
 
 ## Files
 <img src="https://github.com/LaksCastro/anime-dart/blob/master/assets/x64-v1.0.1.png" width="150" align="left">
