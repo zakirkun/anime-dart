@@ -23,7 +23,7 @@ class _AnimeDetailsListWithHeaderState
   final centralStore = getIt<CentralStore>();
   AnimeDetailsStore localStore;
 
-  _AnimeDetailsListWithHeaderState({Key key, @required this.storeListenerKey})
+  _AnimeDetailsListWithHeaderState({@required this.storeListenerKey})
       : assert(storeListenerKey != null);
 
   @override

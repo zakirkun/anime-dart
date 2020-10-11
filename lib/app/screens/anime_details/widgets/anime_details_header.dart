@@ -18,7 +18,7 @@ class _AnimeDetailsHeaderState extends State<AnimeDetailsHeader> {
   final centralStore = getIt<CentralStore>();
   AnimeDetailsStore localStore;
 
-  _AnimeDetailsHeaderState({Key key, @required this.storeListenerKey});
+  _AnimeDetailsHeaderState({@required this.storeListenerKey});
 
   @override
   void initState() {

@@ -26,7 +26,7 @@ class _CategoryListState extends State<CategoryList> {
   final centralStore = getIt<CentralStore>();
   final localStore = CategoryStore();
 
-  _CategoryListState({Key key, this.label, this.query});
+  _CategoryListState({this.label, this.query});
 
   @override
   void initState() {
