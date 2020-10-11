@@ -23,26 +23,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
   final playerStore = getIt<PlayerStore>();
   final String id;
   final String url;
-  double _brightness;
 
   _PlayerScreenState({@required this.id, @required this.url});
-
-  Future<double> _getBrightness() async {
-    if (_brightness != null) {
-      return _brightness;
-    }
-
-    final initialBrightness = await Screen.brightness;
-
-    _setBrightness(initialBrightness);
-
-    return _getBrightness();
-  }
-
-  void _setBrightness(double newBrightness) {
-    _brightness = newBrightness;
-    Screen.setBrightness(_brightness);
-  }
 
   void _disableSleep() {
     Screen.keepOn(true);
@@ -90,25 +72,19 @@ class _PlayerScreenState extends State<PlayerScreen> {
     return Material(
       color: Color.fromRGBO(15, 15, 25, 1),
       elevation: 0,
-      child: Center(child: Observer(builder: (_) {
-        if (playerStore.loadingPlayer) {
-          return CircularProgressIndicator();
-        }
+      child: Center(
+        child: Observer(
+          builder: (_) {
+            if (playerStore.loadingPlayer) {
+              return CircularProgressIndicator();
+            }
 
-        return GestureDetector(
-            onVerticalDragUpdate: (details) async {
-              final differenceFactor = (-details.delta.dy) / 100;
-
-              final newBrightness = (await _getBrightness()) + differenceFactor;
-
-              _setBrightness(newBrightness <= 0
-                  ? 0
-                  : newBrightness >= 1 ? 1 : newBrightness);
-            },
-            child: Chewie(
+            return Chewie(
               controller: playerStore.chewieController,
-            ));
-      })),
+            );
+          },
+        ),
+      ),
     );
   }
 }
