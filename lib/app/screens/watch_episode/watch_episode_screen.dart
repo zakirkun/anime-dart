@@ -156,10 +156,6 @@ class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          if (_localStore.loadingWatchEpisode) {
-            return;
-          }
-
           if (widget.back) {
             return Navigator.pop(context);
           }
