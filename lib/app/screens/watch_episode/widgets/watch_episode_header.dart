@@ -1,5 +1,6 @@
 import 'package:anime_dart/app/setup.dart';
 import 'package:anime_dart/app/store/central_store.dart';
+import 'package:anime_dart/app/store/theme_store.dart';
 import 'package:anime_dart/app/store/watch_episode_store.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -18,25 +19,23 @@ class WatchEpisodeHeader extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _WatchEpisodeHeaderState createState() =>
-      _WatchEpisodeHeaderState(storeListenerKey: storeListenerKey);
+  _WatchEpisodeHeaderState createState() => _WatchEpisodeHeaderState();
 }
 
 class _WatchEpisodeHeaderState extends State<WatchEpisodeHeader> {
-  final String storeListenerKey;
-  final centralStore = getIt<CentralStore>();
+  final _centralStore = getIt<CentralStore>();
+  final _themeStore = getIt<ThemeStore>();
   WatchEpisodeStore localStore;
-
-  _WatchEpisodeHeaderState({this.storeListenerKey});
 
   @override
   void initState() {
     super.initState();
 
-    if (storeListenerKey == null) {
+    if (widget.storeListenerKey == null) {
       throw Exception("The store key must be a valid String");
     }
-    localStore = centralStore.getWatchEpisodeListener(storeListenerKey);
+
+    localStore = _centralStore.getWatchEpisodeListener(widget.storeListenerKey);
   }
 
   @override
@@ -49,8 +48,12 @@ class _WatchEpisodeHeaderState extends State<WatchEpisodeHeader> {
 
   Row _buildDetails() {
     return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_buildImage(), _buildTitle()]);
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildImage(),
+        _buildTitle(),
+      ],
+    );
   }
 
   Container _buildImage() {
@@ -100,15 +103,20 @@ class _WatchEpisodeHeaderState extends State<WatchEpisodeHeader> {
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .secondary
-                          .withOpacity(0.05),
-                      border: Border(
-                          left: BorderSide(
-                              color: Theme.of(context).colorScheme.secondary,
-                              style: BorderStyle.solid,
-                              width: 2))),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .secondary
+                        .withOpacity(0.05),
+                    border: Border(
+                      left: BorderSide(
+                        color: _themeStore.isDarkTheme
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.secondary,
+                        style: BorderStyle.solid,
+                        width: 2,
+                      ),
+                    ),
+                  ),
                   margin: EdgeInsets.symmetric(vertical: 10),
                   padding:
                       EdgeInsets.only(top: 20, bottom: 20, left: 10, right: 10),
@@ -238,7 +246,8 @@ class _WatchEpisodeHeaderState extends State<WatchEpisodeHeader> {
                     TextStyle(color: Theme.of(context).colorScheme.onSecondary),
               ),
               onPressed: () {
-                centralStore.setEpisodeStats(localStore.episodeDetails.id, 100);
+                _centralStore.setEpisodeStats(
+                    localStore.episodeDetails.id, 100);
                 Navigator.pop(context);
               },
             ),
@@ -251,7 +260,7 @@ class _WatchEpisodeHeaderState extends State<WatchEpisodeHeader> {
                 ),
               ),
               onPressed: () {
-                centralStore.setEpisodeStats(localStore.episodeDetails.id, 0);
+                _centralStore.setEpisodeStats(localStore.episodeDetails.id, 0);
                 Navigator.pop(context);
               },
             ),

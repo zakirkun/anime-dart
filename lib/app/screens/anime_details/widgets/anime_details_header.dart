@@ -104,7 +104,9 @@ class _AnimeDetailsHeaderState extends State<AnimeDetailsHeader> {
                                   border: Border(
                                     left: BorderSide(
                                       color: _themeStore.isDarkTheme
-                                          ? Colors.red
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .primary
                                           : Theme.of(context)
                                               .colorScheme
                                               .secondary,
