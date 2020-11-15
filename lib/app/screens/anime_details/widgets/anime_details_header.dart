@@ -4,6 +4,7 @@ import 'package:anime_dart/app/store/central_store.dart';
 import 'package:anime_dart/app/store/theme_store.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class AnimeDetailsHeader extends StatefulWidget {
   final String storeListenerKey;
@@ -91,40 +92,46 @@ class _AnimeDetailsHeaderState extends State<AnimeDetailsHeader> {
                               ),
                             ),
                           ),
-                          Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .secondary
-                                  .withOpacity(0.05),
-                              border: Border(
-                                left: BorderSide(
-                                  color: _themeStore.isDarkTheme
-                                      ? Theme.of(context).colorScheme.primary
-                                      : Theme.of(context).colorScheme.secondary,
-                                  style: BorderStyle.solid,
-                                  width: 2,
+                          Observer(
+                            builder: (context) {
+                              return Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondary
+                                      .withOpacity(0.05),
+                                  border: Border(
+                                    left: BorderSide(
+                                      color: _themeStore.isDarkTheme
+                                          ? Colors.red
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                      style: BorderStyle.solid,
+                                      width: 2,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            margin: EdgeInsets.only(top: 10),
-                            padding: EdgeInsets.only(
-                              top: 20,
-                              bottom: 20,
-                              left: 10,
-                              right: 10,
-                            ),
-                            child: Text(
-                              localStore.animeDetails.title,
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                fontSize: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1
-                                    .fontSize,
-                              ),
-                            ),
+                                margin: EdgeInsets.only(top: 10),
+                                padding: EdgeInsets.only(
+                                  top: 20,
+                                  bottom: 20,
+                                  left: 10,
+                                  right: 10,
+                                ),
+                                child: Text(
+                                  localStore.animeDetails.title,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontSize: Theme.of(context)
+                                        .textTheme
+                                        .subtitle1
+                                        .fontSize,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),

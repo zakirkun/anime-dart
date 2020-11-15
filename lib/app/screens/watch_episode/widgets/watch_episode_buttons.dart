@@ -23,6 +23,10 @@ class _WatchButtonsState extends State<WatchButtons> {
 
   _WatchButtonsState({this.storeListenerKey});
 
+  bool get _hdAvailable =>
+      localStore.episodeDetails?.urlHd != null ||
+      (localStore.episodeDetails?.urlHd?.isNotEmpty ?? false);
+
   @override
   void initState() {
     super.initState();
@@ -69,33 +73,22 @@ class _WatchButtonsState extends State<WatchButtons> {
                         ),
                       ),
                     ),
-                    localStore.episodeDetails?.urlHd == null ||
-                            (localStore.episodeDetails?.urlHd?.isEmpty ?? false)
-                        ? (RippleButton(
-                            color: Colors.white.withOpacity(0.01),
-                            onTap: () {},
-                            label: "Esse episódio não está disponível em HD",
-                          ))
-                        : (RippleButton(
-                            color: Theme.of(context).colorScheme.secondary,
-                            onTap: () {
-                              if (localStore.episodeDetails?.urlHd == null ||
-                                  (localStore.episodeDetails?.urlHd?.isEmpty ??
-                                      false)) {
-                                return;
-                              }
-
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => PlayerScreen(
-                                    id: localStore.episodeDetails.id,
-                                    url: localStore.episodeDetails.urlHd,
-                                  ),
-                                ),
-                              );
-                            },
-                            label: "Assistir em HD")),
+                    if (_hdAvailable)
+                      RippleButton(
+                        color: Theme.of(context).colorScheme.secondary,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => PlayerScreen(
+                                id: localStore.episodeDetails.id,
+                                url: localStore.episodeDetails.urlHd,
+                              ),
+                            ),
+                          );
+                        },
+                        label: "Assistir em HD",
+                      ),
                     RippleButton(
                       color: Theme.of(context).colorScheme.secondaryVariant,
                       onTap: () {
@@ -138,23 +131,17 @@ class _WatchButtonsState extends State<WatchButtons> {
                         ),
                       ),
                     ),
-                    localStore.episodeDetails?.urlHd == null ||
-                            (localStore.episodeDetails?.urlHd?.isEmpty ?? false)
-                        ? (RippleButton(
-                            color: Colors.white.withOpacity(0.01),
-                            onTap: () {},
-                            label: "Esse episódio não está disponível em HD"))
-                        : (RippleButton(
-                            color: Theme.of(context).colorScheme.secondary,
-                            onTap: () {
-                              if (localStore.episodeDetails?.urlHd == null ||
-                                  (localStore.episodeDetails?.urlHd?.isEmpty ??
-                                      false)) {
-                                return;
-                              }
-                              Utils.openUrl(localStore.episodeDetails?.urlHd);
-                            },
-                            label: "Download em HD")),
+                    if (_hdAvailable)
+                      RippleButton(
+                        color: Theme.of(context).colorScheme.secondary,
+                        onTap: () {
+                          if (!_hdAvailable) {
+                            return;
+                          }
+                          Utils.openUrl(localStore.episodeDetails?.urlHd);
+                        },
+                        label: "Download em HD",
+                      ),
                     RippleButton(
                         color: Theme.of(context).colorScheme.secondaryVariant,
                         onTap: () async {

@@ -183,21 +183,29 @@ class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
     );
   }
 
-  void nextEpisode() {
-    _pageController.nextPage(
-      duration: Duration(
-        milliseconds: 200,
-      ),
-      curve: Curves.easeInOut,
-    );
+  void nextEpisode() async {
+    if (_hasAllEpisodes) {
+      return await _pageController.nextPage(
+        duration: Duration(
+          milliseconds: 200,
+        ),
+        curve: Curves.easeInOut,
+      );
+    }
+
+    _localStore.loadNextEpisode();
   }
 
-  void prevEpisode() {
-    _pageController.previousPage(
-      duration: Duration(
-        milliseconds: 200,
-      ),
-      curve: Curves.easeInOut,
-    );
+  void prevEpisode() async {
+    if (_hasAllEpisodes) {
+      return await _pageController.previousPage(
+        duration: Duration(
+          milliseconds: 200,
+        ),
+        curve: Curves.easeInOut,
+      );
+    }
+
+    _localStore.loadPrevEpisode();
   }
 }
