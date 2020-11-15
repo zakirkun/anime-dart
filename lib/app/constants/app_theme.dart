@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppTheme {
+class AppThemeColors {
   static ThemeData data(BuildContext context) {
     return ThemeData(
       secondaryHeaderColor: Color.fromRGBO(127, 114, 193, 1).withOpacity(1),
@@ -27,7 +27,7 @@ class AppTheme {
   }
 }
 
-class AppDarkTheme {
+class AppDarkThemeColors {
   static ThemeData data(BuildContext context) {
     return ThemeData(
       secondaryHeaderColor: Color.fromRGBO(87, 74, 153, 1).withOpacity(0.8),
@@ -38,7 +38,7 @@ class AppDarkTheme {
       backgroundColor: Color.fromRGBO(60, 60, 80, 1),
       scaffoldBackgroundColor: Color.fromRGBO(10, 10, 20, 1),
       dialogBackgroundColor: Color.fromRGBO(20, 20, 30, 1),
-      cardColor: Color.fromRGBO(18, 18, 28, 1),
+      cardColor: Color.fromRGBO(20, 20, 40, 1),
       appBarTheme: AppBarTheme(
         color: Color.fromRGBO(25, 25, 45, 1),
       ),

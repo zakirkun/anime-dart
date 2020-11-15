@@ -1,3 +1,4 @@
+import 'package:anime_dart/app/screens/about/about_screen.dart';
 import 'package:anime_dart/app/screens/home/screens/category/category_screen.dart';
 import 'package:anime_dart/app/screens/home/screens/favorites/favorites_screen.dart';
 import 'package:anime_dart/app/screens/home/screens/latests/latest_screen.dart';
@@ -10,6 +11,7 @@ class MainTabs {
     TabData(builder: (_) => FavoritesScreen(), label: "FAVORITOS"),
     TabData(builder: (_) => RandomScreen(), label: "RANDOM"),
     TabData(builder: (_) => CategoryScreen(), label: "CATEGORIAS"),
+    TabData(builder: (_) => AboutScreen(), label: "CRÉDITOS"),
   ];
 }
 

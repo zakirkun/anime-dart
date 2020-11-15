@@ -8,13 +8,14 @@ class WaifuWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Opacity(
-        opacity: 0.1,
-        child: Container(
-          alignment: Alignment.centerLeft,
-          child: Image.asset(
-            "assets/waifu.png",
-            height: 200,
-          ),
-        ));
+      opacity: 0.1,
+      child: Container(
+        alignment: Alignment.centerLeft,
+        child: Image.asset(
+          "assets/waifu.png",
+          height: 200,
+        ),
+      ),
+    );
   }
 }

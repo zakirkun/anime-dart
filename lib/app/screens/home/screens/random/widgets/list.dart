@@ -50,8 +50,10 @@ class _RandomListState extends State<RandomList> {
           return ListView.separated(
               physics: BouncingScrollPhysics(),
               controller: scrollController,
-              separatorBuilder: (_, __) =>
-                  Divider(color: Colors.transparent, height: 10),
+              separatorBuilder: (_, __) => Divider(
+                    color: Colors.transparent,
+                    height: 10,
+                  ),
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
               itemCount: homeStore.random.length,
               itemBuilder: (BuildContext context, int index) {

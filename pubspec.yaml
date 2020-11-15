@@ -25,6 +25,8 @@ dependencies:
   string_validator: ^0.1.4
   dio: ^3.0.10
   screen: ^0.0.5
+  hive: ^1.4.4+1
+  path_provider: ^1.6.24
   flutter:
     sdk: flutter
 

@@ -21,69 +21,111 @@ import 'package:anime_dart/app/core/watched/infra/repositories/watched_repositor
 import 'package:anime_dart/app/store/central_store.dart';
 import 'package:anime_dart/app/store/home_store.dart';
 import 'package:anime_dart/app/store/player_store.dart';
+import 'package:anime_dart/app/store/theme_store.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
 final getIt = GetIt.instance;
 
-void setup() {
+Future<void> setup() async {
   // =========================================
   // LOCAL FEATURES (WATCHED & FAVORITES)
   // =========================================
-  getIt
-      .registerSingleton<FavoritesDataSource>(SharedPrefsFavoritesDataSource());
+  getIt.registerSingleton<FavoritesDataSource>(
+    SharedPrefsFavoritesDataSource(),
+  );
 
   getIt.registerSingleton<FavoritesRepository>(
-      FavoritesRepositoryImplementation(
-          dataSource: getIt<FavoritesDataSource>()));
+    FavoritesRepositoryImplementation(
+      dataSource: getIt<FavoritesDataSource>(),
+    ),
+  );
 
-  getIt.registerSingleton<WatchedDataSource>(SharedPrefsWatchedDataSource());
+  getIt.registerSingleton<WatchedDataSource>(
+    SharedPrefsWatchedDataSource(),
+  );
 
   getIt.registerSingleton<WatchedRepository>(
-      WatchedRepositoryImplementation(dataSource: getIt<WatchedDataSource>()));
+    WatchedRepositoryImplementation(
+      dataSource: getIt<WatchedDataSource>(),
+    ),
+  );
 
   // =========================================
   // MAIN FEATURE (SEE DETAILS || WATCH)
   // =========================================
-  getIt.registerSingleton<DetailsDataSource>(AnimeTvDetailsDataSource(
+  getIt.registerSingleton<DetailsDataSource>(
+    AnimeTvDetailsDataSource(
       watched: getIt<WatchedRepository>(),
-      favorites: getIt<FavoritesRepository>()));
+      favorites: getIt<FavoritesRepository>(),
+    ),
+  );
 
   getIt.registerSingleton<DetailsRepository>(
-      DetailsRepositoryImplementation(dataSource: getIt<DetailsDataSource>()));
+    DetailsRepositoryImplementation(
+      dataSource: getIt<DetailsDataSource>(),
+    ),
+  );
 
   // ===================================
   // SEARCH FEATURE
   // ===================================
   getIt.registerSingleton<SearchDataSource>(
-      AnimeTvSearchDataSource(favorites: getIt<FavoritesRepository>()));
+    AnimeTvSearchDataSource(
+      favorites: getIt<FavoritesRepository>(),
+    ),
+  );
 
-  getIt.registerSingleton<SearchRepository>(SearchRepositoryImplementation(
-    dataSource: getIt<SearchDataSource>(),
-  ));
+  getIt.registerSingleton<SearchRepository>(
+    SearchRepositoryImplementation(
+      dataSource: getIt<SearchDataSource>(),
+    ),
+  );
 
   // ===================================
   // BROWSING FEATURE (LATESTS, RANDOM, ETC, ALL PAGINATION)
   // ===================================
-  getIt.registerSingleton<BrowsingDataSource>(AnimeTvBrowsingDataSource(
+  getIt.registerSingleton<BrowsingDataSource>(
+    AnimeTvBrowsingDataSource(
       favorites: getIt<FavoritesRepository>(),
-      watched: getIt<WatchedRepository>()));
+      watched: getIt<WatchedRepository>(),
+    ),
+  );
 
-  getIt.registerSingleton<BrowsingRepository>(BrowsingRepositoryImplementation(
-      dataSource: getIt<BrowsingDataSource>()));
+  getIt.registerSingleton<BrowsingRepository>(
+    BrowsingRepositoryImplementation(
+      dataSource: getIt<BrowsingDataSource>(),
+    ),
+  );
 
   // ===================================
   // STATE MANAGEMENT STORES
   // ===================================
-  getIt.registerSingleton<HomeStore>(HomeStore(
+  getIt.registerSingleton<HomeStore>(
+    HomeStore(
       repository: getIt<BrowsingRepository>(),
       favoritesRepository: getIt<FavoritesRepository>(),
-      watchedRepository: getIt<WatchedRepository>()));
+      watchedRepository: getIt<WatchedRepository>(),
+    ),
+  );
 
-  getIt.registerSingleton<CentralStore>(CentralStore(
+  getIt.registerSingleton<CentralStore>(
+    CentralStore(
       favoritesRepository: getIt<FavoritesRepository>(),
       detailsRepository: getIt<DetailsRepository>(),
       homeStore: getIt<HomeStore>(),
-      watchedRepository: getIt<WatchedRepository>()));
+      watchedRepository: getIt<WatchedRepository>(),
+    ),
+  );
 
   getIt.registerSingleton<PlayerStore>(PlayerStore());
+
+  final directory = await getApplicationDocumentsDirectory();
+
+  Hive.init(directory.path);
+
+  await Hive.openBox('theme__key__box');
+
+  getIt.registerSingleton<ThemeStore>(ThemeStore());
 }

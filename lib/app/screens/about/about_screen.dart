@@ -18,65 +18,60 @@ class _AboutScreenState extends State<AboutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Developed By..."),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Divider(height: 10, color: Colors.transparent),
-            WaifuWidget(),
-            buildProfileCard(
-                externalUrl: "https://github.com/LaksCastro",
-                imgUrl: laksImageUrl,
-                name: "LaksCastro",
-                subject: "Web and Mobile Developer"),
-            Divider(height: 10, color: Colors.transparent),
-            buildProfileCard(
-                externalUrl: "https://github.com/mannoeu",
-                imgUrl: mannoeuImageUrl,
-                name: "Emmanuel",
-                subject: "Expert Front-end Developer"),
-            Divider(height: 20, color: Colors.transparent),
-            Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).cardColor,
-                border: Border(
-                  left: BorderSide(
-                    width: 4,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Divider(height: 10, color: Colors.transparent),
+          WaifuWidget(),
+          buildProfileCard(
+              externalUrl: "https://github.com/LaksCastro",
+              imgUrl: laksImageUrl,
+              name: "LaksCastro",
+              subject: "Web and Mobile Developer"),
+          Divider(height: 10, color: Colors.transparent),
+          buildProfileCard(
+              externalUrl: "https://github.com/mannoeu",
+              imgUrl: mannoeuImageUrl,
+              name: "Emmanuel",
+              subject: "Expert Front-end Developer"),
+          Divider(height: 20, color: Colors.transparent),
+          Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              border: Border(
+                left: BorderSide(
+                  width: 4,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-              alignment: Alignment.centerLeft,
-              width: double.infinity,
-              child: Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(bottom: 10),
-                    alignment: Alignment.centerLeft,
-                    child: Text("Notas finais do projeto"),
-                  ),
-                  Text(
-                    "Desenvolvido em Agosto de 2020, entre os dias 01 e 10 como parte de um estudo um pouco mais avançado sobre o framework Flutter para desenvolvimeto Mobile e para ter onde assistir alguns episódios sem propaganda xD",
-                    style: TextStyle(
-                      height: 1.5,
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          .color
-                          .withOpacity(0.3),
-                    ),
-                  )
-                ],
-              ),
             ),
-          ],
-        ),
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+            alignment: Alignment.centerLeft,
+            width: double.infinity,
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(bottom: 10),
+                  alignment: Alignment.centerLeft,
+                  child: Text("Notas finais do projeto"),
+                ),
+                Text(
+                  "Desenvolvido em Agosto de 2020, entre os dias 01 e 10 como parte de um estudo um pouco mais avançado sobre o framework Flutter para desenvolvimeto Mobile e para ter onde assistir alguns episódios sem propaganda xD",
+                  style: TextStyle(
+                    height: 1.5,
+                    color: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .color
+                        .withOpacity(0.3),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
