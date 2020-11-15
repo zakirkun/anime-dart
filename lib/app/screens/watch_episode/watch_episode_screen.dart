@@ -174,8 +174,11 @@ class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
           );
         },
         label: Text(
-            (widget.back ? "Voltar para " : "Ver ") + "lista de episódios"),
-        icon: Icon(widget.back ? Icons.arrow_back : Icons.playlist_add_check),
+          (widget.back ? "Voltar para " : "Ver ") + "lista de episódios",
+        ),
+        icon: Icon(
+          widget.back ? Icons.arrow_back : Icons.playlist_add_check,
+        ),
       ),
     );
   }
