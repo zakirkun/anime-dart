@@ -3,6 +3,7 @@ import 'package:anime_dart/app/store/theme_store.dart';
 import 'package:anime_dart/app/widgets/waifu/waifu_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
 class ConfigScreen extends StatefulWidget {
@@ -31,7 +32,10 @@ class _ConfigScreenState extends State<ConfigScreen> {
           children: [
             SizedBox(height: 20),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+              padding: EdgeInsets.symmetric(
+                vertical: 4,
+                horizontal: 12,
+              ),
               margin: EdgeInsets.symmetric(vertical: 4),
               child: Text(
                 'Tema do aplicativo',
@@ -44,65 +48,77 @@ class _ConfigScreenState extends State<ConfigScreen> {
                 ),
               ),
             ),
-            Container(
-              decoration: BoxDecoration(
-                border: _buildBorder(
-                  active: isLightTheme,
-                  dark: false,
-                ),
-                color: Theme.of(context).cardColor,
-              ),
-              margin: EdgeInsets.symmetric(vertical: 4),
-              child: ListTile(
-                leading: Icon(Icons.brightness_low),
-                title: Stack(
-                  children: [
-                    Text('Light Theme'),
-                    if (isLightTheme) _buildCurrentLabel(),
-                  ],
-                ),
-                onTap: () => setTheme(ThemeMode.light),
-              ),
+            Observer(
+              builder: (context) {
+                return Container(
+                  decoration: BoxDecoration(
+                    border: _buildBorder(
+                      active: isLightTheme,
+                      dark: false,
+                    ),
+                    color: Theme.of(context).cardColor,
+                  ),
+                  margin: EdgeInsets.symmetric(vertical: 4),
+                  child: ListTile(
+                    leading: Icon(Icons.brightness_low),
+                    title: _buildListTileStack(
+                      children: [
+                        Text('Light Theme'),
+                        if (isLightTheme) _buildCurrentLabel(),
+                      ],
+                    ),
+                    onTap: () => setTheme(ThemeMode.light),
+                  ),
+                );
+              },
             ),
-            Container(
-              decoration: BoxDecoration(
-                border: _buildBorder(
-                  active: isDarkTheme,
-                  dark: true,
-                ),
-                color: Theme.of(context).cardColor,
-              ),
-              margin: EdgeInsets.symmetric(vertical: 4),
-              child: ListTile(
-                leading: Icon(Icons.brightness_3),
-                title: Stack(
-                  children: [
-                    Text('Dark Theme'),
-                    if (isDarkTheme) _buildCurrentLabel(),
-                  ],
-                ),
-                onTap: () => setTheme(ThemeMode.dark),
-              ),
+            Observer(
+              builder: (context) {
+                return Container(
+                  decoration: BoxDecoration(
+                    border: _buildBorder(
+                      active: isDarkTheme,
+                      dark: true,
+                    ),
+                    color: Theme.of(context).cardColor,
+                  ),
+                  margin: EdgeInsets.symmetric(vertical: 4),
+                  child: ListTile(
+                    leading: Icon(Icons.brightness_3),
+                    title: _buildListTileStack(
+                      children: [
+                        Text('Dark Theme'),
+                        if (isDarkTheme) _buildCurrentLabel(),
+                      ],
+                    ),
+                    onTap: () => setTheme(ThemeMode.dark),
+                  ),
+                );
+              },
             ),
-            Container(
-              decoration: BoxDecoration(
-                border: _buildBorder(
-                  active: isSystemTheme,
-                  dark: false,
-                ),
-                color: Theme.of(context).cardColor,
-              ),
-              margin: EdgeInsets.symmetric(vertical: 4),
-              child: ListTile(
-                leading: Icon(OMIcons.smartphone),
-                title: Stack(
-                  children: [
-                    Text('Tema padrão do sistema'),
-                    if (isSystemTheme) _buildCurrentLabel(),
-                  ],
-                ),
-                onTap: () => setTheme(ThemeMode.system),
-              ),
+            Observer(
+              builder: (context) {
+                return Container(
+                  decoration: BoxDecoration(
+                    border: _buildBorder(
+                      active: isSystemTheme,
+                      dark: false,
+                    ),
+                    color: Theme.of(context).cardColor,
+                  ),
+                  margin: EdgeInsets.symmetric(vertical: 4),
+                  child: ListTile(
+                    leading: Icon(OMIcons.smartphone),
+                    title: _buildListTileStack(
+                      children: [
+                        Text('System Theme'),
+                        if (isSystemTheme) _buildCurrentLabel(),
+                      ],
+                    ),
+                    onTap: () => setTheme(ThemeMode.system),
+                  ),
+                );
+              },
             ),
             SizedBox(
               height: 30,
@@ -148,10 +164,17 @@ class _ConfigScreenState extends State<ConfigScreen> {
     );
   }
 
+  Widget _buildListTileStack({List<Widget> children}) {
+    return Stack(
+      alignment: Alignment.centerLeft,
+      overflow: Overflow.visible,
+      children: children,
+    );
+  }
+
   Widget _buildCurrentLabel() {
     return Positioned(
       right: 0,
-      top: 0,
       child: Container(
         decoration: BoxDecoration(
           color: isDarkTheme

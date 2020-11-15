@@ -28,16 +28,12 @@ class AnimeDartApplication extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) {
-        final hasPreference = themeStore.isDarkTheme != null;
-
         return MaterialApp(
           title: "Anime Dart",
           debugShowCheckedModeBanner: false,
           theme: AppThemeColors.data(context),
           darkTheme: AppDarkThemeColors.data(context),
-          themeMode: hasPreference
-              ? themeStore.isDarkTheme ? ThemeMode.dark : ThemeMode.light
-              : ThemeMode.system,
+          themeMode: themeStore.appTheme,
           home: HomeScreen(),
         );
       },

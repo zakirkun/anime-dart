@@ -1,5 +1,5 @@
 import 'package:anime_dart/app/constants/tabs.dart';
-import 'package:anime_dart/app/screens/home/screens/config/config_screen.dart';
+import 'package:anime_dart/app/screens/config/config_screen.dart';
 import 'package:anime_dart/app/screens/search/search_screen.dart';
 import 'package:anime_dart/app/setup.dart';
 import 'package:anime_dart/app/store/home_store.dart';
