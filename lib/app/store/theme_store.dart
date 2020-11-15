@@ -14,6 +14,8 @@ abstract class _ThemeStoreBase with Store {
 
     if (hiveBox.containsKey(themeDataKey)) {
       currentTheme = _stringToThemeMode(hiveBox.get(themeDataKey));
+    } else {
+      currentTheme = ThemeMode.system;
     }
 
     appTheme = currentTheme;
