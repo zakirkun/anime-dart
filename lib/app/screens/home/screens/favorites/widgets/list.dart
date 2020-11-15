@@ -27,7 +27,6 @@ class _FavoritesListState extends State<FavoritesList> {
       child: Observer(
         builder: (_) {
           return ListView.separated(
-            physics: BouncingScrollPhysics(),
             separatorBuilder: (_, __) =>
                 Divider(color: Colors.transparent, height: 10),
             padding: EdgeInsets.only(top: 20, bottom: 85),

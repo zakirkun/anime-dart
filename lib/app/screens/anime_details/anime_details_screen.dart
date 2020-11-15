@@ -101,27 +101,31 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
                 children: [
                   Expanded(
                     child: TextField(
-                        autofocus: true,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryIconTheme.color),
-                        cursorColor: Theme.of(context).primaryIconTheme.color,
-                        decoration: InputDecoration.collapsed(
-                            hintStyle: TextStyle(
-                              color: Theme.of(context)
-                                  .primaryIconTheme
-                                  .color
-                                  .withOpacity(0.5),
-                            ),
-                            hintText: 'Digite o número do episódio'),
-                        controller: searchQuery),
+                      autofocus: true,
+                      style: TextStyle(
+                        color: Theme.of(context).primaryIconTheme.color,
+                      ),
+                      cursorColor: Theme.of(context).primaryIconTheme.color,
+                      decoration: InputDecoration.collapsed(
+                        hintStyle: TextStyle(
+                          color: Theme.of(context)
+                              .primaryIconTheme
+                              .color
+                              .withOpacity(0.5),
+                        ),
+                        hintText: 'Digite o número do episódio',
+                      ),
+                      controller: searchQuery,
+                    ),
                   ),
                   GestureDetector(
                     onTap: _closeSearchMode,
                     child: Container(
-                        height: 40,
-                        width: 50,
-                        child: Icon(Icons.close),
-                        alignment: Alignment.centerRight),
+                      height: 40,
+                      width: 50,
+                      child: Icon(Icons.close),
+                      alignment: Alignment.centerRight,
+                    ),
                   )
                 ],
               );
@@ -136,11 +140,12 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
                 GestureDetector(
                   onTap: _enableSearchMode,
                   child: Container(
-                      height: 40,
-                      width: 50,
-                      child: Icon(Icons.search),
-                      alignment: Alignment.centerRight),
-                )
+                    height: 40,
+                    width: 50,
+                    child: Icon(Icons.search),
+                    alignment: Alignment.centerRight,
+                  ),
+                ),
               ],
             );
           },
@@ -176,21 +181,24 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
           if (localStore.searchMode) {
             if (localStore.notFoundInternalSearch) {
               return WillPopScope(
-                  child: Center(
-                    child: Text(
-                      "Não foi posível encontrar o episódio especificado",
-                    ),
+                child: Center(
+                  child: Text(
+                    "Não foi posível encontrar o episódio especificado",
                   ),
-                  onWillPop: _preventAcidentalPop);
+                ),
+                onWillPop: _preventAcidentalPop,
+              );
             }
 
             return WillPopScope(
-                child: AnimeDetailsList(storeListenerKey: storeListenerKey),
-                onWillPop: _preventAcidentalPop);
+              child: AnimeDetailsList(storeListenerKey: storeListenerKey),
+              onWillPop: _preventAcidentalPop,
+            );
           } else {
             return WillPopScope(
-                child: AnimeDetailsList(storeListenerKey: storeListenerKey),
-                onWillPop: _preventAcidentalPop);
+              child: AnimeDetailsList(storeListenerKey: storeListenerKey),
+              onWillPop: _preventAcidentalPop,
+            );
           }
         },
       ),

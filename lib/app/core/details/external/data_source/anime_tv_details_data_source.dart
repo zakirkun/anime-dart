@@ -217,7 +217,7 @@ class AnimeTvDetailsDataSource implements DetailsDataSource {
         episodes.add(EpisodeDetailsModel.fromMap(source));
       }
 
-      return episodes;
+      return List.from(episodes.reversed);
     } catch (e) {
       throw e;
     }

@@ -21,46 +21,56 @@ class _LatestsListState extends State<LatestsList> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-        color: Theme.of(context).colorScheme.onSecondary,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        onRefresh: homeStore.loadLatests,
-        child: Observer(builder: (_) {
+      color: Theme.of(context).colorScheme.onSecondary,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      onRefresh: homeStore.loadLatests,
+      child: Observer(
+        builder: (_) {
           return ListView.separated(
-              physics: BouncingScrollPhysics(),
-              separatorBuilder: (_, __) =>
-                  Divider(color: Colors.transparent, height: 10),
-              padding: EdgeInsets.only(top: 20, bottom: 85),
-              itemCount: homeStore.latests.length,
-              itemBuilder: (BuildContext context, int index) {
-                final episode = homeStore.latests[index];
+            separatorBuilder: (_, __) =>
+                Divider(color: Colors.transparent, height: 10),
+            padding: EdgeInsets.only(top: 20, bottom: 85),
+            itemCount: homeStore.latests.length,
+            itemBuilder: (BuildContext context, int index) {
+              final episode = homeStore.latests[index];
 
-                void onTap() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => WatchEpisodeScreen(id: episode.id)));
-                }
+              void onTap() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => WatchEpisodeScreen(
+                      id: episode.id,
+                    ),
+                  ),
+                );
+              }
 
-                void onTapBpokMark() {
-                  centralStore.setEpisodeStats(
-                      episode.id, episode.stats < 10 ? 100 : 0);
-                }
+              void onTapBookMark() {
+                centralStore.setEpisodeStats(
+                  episode.id,
+                  episode.stats < 10 ? 100 : 0,
+                );
+              }
 
-                void onLongPress() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) =>
-                              AnimeDetailsScreen(animeId: episode.animeId)));
-                }
+              void onLongPress() {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) =>
+                            AnimeDetailsScreen(animeId: episode.animeId)));
+              }
 
-                return LatestsTile(
-                    onTapBookMark: onTapBpokMark,
-                    onLongPress: onLongPress,
-                    episode: episode,
-                    cardLabel: "LANÇAMENTOS",
-                    onTap: onTap);
-              });
-        }));
+              return LatestsTile(
+                onTapBookMark: onTapBookMark,
+                onLongPress: onLongPress,
+                episode: episode,
+                cardLabel: "LANÇAMENTOS",
+                onTap: onTap,
+              );
+            },
+          );
+        },
+      ),
+    );
   }
 }

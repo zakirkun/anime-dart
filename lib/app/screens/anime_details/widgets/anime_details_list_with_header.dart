@@ -19,12 +19,13 @@ class AnimeDetailsListWithHeader extends StatefulWidget {
 
 class _AnimeDetailsListWithHeaderState
     extends State<AnimeDetailsListWithHeader> {
-  String storeListenerKey;
   final centralStore = getIt<CentralStore>();
+  String storeListenerKey;
   AnimeDetailsStore localStore;
 
-  _AnimeDetailsListWithHeaderState({@required this.storeListenerKey})
-      : assert(storeListenerKey != null);
+  _AnimeDetailsListWithHeaderState({
+    @required this.storeListenerKey,
+  }) : assert(storeListenerKey != null);
 
   @override
   void initState() {
@@ -40,7 +41,6 @@ class _AnimeDetailsListWithHeaderState
         onRefresh: () =>
             localStore.loadAnimeDetails(localStore.animeDetails.id),
         child: ListView.separated(
-          physics: BouncingScrollPhysics(),
           padding: EdgeInsets.only(bottom: 85),
           itemBuilder: (_, i) {
             if (i == 0) {
@@ -51,10 +51,16 @@ class _AnimeDetailsListWithHeaderState
 
             final episode = localStore.episodesOfAnimeDetails[i - 1];
 
-            return AnimeDetailsTile(episode: episode);
+            return AnimeDetailsTile(
+              episode: episode,
+              allEpisodes: localStore.episodesOfAnimeDetails,
+              initialIndex: i - 1,
+            );
           },
-          separatorBuilder: (_, i) =>
-              Divider(color: Colors.transparent, height: i == 0 ? 20 : 10),
+          separatorBuilder: (_, i) => Divider(
+            color: Colors.transparent,
+            height: i == 0 ? 20 : 10,
+          ),
           itemCount: localStore.episodesOfAnimeDetails.length + 1,
         ),
       );

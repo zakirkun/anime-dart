@@ -1,6 +1,7 @@
 import 'package:anime_dart/app/setup.dart';
 import 'package:anime_dart/app/store/anime_details_store.dart';
 import 'package:anime_dart/app/store/central_store.dart';
+import 'package:anime_dart/app/store/theme_store.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,9 @@ class AnimeDetailsHeader extends StatefulWidget {
 
 class _AnimeDetailsHeaderState extends State<AnimeDetailsHeader> {
   final String storeListenerKey;
-  final centralStore = getIt<CentralStore>();
+  final _centralStore = getIt<CentralStore>();
+  final _themeStore = getIt<ThemeStore>();
+
   AnimeDetailsStore localStore;
 
   _AnimeDetailsHeaderState({@required this.storeListenerKey});
@@ -24,7 +27,7 @@ class _AnimeDetailsHeaderState extends State<AnimeDetailsHeader> {
   void initState() {
     super.initState();
 
-    localStore = centralStore.getAnimeDetailsListener(storeListenerKey);
+    localStore = _centralStore.getAnimeDetailsListener(storeListenerKey);
   }
 
   @override
@@ -70,8 +73,11 @@ class _AnimeDetailsHeaderState extends State<AnimeDetailsHeader> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            margin:
-                                EdgeInsets.only(top: 30, left: 10, right: 10),
+                            margin: EdgeInsets.only(
+                              top: 30,
+                              left: 10,
+                              right: 10,
+                            ),
                             padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.secondary,
@@ -79,8 +85,10 @@ class _AnimeDetailsHeaderState extends State<AnimeDetailsHeader> {
                             ),
                             child: Text(
                               localStore.animeDetails.year,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
                             ),
                           ),
                           Container(
@@ -92,15 +100,21 @@ class _AnimeDetailsHeaderState extends State<AnimeDetailsHeader> {
                                   .withOpacity(0.05),
                               border: Border(
                                 left: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    style: BorderStyle.solid,
-                                    width: 2),
+                                  color: _themeStore.isDarkTheme
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Theme.of(context).colorScheme.secondary,
+                                  style: BorderStyle.solid,
+                                  width: 2,
+                                ),
                               ),
                             ),
                             margin: EdgeInsets.only(top: 10),
                             padding: EdgeInsets.only(
-                                top: 20, bottom: 20, left: 10, right: 10),
+                              top: 20,
+                              bottom: 20,
+                              left: 10,
+                              right: 10,
+                            ),
                             child: Text(
                               localStore.animeDetails.title,
                               textAlign: TextAlign.left,
@@ -111,7 +125,7 @@ class _AnimeDetailsHeaderState extends State<AnimeDetailsHeader> {
                                     .fontSize,
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),

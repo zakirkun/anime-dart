@@ -40,7 +40,6 @@ class _AnimeDetailsListState extends State<AnimeDetailsList> {
       child: Observer(
         builder: (_) {
           return ListView.separated(
-            physics: BouncingScrollPhysics(),
             padding: EdgeInsets.only(bottom: 85),
             separatorBuilder: (_, __) =>
                 Divider(color: Colors.transparent, height: 10),
@@ -52,7 +51,11 @@ class _AnimeDetailsListState extends State<AnimeDetailsList> {
                   ? localStore.filteredEpisodes
                   : localStore.episodesOfAnimeDetails)[i];
 
-              return AnimeDetailsTile(episode: episode);
+              return AnimeDetailsTile(
+                episode: episode,
+                allEpisodes: localStore.episodesOfAnimeDetails,
+                initialIndex: i - 1,
+              );
             },
           );
         },

@@ -1,11 +1,10 @@
 import 'package:anime_dart/app/setup.dart';
 import 'package:anime_dart/app/store/player_store.dart';
-import 'package:chewie/chewie.dart';
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:screen/screen.dart';
 
 class PlayerScreen extends StatefulWidget {
   final String id;
@@ -15,46 +14,33 @@ class PlayerScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _PlayerScreenState(id: id, url: url);
+    return _PlayerScreenState();
   }
 }
 
 class _PlayerScreenState extends State<PlayerScreen> {
   final playerStore = getIt<PlayerStore>();
-  final String id;
-  final String url;
-
-  _PlayerScreenState({@required this.id, @required this.url});
-
-  void _disableSleep() {
-    Screen.keepOn(true);
-  }
-
-  void _enableSleep() {
-    Screen.keepOn(false);
-  }
+  _PlayerScreenState();
 
   @override
   void initState() {
     super.initState();
 
-    playerStore.setEpisodeDetails(id, url);
-    playerStore.setMounted(true);
+    playerStore.setEpisodeDetails(widget.id, widget.url);
 
     if (playerStore.episodeUrlPlaying == null) {
       throw Exception("Is extremelly needed that the episode url is != null");
     }
 
     playerStore.initializePlayerController();
-    _disableSleep();
   }
 
   @override
   void dispose() {
-    playerStore.setMounted(false);
-
-    SystemChrome.setEnabledSystemUIOverlays(
-        [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+    SystemChrome.setEnabledSystemUIOverlays([
+      SystemUiOverlay.bottom,
+      SystemUiOverlay.top,
+    ]);
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
@@ -62,7 +48,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
     ]);
 
     playerStore.exitPlayer();
-    _enableSleep();
 
     super.dispose();
   }
@@ -75,12 +60,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
       child: Center(
         child: Observer(
           builder: (_) {
-            if (playerStore.loadingPlayer) {
-              return CircularProgressIndicator();
-            }
-
-            return Chewie(
-              controller: playerStore.chewieController,
+            return FlickVideoPlayer(
+              flickManager: playerStore.flickManager,
+              flickVideoWithControls: FlickVideoWithControls(
+                videoFit: BoxFit.contain,
+                controls: FlickLandscapeControls(),
+              ),
             );
           },
         ),

@@ -1,3 +1,4 @@
+import 'package:anime_dart/app/core/details/domain/entities/episode_details.dart';
 import 'package:anime_dart/app/screens/anime_details/anime_details_screen.dart';
 import 'package:anime_dart/app/screens/watch_episode/widgets/recommendations.dart';
 import 'package:anime_dart/app/screens/watch_episode/widgets/watch_episode_buttons.dart';
@@ -13,36 +14,55 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 class WatchEpisodeScreen extends StatefulWidget {
   final String id;
   final bool back;
+  final List<EpisodeDetails> allEpisodes;
+  final int initialIndex;
 
-  WatchEpisodeScreen({this.id, this.back = false});
+  WatchEpisodeScreen({
+    @required this.id,
+    this.back = false,
+    this.allEpisodes,
+    this.initialIndex = 0,
+  }) : assert(
+          back ? allEpisodes != null && initialIndex != null : true,
+        );
 
   @override
-  _WatchEpisodeScreenState createState() =>
-      _WatchEpisodeScreenState(id: id, back: back);
+  _WatchEpisodeScreenState createState() => _WatchEpisodeScreenState();
 }
 
 class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
-  final localStore = WatchEpisodeStore();
-  final centralStore = getIt<CentralStore>();
-  final bool back;
-  String storeListenerKey;
-  final String id;
+  final _localStores = <WatchEpisodeStore>[];
+  final _storesListenersKeys = <String>[];
 
-  _WatchEpisodeScreenState({@required this.id, this.back});
+  final _centralStore = getIt<CentralStore>();
+
+  int _currentEpisodeIndex;
+
+  PageController _pageController;
+
+  bool get _hasAllEpisodes => widget.allEpisodes != null;
+
+  WatchEpisodeStore get _localStore =>
+      _localStores.isNotEmpty && _localStores.length - 1 >= _currentEpisodeIndex
+          ? _localStores[_currentEpisodeIndex]
+          : null;
 
   @override
   initState() {
     super.initState();
 
-    storeListenerKey = centralStore.addWatchEpisodeListener(localStore);
-    localStore.setWatchEpisodeId(id);
+    _currentEpisodeIndex = widget.initialIndex;
 
-    localStore.loadEpisode();
+    _pageController = PageController(
+      initialPage: _hasAllEpisodes ? widget.initialIndex : 0,
+    );
   }
 
   @override
   dispose() {
-    centralStore.removeWatchEpisodeListener(storeListenerKey);
+    _storesListenersKeys.forEach((storeListenerKey) {
+      _centralStore.removeWatchEpisodeListener(storeListenerKey);
+    });
 
     super.dispose();
   }
@@ -52,78 +72,95 @@ class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Container(
-          child: Observer(
-            builder: (_) {
-              if (localStore.loadingWatchEpisode) {
-                return Text("Carregando...");
-              }
-
-              if (localStore.errorMsg != null) {
-                return Text("Ops, algo deu errado");
-              }
-
-              return Text(localStore.episodeDetails.label);
-            },
-          ),
+          child: Text('Assistir Episódio'),
         ),
       ),
-      body: Container(
-        child: Observer(
-          builder: (_) {
-            if (localStore.loadingWatchEpisode) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+      body: PageView.builder(
+        controller: _pageController,
+        itemCount: _hasAllEpisodes ? widget.allEpisodes.length : 1,
+        onPageChanged: (index) {
+          _currentEpisodeIndex = index;
+        },
+        itemBuilder: (context, index) {
+          final localStore = WatchEpisodeStore();
+          final storeListenerKey =
+              _centralStore.addWatchEpisodeListener(localStore);
 
-            if (localStore.errorMsg != null) {
-              return Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(30),
-                child: Text(
-                  "Ocorreu um erro ao carregar os dados deste episódio, tente novamente!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    height: 1.5,
-                  ),
-                ),
-              );
-            }
+          _storesListenersKeys.add(storeListenerKey);
+          _localStores.add(localStore);
 
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: 0,
-                ),
-                child: IntrinsicHeight(
-                  child: Container(
-                    child: Column(
-                      children: [
-                        WatchEpisodeHeader(
-                          storeListenerKey: storeListenerKey,
+          localStore.setWatchEpisodeId(
+            _hasAllEpisodes ? widget.allEpisodes[index].id : widget.id,
+          );
+          localStore.loadEpisode();
+
+          return RefreshIndicator(
+            onRefresh: localStore.loadEpisode,
+            color: Theme.of(context).colorScheme.onSecondary,
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            child: Container(
+              child: Observer(
+                builder: (_) {
+                  if (localStore.loadingWatchEpisode) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                  if (localStore.errorMsg != null) {
+                    return Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(30),
+                      child: Text(
+                        "Ocorreu um erro ao carregar os dados deste episódio, tente novamente!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          height: 1.5,
                         ),
-                        WatchButtons(
-                          storeListenerKey: storeListenerKey,
+                      ),
+                    );
+                  }
+
+                  return SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: 0,
+                      ),
+                      child: IntrinsicHeight(
+                        child: Container(
+                          child: Column(
+                            children: [
+                              WatchEpisodeHeader(
+                                storeListenerKey: storeListenerKey,
+                                onNext: nextEpisode,
+                                onPrev: prevEpisode,
+                              ),
+                              WatchButtons(
+                                storeListenerKey: storeListenerKey,
+                              ),
+                              Recommendations(
+                                storeListenerKey: storeListenerKey,
+                              ),
+                              WaifuWidget(),
+                            ],
+                          ),
                         ),
-                        Recommendations(
-                          storeListenerKey: storeListenerKey,
-                        ),
-                        WaifuWidget(),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          if (localStore.loadingWatchEpisode) {
+          if (_localStore.loadingWatchEpisode) {
             return;
           }
-          if (back) {
+
+          if (widget.back) {
             return Navigator.pop(context);
           }
 
@@ -131,14 +168,33 @@ class _WatchEpisodeScreenState extends State<WatchEpisodeScreen> {
             context,
             MaterialPageRoute(
               builder: (_) => AnimeDetailsScreen(
-                animeId: localStore.episodeDetails.animeId,
+                animeId: _localStore.episodeDetails.animeId,
               ),
             ),
           );
         },
-        label: Text((back ? "Voltar para " : "Ver ") + "lista de episódios"),
-        icon: Icon(back ? Icons.arrow_back : Icons.playlist_add_check),
+        label: Text(
+            (widget.back ? "Voltar para " : "Ver ") + "lista de episódios"),
+        icon: Icon(widget.back ? Icons.arrow_back : Icons.playlist_add_check),
       ),
+    );
+  }
+
+  void nextEpisode() {
+    _pageController.nextPage(
+      duration: Duration(
+        milliseconds: 200,
+      ),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void prevEpisode() {
+    _pageController.previousPage(
+      duration: Duration(
+        milliseconds: 200,
+      ),
+      curve: Curves.easeInOut,
     );
   }
 }

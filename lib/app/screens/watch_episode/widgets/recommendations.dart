@@ -106,7 +106,6 @@ class _RecommendationsState extends State<Recommendations> {
             return Container(
               height: imageHeight,
               child: ListView.separated(
-                physics: BouncingScrollPhysics(),
                 controller: recommendationController,
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 itemCount: localStore.recommendations.length,

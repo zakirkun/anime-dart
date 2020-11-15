@@ -16,7 +16,6 @@ dependencies:
   flutter_mobx: ^1.1.0+1
   get_it: ^4.0.4
   video_player: ">=0.10.11+2 <2.0.0"
-  chewie: ^0.9.10
   shared_preferences: ^0.5.8
   diacritic: ^0.1.1
   url_launcher: ^5.5.0
@@ -24,9 +23,9 @@ dependencies:
   dartz: ^0.9.1
   string_validator: ^0.1.4
   dio: ^3.0.10
-  screen: ^0.0.5
   hive: ^1.4.4+1
   path_provider: ^1.6.24
+  flick_video_player: ^0.1.1
   flutter:
     sdk: flutter
 

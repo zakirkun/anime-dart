@@ -6,10 +6,14 @@ import 'package:anime_dart/app/core/details/domain/entities/episode_details.dart
 
 class AnimeDetailsTile extends StatelessWidget {
   final EpisodeDetails episode;
+  final List<EpisodeDetails> allEpisodes;
+  final int initialIndex;
 
   AnimeDetailsTile({
     Key key,
-    this.episode,
+    @required this.episode,
+    @required this.allEpisodes,
+    @required this.initialIndex,
   }) : super(key: key);
 
   @override
@@ -19,7 +23,12 @@ class AnimeDetailsTile extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => WatchEpisodeScreen(id: episode.id, back: true),
+            builder: (_) => WatchEpisodeScreen(
+              id: episode.id,
+              back: true,
+              allEpisodes: allEpisodes,
+              initialIndex: initialIndex,
+            ),
           ),
         );
       },

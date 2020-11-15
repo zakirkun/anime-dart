@@ -87,7 +87,6 @@ class _CategoryListState extends State<CategoryList> {
               );
             }
             return ListView.separated(
-              physics: BouncingScrollPhysics(),
               separatorBuilder: (_, __) =>
                   Divider(color: Colors.transparent, height: 10),
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
