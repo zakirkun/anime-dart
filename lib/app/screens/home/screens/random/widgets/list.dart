@@ -1,9 +1,9 @@
 import 'package:anime_dart/app/core/search/domain/entities/anime.dart';
 import 'package:anime_dart/app/screens/anime_details/anime_details_screen.dart';
-import 'package:anime_dart/app/screens/home/screens/random/widgets/tile.dart';
 import 'package:anime_dart/app/setup.dart';
 import 'package:anime_dart/app/store/central_store.dart';
 import 'package:anime_dart/app/store/home_store.dart';
+import 'package:anime_dart/app/widgets/resource_tile/resource_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -48,44 +48,52 @@ class _RandomListState extends State<RandomList> {
       child: Observer(
         builder: (_) {
           return ListView.separated(
-              controller: scrollController,
-              separatorBuilder: (_, __) => Divider(
-                    color: Colors.transparent,
-                    height: 10,
-                  ),
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
-              itemCount: homeStore.random.length,
-              itemBuilder: (BuildContext context, int index) {
-                final anime = homeStore.random[index];
+            controller: scrollController,
+            separatorBuilder: (_, __) => Divider(
+              color: Colors.transparent,
+              height: 10,
+            ),
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+            itemCount: homeStore.random.length,
+            itemBuilder: (BuildContext context, int index) {
+              final anime = homeStore.random[index];
 
-                void onTap() {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => AnimeDetailsScreen(
-                        animeId: anime.id,
-                      ),
+              void onTap() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => AnimeDetailsScreen(
+                      animeId: anime.id,
                     ),
-                  );
-                }
+                  ),
+                );
+              }
 
-                void onTapFavorite() {
-                  centralStore.setEpisodeFavorite(
-                      Anime(
-                          id: anime.id,
-                          imageHttpHeaders: anime.imageHttpHeaders,
-                          imageUrl: anime.imageUrl,
-                          isFavorite: anime.isFavorite,
-                          title: anime.title),
-                      !anime.isFavorite);
-                }
+              void onTapFavorite() {
+                centralStore.setEpisodeFavorite(
+                    Anime(
+                        id: anime.id,
+                        imageHttpHeaders: anime.imageHttpHeaders,
+                        imageUrl: anime.imageUrl,
+                        isFavorite: anime.isFavorite,
+                        title: anime.title),
+                    !anime.isFavorite);
+              }
 
-                return RandomTile(
-                    anime: anime,
-                    cardLabel: "ALEATÓRIO",
-                    onTap: onTap,
-                    onTapFavorite: onTapFavorite);
-              });
+              return ResourceTile(
+                imageHttpHeaders: anime.imageHttpHeaders,
+                imageUrl: anime.imageUrl,
+                onTopRightIconTap: onTapFavorite,
+                title: anime.title,
+                cardLabel: "ALEATÓRIO",
+                topRightIcon: ResourceTile.favoriteIcon(
+                  context,
+                  anime.isFavorite,
+                ),
+                onTap: onTap,
+              );
+            },
+          );
         },
       ),
     );

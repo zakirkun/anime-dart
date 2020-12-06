@@ -3,7 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class WaifuWidget extends StatelessWidget {
-  const WaifuWidget({Key key}) : super(key: key);
+  final double height;
+
+  const WaifuWidget({
+    Key key,
+    this.height = 200,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +18,7 @@ class WaifuWidget extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Image.asset(
           "assets/waifu.png",
-          height: 200,
+          height: height,
         ),
       ),
     );

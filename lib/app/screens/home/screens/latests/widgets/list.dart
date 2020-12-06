@@ -1,9 +1,9 @@
 import 'package:anime_dart/app/screens/anime_details/anime_details_screen.dart';
-import 'package:anime_dart/app/screens/home/screens/latests/widgets/tile.dart';
 import 'package:anime_dart/app/screens/watch_episode/watch_episode_screen.dart';
 import 'package:anime_dart/app/setup.dart';
 import 'package:anime_dart/app/store/central_store.dart';
 import 'package:anime_dart/app/store/home_store.dart';
+import 'package:anime_dart/app/widgets/resource_tile/resource_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -60,11 +60,17 @@ class _LatestsListState extends State<LatestsList> {
                             AnimeDetailsScreen(animeId: episode.animeId)));
               }
 
-              return LatestsTile(
-                onTapBookMark: onTapBookMark,
+              return ResourceTile(
+                imageHttpHeaders: episode.imageHttpHeaders,
+                imageUrl: episode.imageUrl,
+                onTopRightIconTap: onTapBookMark,
                 onLongPress: onLongPress,
-                episode: episode,
-                cardLabel: "LANÇAMENTOS",
+                title: episode.label,
+                cardLabel: "FAVORITOS",
+                topRightIcon: ResourceTile.bookMarkIcon(
+                  context,
+                  episode.stats,
+                ),
                 onTap: onTap,
               );
             },

@@ -1,9 +1,9 @@
 import 'package:anime_dart/app/core/search/domain/entities/anime.dart';
 import 'package:anime_dart/app/screens/anime_details/anime_details_screen.dart';
-import 'package:anime_dart/app/screens/home/screens/favorites/widgets/tile.dart';
 import 'package:anime_dart/app/setup.dart';
 import 'package:anime_dart/app/store/central_store.dart';
 import 'package:anime_dart/app/store/home_store.dart';
+import 'package:anime_dart/app/widgets/resource_tile/resource_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -58,11 +58,17 @@ class _FavoritesListState extends State<FavoritesList> {
                 );
               }
 
-              return FavoritesTile(
-                anime: anime,
+              return ResourceTile(
+                imageHttpHeaders: anime.imageHttpHeaders,
+                imageUrl: anime.imageUrl,
+                onTopRightIconTap: onTapFavorite,
+                title: anime.title,
                 cardLabel: "FAVORITOS",
+                topRightIcon: ResourceTile.favoriteIcon(
+                  context,
+                  anime.isFavorite,
+                ),
                 onTap: onTap,
-                onTapFavorite: onTapFavorite,
               );
             },
           );

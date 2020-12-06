@@ -1,9 +1,9 @@
 import 'package:anime_dart/app/core/search/domain/entities/anime.dart';
 import 'package:anime_dart/app/screens/anime_details/anime_details_screen.dart';
-import 'package:anime_dart/app/screens/home/screens/category/widgets/tile.dart';
 import 'package:anime_dart/app/setup.dart';
 import 'package:anime_dart/app/store/category_store.dart';
 import 'package:anime_dart/app/store/central_store.dart';
+import 'package:anime_dart/app/widgets/resource_tile/resource_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -11,7 +11,11 @@ class CategoryList extends StatefulWidget {
   final String query;
   final String label;
 
-  CategoryList({Key key, this.query, this.label}) : super(key: key);
+  CategoryList({
+    Key key,
+    this.query,
+    this.label,
+  }) : super(key: key);
 
   @override
   _CategoryListState createState() =>
@@ -59,6 +63,7 @@ class _CategoryListState extends State<CategoryList> {
                 child: CircularProgressIndicator(),
               );
             }
+
             if (localStore.error != null) {
               return Container(
                 alignment: Alignment.center,
@@ -87,8 +92,10 @@ class _CategoryListState extends State<CategoryList> {
               );
             }
             return ListView.separated(
-              separatorBuilder: (_, __) =>
-                  Divider(color: Colors.transparent, height: 10),
+              separatorBuilder: (_, __) => Divider(
+                color: Colors.transparent,
+                height: 10,
+              ),
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
               itemCount: localStore.results.length,
               itemBuilder: (BuildContext context, int index) {
@@ -107,20 +114,29 @@ class _CategoryListState extends State<CategoryList> {
 
                 void onTapFavorite() {
                   centralStore.setEpisodeFavorite(
-                      Anime(
-                          id: anime.id,
-                          imageHttpHeaders: anime.imageHttpHeaders,
-                          imageUrl: anime.imageUrl,
-                          isFavorite: anime.isFavorite,
-                          title: anime.title),
-                      !anime.isFavorite);
+                    Anime(
+                      id: anime.id,
+                      imageHttpHeaders: anime.imageHttpHeaders,
+                      imageUrl: anime.imageUrl,
+                      isFavorite: anime.isFavorite,
+                      title: anime.title,
+                    ),
+                    !anime.isFavorite,
+                  );
                 }
 
-                return CategoryTile(
-                    anime: anime,
-                    cardLabel: label,
-                    onTap: onTap,
-                    onTapFavorite: onTapFavorite);
+                return ResourceTile(
+                  imageHttpHeaders: anime.imageHttpHeaders,
+                  imageUrl: anime.imageUrl,
+                  onTopRightIconTap: onTapFavorite,
+                  title: anime.title,
+                  cardLabel: label,
+                  topRightIcon: ResourceTile.favoriteIcon(
+                    context,
+                    anime.isFavorite,
+                  ),
+                  onTap: onTap,
+                );
               },
             );
           },
