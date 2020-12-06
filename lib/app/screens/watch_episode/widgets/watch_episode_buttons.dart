@@ -24,7 +24,7 @@ class _WatchButtonsState extends State<WatchButtons> {
   _WatchButtonsState({this.storeListenerKey});
 
   bool get _hdAvailable =>
-      localStore.episodeDetails?.urlHd != null ||
+      localStore.episodeDetails?.urlHd != null &&
       (localStore.episodeDetails?.urlHd?.isNotEmpty ?? false);
 
   @override
