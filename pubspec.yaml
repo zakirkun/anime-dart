@@ -26,7 +26,7 @@ dependencies:
   hive: ^1.4.4+1
   path_provider: ^1.6.24
   flick_video_player: ^0.1.1
-  filesystem_picker: ^1.0.3
+  file_picker: ^2.1.0
   flutter:
     sdk: flutter
 

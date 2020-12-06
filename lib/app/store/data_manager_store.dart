@@ -35,7 +35,7 @@ abstract class _DataManagerStoreBase with Store {
     final posid = Random.secure().nextInt(5000);
     final date = DateTime.now().toIso8601String();
 
-    final filename = '$preid-$label-$posid-$date';
+    final filename = '$preid-$label-$posid-$date.json';
 
     return filename;
   }

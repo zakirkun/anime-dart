@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:anime_dart/app/screens/config/widgets/section_label.dart';
 import 'package:anime_dart/app/screens/config/widgets/section_tile.dart';
-import 'package:filesystem_picker/filesystem_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 
 class DataManagerSection extends StatefulWidget {
   DataManagerSection({Key key}) : super(key: key);
@@ -43,19 +40,10 @@ class _DataManagerSectionState extends State<DataManagerSection> {
   }
 
   void _exportWatchedData() async {
-    String path = await FilesystemPicker.open(
-      title: 'Save to folder',
-      context: context,
-      rootDirectory: Directory.fromUri(
-        Uri.parse(
-          (await getDownloadsDirectory()).path,
-        ),
-      ),
-      fsType: FilesystemType.folder,
-      pickText: 'Salvar o arquivo de backup nesta pasta',
-      folderIconColor: Colors.teal,
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
     );
 
-    print(path);
+    print(result);
   }
 }
