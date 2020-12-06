@@ -11,7 +11,7 @@ abstract class SetFavorite {
 class SetFavoriteImplementation implements SetFavorite {
   final FavoritesRepository repository;
 
-  SetFavoriteImplementation({
+  const SetFavoriteImplementation({
     this.repository,
   });
 
@@ -19,8 +19,11 @@ class SetFavoriteImplementation implements SetFavorite {
   Future<Either<FavoritesException, void>> call(
       AnimeModel anime, bool isFavorite) async {
     if (anime == null || isFavorite == null) {
-      return Left(RequestFavoriteFailed(
-          "The requested resource ID must be a valid Anime ID (No-empty and no-null) and the isFavorite value must be != null"));
+      return Left(
+        RequestFavoriteFailed(
+          "The requested resource ID must be a valid Anime ID (No-empty and no-null) and the isFavorite value must be != null",
+        ),
+      );
     }
 
     try {
@@ -28,11 +31,13 @@ class SetFavoriteImplementation implements SetFavorite {
 
       return Right(null);
     } on RequestFavoriteFailed {
-      return Left(RequestFavoriteFailed(
-          "Failed to execute the action to favorite anime"));
+      return Left(
+        RequestFavoriteFailed("Failed to execute the action to favorite anime"),
+      );
     } catch (e) {
-      return Left(RequestFavoriteFailed(
-          "Failed to execute the action to favorite anime"));
+      return Left(
+        RequestFavoriteFailed("Failed to execute the action to favorite anime"),
+      );
     }
   }
 }

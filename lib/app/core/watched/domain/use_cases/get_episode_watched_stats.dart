@@ -9,7 +9,7 @@ abstract class GetEpisodeWatchedStats {
 class GetEpisodeWatchedStatsImplementation implements GetEpisodeWatchedStats {
   final WatchedRepository repository;
 
-  GetEpisodeWatchedStatsImplementation({
+  const GetEpisodeWatchedStatsImplementation({
     this.repository,
   });
 

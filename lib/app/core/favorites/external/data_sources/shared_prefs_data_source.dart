@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPrefsFavoritesDataSource implements FavoritesDataSource {
   final _favoriteListKey = "anime__dart__application__favorites__animes";
   final _favoritePrefix = "anime__dart__application__favorites__prefix";
+
   SharedPreferences _prefs;
 
   String _getFavoriteKey(String id) {

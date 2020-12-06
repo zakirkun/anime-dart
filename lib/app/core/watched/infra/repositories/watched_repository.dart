@@ -27,7 +27,9 @@ class WatchedRepositoryImplementation implements WatchedRepository {
 
   @override
   Future<Either<WatchedException, void>> setEpisodeWatchedStats(
-      String id, double stats) async {
+    String id,
+    double stats,
+  ) async {
     try {
       if (id == null || id.isEmpty) {
         Left(
@@ -35,6 +37,42 @@ class WatchedRepositoryImplementation implements WatchedRepository {
       }
 
       await dataSource.setEpisodeWatchedStats(id, stats);
+
+      return Right(null);
+    } catch (e) {
+      return Left(FailedRequestWatchedException("Unknown error, try again"));
+    }
+  }
+
+  @override
+  Future<Either<WatchedException, String>> exportWatchedData() async {
+    try {
+      final data = await dataSource.exportWatchedData();
+
+      return Right(data);
+    } catch (e) {
+      return Left(FailedRequestWatchedException("Unknown error, try again"));
+    }
+  }
+
+  @override
+  Future<Either<WatchedException, String>> importWatchedData(
+    String source, {
+    bool merge,
+  }) async {
+    try {
+      await dataSource.importWatchedData(source, merge: merge);
+
+      return Right(null);
+    } catch (e) {
+      return Left(FailedRequestWatchedException("Unknown error, try again"));
+    }
+  }
+
+  @override
+  Future<Either<WatchedException, void>> resetWatchedData() async {
+    try {
+      await dataSource.resetWatchedData();
 
       return Right(null);
     } catch (e) {

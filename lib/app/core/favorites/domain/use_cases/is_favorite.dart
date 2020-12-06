@@ -9,15 +9,18 @@ abstract class IsFavorite {
 class IsFavoriteImplementation implements IsFavorite {
   final FavoritesRepository repository;
 
-  IsFavoriteImplementation({
+  const IsFavoriteImplementation({
     this.repository,
   });
 
   @override
   Future<Either<FavoritesException, bool>> call(String id) async {
     if (id == null || id.isEmpty) {
-      return Left(RequestFavoriteFailed(
-          "The requested resource ID must be a valid Anime ID (No-empty and no-null)"));
+      return Left(
+        RequestFavoriteFailed(
+          "The requested resource ID must be a valid Anime ID (No-empty and no-null)",
+        ),
+      );
     }
 
     try {
@@ -25,11 +28,13 @@ class IsFavoriteImplementation implements IsFavorite {
 
       return isFavorite;
     } on RequestFavoriteFailed {
-      return Left(RequestFavoriteFailed(
-          "Failed to execute the action to favorite anime"));
+      return Left(
+        RequestFavoriteFailed("Failed to execute the action to favorite anime"),
+      );
     } catch (e) {
-      return Left(RequestFavoriteFailed(
-          "Failed to execute the action to favorite anime"));
+      return Left(
+        RequestFavoriteFailed("Failed to execute the action to favorite anime"),
+      );
     }
   }
 }

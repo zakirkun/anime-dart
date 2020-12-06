@@ -9,7 +9,7 @@ abstract class SetEpisodeWatchedStats {
 class SetEpisodeWatchedStatsImplementation implements SetEpisodeWatchedStats {
   final WatchedRepository repository;
 
-  SetEpisodeWatchedStatsImplementation({
+  const SetEpisodeWatchedStatsImplementation({
     this.repository,
   });
 

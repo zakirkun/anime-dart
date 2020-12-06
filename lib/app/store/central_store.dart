@@ -20,11 +20,12 @@ abstract class _CentralStoreBase with Store {
   final FavoritesRepository favoritesRepository;
   final DetailsRepository detailsRepository;
 
-  _CentralStoreBase(
-      {this.homeStore,
-      this.watchedRepository,
-      this.detailsRepository,
-      this.favoritesRepository});
+  _CentralStoreBase({
+    this.homeStore,
+    this.watchedRepository,
+    this.detailsRepository,
+    this.favoritesRepository,
+  });
 
   @observable
   var animeDetailsListeners = ObservableMap<String, AnimeDetailsStore>();
@@ -163,6 +164,20 @@ abstract class _CentralStoreBase with Store {
     await favoritesRepository.setFavorite(anime, newValue);
 
     dispatchChangeFavorite(anime, newValue);
+  }
+
+  Future<String> exportWatchedData() async {
+    final result = await watchedRepository.exportWatchedData();
+
+    String source;
+
+    result.fold((l) => null, (r) => source = r);
+
+    return source;
+  }
+
+  Future<void> importWatchedData(String source, {bool merge}) async {
+    await watchedRepository.importWatchedData(source, merge: merge);
   }
 
   @action
